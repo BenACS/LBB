@@ -8,6 +8,9 @@
   <div class="album py-5 bg-light">
     <div class="container">
 
+    	{% for articleImage in articleImages %}
+    		<img src="{{ articleImage.url }}">
+    	{% endfor %}
       
     </div>
   </div>
