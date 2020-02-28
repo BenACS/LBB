@@ -25,7 +25,7 @@ class ArticleImages
      * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="articleImages")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $image;
+    private $article;
 
     public function getId(): ?int
     {
@@ -44,14 +44,14 @@ class ArticleImages
         return $this;
     }
 
-    public function getImage(): ?Article
+    public function getArticle(): ?Article
     {
-        return $this->image;
+        return $this->article;
     }
 
-    public function setImage(?Article $image): self
+    public function setArticle(?Article $article): self
     {
-        $this->image = $image;
+        $this->article = $article;
 
         return $this;
     }

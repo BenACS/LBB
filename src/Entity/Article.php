@@ -50,7 +50,7 @@ class Article
     private $product;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ArticleImages", mappedBy="image", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ArticleImages", mappedBy="article", orphanRemoval=true)
      */
     private $articleImages;
 
