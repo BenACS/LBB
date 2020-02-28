@@ -5,6 +5,10 @@ html,body {
     color:rgba(75,75,75);
 }
 
+body {
+    position:relative;
+}
+
 footer#myfooter {
     position:absolute;
     width:100%;
