@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200227142517 extends AbstractMigration
+final class Version20200228130855 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -21,10 +21,10 @@ final class Version20200227142517 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
-
-        $this->addSql('CREATE TABLE review (id INT AUTO_INCREMENT NOT NULL, product_id INT NOT NULL, account_id INT NOT NULL, rating INT NOT NULL, comment VARCHAR(255) NOT NULL, INDEX IDX_794381C64584665A (product_id), INDEX IDX_794381C69B6B5FBA (account_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C64584665A FOREIGN KEY (product_id) REFERENCES product (id)');
-        $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C69B6B5FBA FOREIGN KEY (account_id) REFERENCES account (id)');
+        $this->addSql('ALTER TABLE article_images RENAME INDEX idx_8ad829ea3da5256d TO IDX_8AD829EA7294869C');
+        $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04AD12469DE2');
+        $this->addSql('DROP INDEX IDX_D34A04AD12469DE2 ON product');
+        $this->addSql('ALTER TABLE product DROP category_id');
     }
 
     public function down(Schema $schema) : void
@@ -32,7 +32,11 @@ final class Version20200227142517 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE review');
         $this->addSql('ALTER TABLE account CHANGE newsletter newsletter TINYINT(1) DEFAULT \'0\' NOT NULL');
+        $this->addSql('ALTER TABLE adress CHANGE default_adress default_adress TINYINT(1) DEFAULT \'0\' NOT NULL');
+        $this->addSql('ALTER TABLE article_images RENAME INDEX idx_8ad829ea7294869c TO IDX_8AD829EA3DA5256D');
+        $this->addSql('ALTER TABLE product ADD category_id INT NOT NULL');
+        $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD12469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
+        $this->addSql('CREATE INDEX IDX_D34A04AD12469DE2 ON product (category_id)');
     }
 }

@@ -29,13 +29,15 @@ class Category
     private $parentId;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="category")
      */
-    private $category;
+    private $products;
+
 
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -70,31 +72,30 @@ class Category
     /**
      * @return Collection|Product[]
      */
-    public function getCategory(): Collection
+    public function getProducts(): Collection
     {
-        return $this->category;
+        return $this->products;
     }
 
-    public function addCategory(Product $category): self
+    public function addProduct(Product $product): self
     {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
-            $category->setCategory($this);
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->addCategory($this);
         }
 
         return $this;
     }
 
-    public function removeCategory(Product $category): self
+    public function removeProduct(Product $product): self
     {
-        if ($this->category->contains($category)) {
-            $this->category->removeElement($category);
-            // set the owning side to null (unless already changed)
-            if ($category->getCategory() === $this) {
-                $category->setCategory(null);
-            }
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            $product->removeCategory($this);
         }
 
         return $this;
     }
+
+    
 }
