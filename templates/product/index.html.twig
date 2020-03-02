@@ -3,5 +3,180 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    {{product.title}}
+
+<div class="container-fluid">
+    <div class="row mt-5 justify-content-center">
+        <div class="col-1 images">
+            {% for image in articleImages %}
+                <img src={{image}} alt="hoodie" class="w-100">
+            {% endfor %}
+        </div>
+        <div class="col-4">
+            <img src={{articleImages.0}} alt="hoodie" width="95%">
+            <div class="text-center">
+                <span id="rating" class="text-warning mx-2"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>
+                <a href="#reviews">(<span id="nbr_reviews">2</span>) reviews</a> 
+            </div>
+        </div>
+        <div class="col-4 text-center">
+            <form>
+                <div class="border">
+                    <h2>{{product.title}}</h2>
+                    <p class="text-justify p-4">{{product.description}}</p>
+                    {% if variations.sizes is not null %}    
+                        <label for ="">Sizes</label>
+                        <br>
+                        <select>
+                            {% for size in variations.sizes  %}
+                                <option >{{size}}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                    {% endif %}
+                    
+                    {% if variations.colors is not null %}    
+                        <label for ="">Colors</label>
+                        <br>
+                        <select>
+                            {% for color in variations.colors  %}
+                                <option >{{color}}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                    {% endif %}
+                    
+                    {% if variations.devices is not null %}    
+                        <label for ="">Devices</label>
+                        <br>
+                        <select>
+                            {% for device in variations.devices  %}
+                                <option >{{device}}</option>
+                            {% endfor %}
+                        </select>
+                        <br>
+                    {% endif %}  
+                    <p><b>{{price.priceDf}} €</b></p>
+                                
+                </div>
+                <div >
+                    <p class="text-success">En Stock</p>
+                    <br>
+                    <select>
+                        <option >1</option>
+                        <option >2</option>
+                        <option >3</option>
+                        <option >4</option>
+                        <option >5+</option>
+                    </select>
+                    <button class="btn btn-warning">
+                        Ajouter au panier
+                    </button>
+                </div>
+            </form> 
+        </div>       
+    </div>
+    <div class="row justify-content-center my-2">
+        <h3 class="slider-title">You might also like...</h3>
+        <!--Carousel Wrapper-->
+            <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+                <!--Controls-->
+                <div class="controls-top">
+                <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+                <a class="btn-floating" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+                </div>
+                <!--/.Controls-->
+        
+                <!--Indicators-->
+                <ol class="carousel-indicators">
+                <li data-target="#multi-item-example" data-slide-to="0" class="active"></li>
+                <li data-target="#multi-item-example" data-slide-to="1"></li>
+                <li data-target="#multi-item-example" data-slide-to="2"></li>
+                </ol>
+                <!--/.Indicators-->
+        
+                <!--Slides-->
+                <div class="carousel-inner" role="listbox">
+        
+                <!--First slide-->
+                <div class="carousel-item active">
+        
+                    <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-2">
+                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Card title</h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                            card's content.</p>
+                            <a class="btn btn-primary">Button</a>
+                        </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-4 clearfix d-none d-md-block">
+                        <div class="card mb-2">
+                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Card title</h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                            card's content.</p>
+                            <a class="btn btn-primary">Button</a>
+                        </div>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-4 clearfix d-none d-md-block">
+                        <div class="card mb-2">
+                        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(35).jpg"
+                            alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">Card title</h4>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                            card's content.</p>
+                            <a class="btn btn-primary">Button</a>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+        
+                </div>
+                <!--/.First slide-->
+        
+                </div>
+                <!--/.Slides-->
+        
+            </div>
+            <!--/.Carousel Wrapper-->
+    </div>
+    <div id="reviews" class="my-2">
+        <h3 class="text-center">Reviews</h3>
+        <div class="row justify-content-center">
+             <div class="col-2 border mx-1">
+                <i class="fas fa-user-secret"></i> Username
+                <br>
+                Date
+            </div>
+            <div class="col-7 row border p-1 mx-1">
+                <span class="user-rating col-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>
+                <p class="col-9">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est at dolore perferendis facere impedit soluta autem pariatur magni eaque maiores illo, dolor explicabo delectus! Eveniet neque dicta optio explicabo soluta?</p>
+            </div>
+        </div>
+       
+        
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+    
 {% endblock %}

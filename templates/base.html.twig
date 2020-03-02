@@ -3,19 +3,20 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     </head>
-    <body>
-        <header>
+    <body style="overflow-x: hidden;overflow-y:auto;">
+        <header class="position-fixed w-100" style="z-index:80">
            <nav class="navbar navbar-expand-sm navbar-dark bg-dark flex-column">
                 <div class="col-12">
                     <div class="row justify-content-between">
                         <!-- Logo -->
                         <div class="col-lg-2 col-sm-2">
-                            <a class="navbar-brand" href="#"><img src="https://cdn.discordapp.com/attachments/682142335601344612/682865705917349908/Logo.png" alt="logo" width="20%"></a>
+                            <a class="navbar-brand" href="{{ path('home') }}"><img src="https://cdn.discordapp.com/attachments/682142335601344612/682865705917349908/Logo.png" alt="logo" width="20%"></a>
                         </div>
 
                         <!-- Search bar -->
@@ -53,7 +54,9 @@
                 </div>
             </nav>
         </header>
-        {% block body %}{% endblock %}
+        <main style="padding-top:120px;padding-bottom:120px;">
+            {% block body %}{% endblock %}
+        </main>
         <footer id="myfooter" class="page-footer font-small blue pt-2 border-top">
             <!-- Contact us -->
             <div class="text-center">
