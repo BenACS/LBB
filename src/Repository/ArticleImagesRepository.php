@@ -19,9 +19,11 @@ class ArticleImagesRepository extends ServiceEntityRepository
         parent::__construct($registry, ArticleImages::class);
     }
 
+    /*
 
     @return ArticleImages[] Returns an array of ArticleImages objects
   
+
     
     // public function findByExampleField($value)
     // {
