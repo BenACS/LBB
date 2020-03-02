@@ -22,20 +22,19 @@ class ArticleImagesRepository extends ServiceEntityRepository
     // /**
     //  * @return ArticleImages[] Returns an array of ArticleImages objects
     //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
+    
+    // public function findByExampleField($value)
+    // {
+    //     return $this->createQueryBuilder('a')
+    //         ->andWhere('a.id= :val')
+    //         ->setParameter('val', $value)
+    //         ->orderBy('a.id', 'DESC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+    
     /*
     public function findOneBySomeField($value): ?ArticleImages
     {

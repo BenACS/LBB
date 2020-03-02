@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fde778443d12e42e15ddff2bfd714a10",
+    "content-hash": "ad57ac244a9e281574e2eb11f18e3f11",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -4195,7 +4195,7 @@
         },
         {
             "name": "symfony/property-access",
-            "version": "v4.4.4",
+            "version": "v4.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
