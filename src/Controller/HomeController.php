@@ -17,14 +17,14 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        
-        $em = $this->getDoctrine()->getManager();
-        
-    	$categories = $em->getRepository(Category::class)->findAll();
-        $products = $em->getRepository(Product::class)->findAll();
-        
-        $articleImages = $em->getRepository(ArticleImages::class)->findAll();
 
+    	$em = $this->getDoctrine()->getManager();
+
+    	$categories = $em->getRepository(Category::class)->findAll();
+    	$products = $em->getRepository(Product::class)->findAll();
+
+    	$articleImages = $em->getRepository(ArticleImages::class)->findAll();
+    	
     	dump($articleImages);
 
         return $this->render('home/index.html.twig', [
