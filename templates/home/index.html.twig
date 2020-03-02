@@ -43,16 +43,14 @@
 
                     <!-- First slide -->
                     <div class="carousel-item active">
-                        <div class="row">
+                        <div class="row justify-content-around">
                             {% for i in 0..2 %}
-                                <div class="col-md-4">
-                                    <div class="card mb-2 h-50 d-flex">
-                                        <img class="card-img-top w-100 my-5" src="{{ articleImages[i] }}" alt="Card image cap">
-                                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-                                            <h4 class="card-title">{{ products[i].title }}</h4>
-                                            <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
-                                        </div>
-                                    </div>
+                                <div class="col-4  text-center">                                 
+                                    <div class='text-center border p-2' style='height:85%'>
+                                        <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1">{{ products[i].title }}</h4>
+                                    </div>                               
+                                    <a class="btn btn-primary mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
                                 </div>
                             {% endfor %}
                         </div>
@@ -60,34 +58,30 @@
 
                     <!-- Second slide -->
                     <div class="carousel-item">
-                        <div class="row">
+                        <div class="row justify-content-around">
                             {% for i in 3..5 %}
-                                <div class="col-md-4">
-                                    <div class="card mb-2 h-50">
-                                        <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">{{ products[i].title }}</h4>
-                                            <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-4  text-center">                                 
+                                <div class='text-center border p-2' style='height:85%'>
+                                    <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
+                                    <h4 >{{ products[i].title }}</h4>
+                                </div>                               
+                                <a class="btn btn-primary mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
 
                     <!-- Third slide -->
                     <div class="carousel-item">
-                        <div class="row">
+                        <div class="row justify-content-around">
                             {% for i in 6..7 %}
-                                <div class="col-md-4">
-                                    <div class="card mb-2 h-50">
-                                        <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
-                                        <div class="card-body">
-                                            <h4 class="card-title">{{ products[i].title }}</h4>
-                                            <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-4  text-center">                                 
+                                <div class='text-center border p-2' style='height:85%'>
+                                    <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
+                                    <h4 >{{ products[i].title }}</h4>
+                                </div>                               
+                                <a class="btn btn-primary mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -115,55 +109,49 @@
                 <div class="carousel-inner" role="listbox">
 
                 <!--First slide-->
-                <div class="carousel-item active">
-                    <div class="row">
-                        {% for i in 0..2 %}
-                            <div class="col-md-4">
-                                <div class="card mb-2 h-50">
-                                    <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title">{{ products[i].title }}</h4>
-                                        <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
-                                    </div>
+                    <div class="carousel-item active">
+                        <div class="row justify-content-around">
+                            {% for i in 0..2 %}
+                                <div class="col-4  text-center">                                 
+                                    <div class='text-center border p-2' style='height:85%'>
+                                        <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1">{{ products[i].title }}</h4>
+                                    </div>                               
+                                    <a class="btn btn-primary mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
 
-                <!--Second slide-->
-                <div class="carousel-item">
-                    <div class="row">
-                        {% for i in 3..5 %}
-                            <div class="col-md-4">
-                                <div class="card mb-2 h-50">
-                                    <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title">{{ products[i].title }}</h4>
-                                        <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
-                                    </div>
-                                </div>
+                    <!-- Second slide -->
+                    <div class="carousel-item">
+                        <div class="row justify-content-around">
+                            {% for i in 3..5 %}
+                            <div class="col-4  text-center">                                 
+                                <div class='text-center border p-2' style='height:85%'>
+                                    <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
+                                    <h4 >{{ products[i].title }}</h4>
+                                </div>                               
+                                <a class="btn btn-primary mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
                             </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
 
-                <!--Third slide-->
-                <div class="carousel-item">
-                    <div class="row">
-                        {% for i in 6..7 %}
-                            <div class="col-md-4">
-                                <div class="card mb-2 h-50">
-                                    <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title">{{ products[i].title }}</h4>
-                                        <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
-                                    </div>
-                                </div>
+                    <!-- Third slide -->
+                    <div class="carousel-item">
+                        <div class="row justify-content-around">
+                            {% for i in 6..7 %}
+                            <div class="col-4  text-center">                                 
+                                <div class='text-center border p-2' style='height:85%'>
+                                    <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
+                                    <h4 >{{ products[i].title }}</h4>
+                                </div>                               
+                                <a class="btn btn-primary mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
                             </div>
-                        {% endfor %}
-                    </div>
-                </div>
+                            {% endfor %}
+                        </div>
+                    </div>             
               </div>
 
               <div class="mx-2">
