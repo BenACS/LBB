@@ -32,10 +32,10 @@
         <hr class="my-4">
 
         <!-- Wrapper -->
-        <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
-            <div id="TEST-BIDOUILLAGE" class="d-flex flex-row align-items-center">
+        <div id="hots" class="carousel slide carousel-multi-item" data-interval="false">
+            <div class="d-flex flex-row align-items-center">
                 <div class="mx-2">
-                    <a class="btn" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left fa-3x"></i></a>
+                    <a class="btn" href="#hots" data-slide="prev"><i class="fa fa-chevron-left fa-3x"></i></a>
                 </div>
 
                 <!-- Slides -->
@@ -46,11 +46,10 @@
                         <div class="row">
                             {% for i in 0..2 %}
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
-                                        <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
-                                        <div class="card-body">
+                                    <div class="card mb-2 h-50 d-flex">
+                                        <img class="card-img-top w-100 my-5" src="{{ articleImages[i] }}" alt="Card image cap">
+                                        <div class="card-body d-flex flex-column justify-content-center align-items-center">
                                             <h4 class="card-title">{{ products[i].title }}</h4>
-                                            <p class="card-text">{{ products[i].description }}</p>
                                             <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
                                         </div>
                                     </div>
@@ -64,11 +63,10 @@
                         <div class="row">
                             {% for i in 3..5 %}
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
+                                    <div class="card mb-2 h-50">
                                         <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
                                         <div class="card-body">
                                             <h4 class="card-title">{{ products[i].title }}</h4>
-                                            <p class="card-text">{{ products[i].description }}</p>
                                             <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
                                         </div>
                                     </div>
@@ -82,11 +80,10 @@
                         <div class="row">
                             {% for i in 6..7 %}
                                 <div class="col-md-4">
-                                    <div class="card mb-2">
+                                    <div class="card mb-2 h-50">
                                         <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
                                         <div class="card-body">
                                             <h4 class="card-title">{{ products[i].title }}</h4>
-                                            <p class="card-text">{{ products[i].description }}</p>
                                             <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
                                         </div>
                                     </div>
@@ -97,7 +94,7 @@
               </div>
 
               <div class="mx-2">
-                  <a class="btn" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right fa-3x"></i></a>
+                  <a class="btn" href="#hots" data-slide="next"><i class="fa fa-chevron-right fa-3x"></i></a>
               </div>
             </div>
         </div>
@@ -108,10 +105,10 @@
         <hr class="my-4">
 
         <!--Wrapper-->
-        <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
-            <div id="TEST-BIDOUILLAGE" class="d-flex flex-row align-items-center">
+        <div id="news" class="carousel slide carousel-multi-item" data-interval="false">
+            <div class="d-flex flex-row align-items-center">
                 <div class="mx-2">
-                    <a class="btn" href="#multi-item-example" data-slide="prev"><i class="fa fa-chevron-left fa-3x"></i></a>
+                    <a class="btn" href="#news" data-slide="prev"><i class="fa fa-chevron-left fa-3x"></i></a>
                 </div>
 
                 <!--Slides-->
@@ -122,11 +119,10 @@
                     <div class="row">
                         {% for i in 0..2 %}
                             <div class="col-md-4">
-                                <div class="card mb-2">
+                                <div class="card mb-2 h-50">
                                     <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
                                     <div class="card-body">
                                         <h4 class="card-title">{{ products[i].title }}</h4>
-                                        <p class="card-text">{{ products[i].description }}</p>
                                         <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
                                     </div>
                                 </div>
@@ -140,11 +136,10 @@
                     <div class="row">
                         {% for i in 3..5 %}
                             <div class="col-md-4">
-                                <div class="card mb-2">
+                                <div class="card mb-2 h-50">
                                     <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
                                     <div class="card-body">
                                         <h4 class="card-title">{{ products[i].title }}</h4>
-                                        <p class="card-text">{{ products[i].description }}</p>
                                         <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
                                     </div>
                                 </div>
@@ -158,11 +153,10 @@
                     <div class="row">
                         {% for i in 6..7 %}
                             <div class="col-md-4">
-                                <div class="card mb-2">
+                                <div class="card mb-2 h-50">
                                     <img class="card-img-top w-100" src="{{ articleImages[i] }}" alt="Card image cap">
                                     <div class="card-body">
                                         <h4 class="card-title">{{ products[i].title }}</h4>
-                                        <p class="card-text">{{ products[i].description }}</p>
                                         <a class="btn btn-primary" href="{{ path('product', {id : products[i].id })}}">See</a>
                                     </div>
                                 </div>
@@ -173,7 +167,7 @@
               </div>
 
               <div class="mx-2">
-                  <a class="btn" href="#multi-item-example" data-slide="next"><i class="fa fa-chevron-right fa-3x"></i></a>
+                  <a class="btn" href="#news" data-slide="next"><i class="fa fa-chevron-right fa-3x"></i></a>
               </div>
             </div>
         </div>
