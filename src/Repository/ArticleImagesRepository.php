@@ -19,38 +19,22 @@ class ArticleImagesRepository extends ServiceEntityRepository
         parent::__construct($registry, ArticleImages::class);
     }
 
-<<<<<<< HEAD
     // /**
     //  * @return ArticleImages[] Returns an array of ArticleImages objects
     //  */
-=======
-
-    @return ArticleImages[] Returns an array of ArticleImages objects
-  
->>>>>>> 38398f5d3a1daf60f3bf648bf614699daeeae45f
     
     // public function findByExampleField($value)
     // {
     //     return $this->createQueryBuilder('a')
-<<<<<<< HEAD
     //         ->andWhere('a.id= :val')
     //         ->setParameter('val', $value)
     //         ->orderBy('a.id', 'DESC')
-=======
-    //         ->andWhere('a.exampleField = :val')
-    //         ->setParameter('val', $value)
-    //         ->orderBy('a.id', 'ASC')
->>>>>>> 38398f5d3a1daf60f3bf648bf614699daeeae45f
     //         ->setMaxResults(10)
     //         ->getQuery()
     //         ->getResult()
     //     ;
     // }
     
-<<<<<<< HEAD
-=======
-
->>>>>>> 38398f5d3a1daf60f3bf648bf614699daeeae45f
     /*
     public function findOneBySomeField($value): ?ArticleImages
     {
