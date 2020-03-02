@@ -3,11 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body style="overflow-x: hidden;overflow-y:auto;">
         <header>
            <nav class="navbar navbar-expand-sm navbar-dark bg-dark flex-column">
                 <div class="col-12">
@@ -52,7 +53,9 @@
                 </div>
             </nav>
         </header>
-        {% block body %}{% endblock %}
+        <main style="padding-bottom:120px;">
+            {% block body %}{% endblock %}
+        </main>
         <footer id="myfooter" class="page-footer font-small blue pt-2 border-top">
             <!-- Contact us -->
             <div class="text-center">
