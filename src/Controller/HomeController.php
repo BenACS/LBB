@@ -22,10 +22,20 @@ class HomeController extends AbstractController
 
     	$categories = $em->getRepository(Category::class)->findAll();
     	$products = $em->getRepository(Product::class)->findAll();
-
+        $article = $em->getRepository(Article::class)->findAll();
     	$articleImages = $em->getRepository(ArticleImages::class)->findAll();
-    	
-    	dump($articleImages);
+        
+        foreach ( $products as $product) {
+            foreach ( $product -> getArticles() as $article) {
+                foreach ( $article -> getArticleImages() as $image) {
+                    if (!isset ($images) || !in_array($image->getUrl(),$images)) {
+                        $images[] = $image->getUrl();
+                    }
+                }
+            }
+        }
+
+        dump($images);
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
