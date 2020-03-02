@@ -6,9 +6,9 @@
 
 <div class="container-fluid">
     <div class="row mt-5 justify-content-center">
-        <div class="col-1 images">
+        <div class="col-1 thumbnail_images">
             {% for image in articleImages %}
-                <img src={{image}} alt="hoodie" class="w-100">
+                <img src={{image}} alt="hoodie" class="w-100 border my-1">
             {% endfor %}
         </div>
         <div class="col-4">
@@ -20,46 +20,49 @@
         </div>
         <div class="col-4 text-center">
             <form>
-                <div class="border">
+                <div class="border rounded">
                     <h2>{{product.title}}</h2>
                     <p class="text-justify p-4">{{product.description}}</p>
-                    {% if variations.sizes is not null %}    
-                        <label for ="">Sizes</label>
-                        <br>
-                        <select>
-                            {% for size in variations.sizes  %}
-                                <option >{{size}}</option>
-                            {% endfor %}
-                        </select>
-                        <br>
+                    {% if variations.sizes is not null %}
+                        <div class="form-group col-md-3 mx-auto">
+                            <label for="size_selector">Sizes</label>
+                            <br>
+                            <select class="form-control" id="size_selector">
+                                {% for size in variations.sizes  %}
+                                    <option>{{size}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     {% endif %}
                     
-                    {% if variations.colors is not null %}    
-                        <label for ="">Colors</label>
-                        <br>
-                        <select>
-                            {% for color in variations.colors  %}
-                                <option >{{color}}</option>
-                            {% endfor %}
-                        </select>
-                        <br>
+                    {% if variations.colors is not null %}
+                        <div class="form-group col-md-3 mx-auto">  
+                            <label for="color_selector">Colors</label>
+                            <br>
+                            <select class="form-control" id="color_selector">
+                                {% for color in variations.colors  %}
+                                    <option>{{color}}</option>
+                                {% endfor %}
+                            </select>
+                        </div> 
                     {% endif %}
                     
-                    {% if variations.devices is not null %}    
-                        <label for ="">Devices</label>
-                        <br>
-                        <select>
-                            {% for device in variations.devices  %}
-                                <option >{{device}}</option>
-                            {% endfor %}
-                        </select>
-                        <br>
+                    {% if variations.devices is not null %} 
+                        <div class="form-group col-md-5 mx-auto">  
+                            <label for="device_selector">Devices</label>
+                            <br>
+                            <select class="form-control" id="device_selector">
+                                {% for device in variations.devices  %}
+                                    <option>{{device}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     {% endif %}  
-                    <p><b>{{price.priceDf}} €</b></p>
+                    <p style="font-size:2em"><b>{{price.priceDf}} €</b></p>
                                 
                 </div>
                 <div >
-                    <p class="text-success">En Stock</p>
+                    <p class="text-success ">En Stock</p>
                     <br>
                     <select>
                         <option >1</option>
@@ -68,7 +71,7 @@
                         <option >4</option>
                         <option >5+</option>
                     </select>
-                    <button class="btn btn-warning">
+                    <button class="btn btn-warning mx-2">
                         Ajouter au panier
                     </button>
                 </div>
