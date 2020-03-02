@@ -43,20 +43,6 @@
 
                     <div class="row">
                         <ul class="navbar-nav col-12 justify-content-around">
-<<<<<<< HEAD
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Clothes</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Accessories</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Mugs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Surprises</a>
-                            </li>
-=======
                             {% for category in categories %}
                                 {% if category.parentId == 0 %}
                                     <li class="nav-item">
@@ -64,7 +50,6 @@
                                     </li>
                                 {% endif %}
                             {% endfor %}
->>>>>>> 3397a4445e508ee957a78178f84bebc0d03debf0
                         </ul>
                     </div>
                 </div>
