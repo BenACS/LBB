@@ -22,10 +22,11 @@ class HomeController extends AbstractController
 
     	$categories = $em->getRepository(Category::class)->findAll();
     	$products = $em->getRepository(Product::class)->findAll();
-        $article = $em->getRepository(Article::class)->findAll();
+		$article = $em->getRepository(Article::class)->findAll();
     	$articleImages = $em->getRepository(ArticleImages::class)->findAll();
-        
-        foreach ( $products as $product) {
+
+    	// Lets us filter for the URLs
+    	foreach ( $products as $product) {
             foreach ( $product -> getArticles() as $article) {
                 foreach ( $article -> getArticleImages() as $image) {
                     if (!isset ($images) || !in_array($image->getUrl(),$images)) {
@@ -41,7 +42,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
             'categories' => $categories,
             'products' => $products,
-            'articleImages' => $articleImages
+            'articleImages' => $images
         ]);
     }
 }
