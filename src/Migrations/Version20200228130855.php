@@ -32,8 +32,6 @@ final class Version20200228130855 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE account CHANGE newsletter newsletter TINYINT(1) DEFAULT \'0\' NOT NULL');
-        $this->addSql('ALTER TABLE adress CHANGE default_adress default_adress TINYINT(1) DEFAULT \'0\' NOT NULL');
         $this->addSql('ALTER TABLE article_images RENAME INDEX idx_8ad829ea7294869c TO IDX_8AD829EA3DA5256D');
         $this->addSql('ALTER TABLE product ADD category_id INT NOT NULL');
         $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD12469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');

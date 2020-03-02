@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\ArticleImages;
+use App\Entity\Article;
 
 class HomeController extends AbstractController
 {
@@ -21,6 +22,7 @@ class HomeController extends AbstractController
 
     	$categories = $em->getRepository(Category::class)->findAll();
     	$products = $em->getRepository(Product::class)->findAll();
+
     	$articleImages = $em->getRepository(ArticleImages::class)->findAll();
     	
     	dump($articleImages);
