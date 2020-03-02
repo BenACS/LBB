@@ -83,6 +83,11 @@ class Account
      */
     private $adresses;
 
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $role;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
@@ -304,6 +309,18 @@ class Account
                 $adress->setAccount(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
 
         return $this;
     }
