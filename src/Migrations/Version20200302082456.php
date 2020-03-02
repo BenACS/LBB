@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200227142517 extends AbstractMigration
+final class Version20200302082456 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,7 @@ final class Version20200227142517 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE review (id INT AUTO_INCREMENT NOT NULL, product_id INT NOT NULL, account_id INT NOT NULL, rating INT NOT NULL, comment VARCHAR(255) NOT NULL, INDEX IDX_794381C64584665A (product_id), INDEX IDX_794381C69B6B5FBA (account_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C64584665A FOREIGN KEY (product_id) REFERENCES product (id)');
-        $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C69B6B5FBA FOREIGN KEY (account_id) REFERENCES account (id)');
+        $this->addSql('ALTER TABLE account ADD role VARCHAR(15) NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -32,6 +30,7 @@ final class Version20200227142517 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE review');
+        $this->addSql('ALTER TABLE account DROP role, CHANGE newsletter newsletter TINYINT(1) DEFAULT \'0\' NOT NULL');
+        $this->addSql('ALTER TABLE adress CHANGE default_adress default_adress TINYINT(1) DEFAULT \'0\' NOT NULL');
     }
 }
