@@ -75,7 +75,6 @@ Encore
         to: 'images/[path][name].[hash:8].[ext]',
         pattern: /\.(png|jpg|jpeg)$/
     })
-
     .configureWatchOptions(function(watchOptions) {
         // enable polling and check for changes every 250ms
         // polling is useful when running Encore inside a Virtual Machine
