@@ -62,7 +62,7 @@
                                 
                 </div>
                 <div >
-                    <p class="text-success ">En Stock</p>
+                    <p class="text-success ">{{ stock }}</p>
                     <br>
                     <select>
                         <option >1</option>
@@ -71,6 +71,7 @@
                         <option >4</option>
                         <option >5+</option>
                     </select>
+                    <input type="text" value="{{ articleId }}">
                     <button class="btn btn-warning mx-2">
                         Ajouter au panier
                     </button>
