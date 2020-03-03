@@ -6,13 +6,13 @@
 
 <div class="container-fluid">
     <div class="row mt-5 justify-content-center">
-        <div class="col-1 thumbnail_images">
+        <div class="col-1">
             {% for image in articleImages %}
-                <img src={{image}} alt="hoodie" class="w-100 border my-1">
+                <img src={{image}} alt="hoodie" class="w-100 border my-1 thumbnail-images">
             {% endfor %}
         </div>
         <div class="col-4">
-            <img src={{articleImages.0}} alt="hoodie" width="95%">
+            <img src={{articleImages.0}} alt="hoodie" width="95%" id="main_image">
             <div class="text-center">
                 <span id="rating" class="text-warning mx-2"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></span>
                 <a href="#reviews">(<span id="nbr_reviews">2</span>) reviews</a> 
