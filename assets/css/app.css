@@ -17,8 +17,11 @@ footer#myfooter {
 
 /* NAVBAR */
 
-.subCategories{
+.disNone{
     display: none;
+}
+.disBlock{
+    display: block;
 }
 
 /* =============================== PRODUCT PAGE STYLE =============================== */
