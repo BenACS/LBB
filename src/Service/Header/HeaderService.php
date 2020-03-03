@@ -14,7 +14,8 @@ class HeaderService {
 
     public function createHeader() : array {
         $categories = $this->categoryRepo->findAll();
-        
         return $categories;
     }
+
+    
 }

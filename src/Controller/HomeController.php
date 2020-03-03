@@ -10,17 +10,18 @@ use App\Entity\Product;
 use App\Entity\ArticleImages;
 use App\Entity\Article;
 
+use App\Service\Header\HeaderService;
+
 class HomeController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function index()
+    public function index(HeaderService $cat)
     {
 
     	$em = $this->getDoctrine()->getManager();
 
-    	$categories = $em->getRepository(Category::class)->findAll();
     	$products = $em->getRepository(Product::class)->findAll();
 		$article = $em->getRepository(Article::class)->findAll();
     	$articleImages = $em->getRepository(ArticleImages::class)->findAll();
@@ -40,7 +41,7 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'categories' => $categories,
+            'categories' => $cat->createHeader(),
             'products' => $products,
             'articleImages' => $images
         ]);

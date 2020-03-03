@@ -14,3 +14,9 @@ footer#myfooter {
     width:100%;
     bottom:0;
 }
+
+/* NAVBAR */
+
+.subCategories{
+    display: none;
+}
