@@ -20,3 +20,9 @@ footer#myfooter {
 .subCategories{
     display: none;
 }
+
+/* =============================== PRODUCT PAGE STYLE =============================== */
+
+div.thumbnail_images > img:hover, div.thumbnail_images > img.active {
+    cursor:pointer;
+}
