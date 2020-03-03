@@ -23,6 +23,6 @@ footer#myfooter {
 
 /* =============================== PRODUCT PAGE STYLE =============================== */
 
-div.thumbnail_images > img:hover, div.thumbnail_images > img.active {
+img.thumbnail-images:hover,img.thumbnail-images.active {
     cursor:pointer;
 }
