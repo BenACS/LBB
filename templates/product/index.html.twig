@@ -8,7 +8,7 @@
     <div class="row mt-5 justify-content-center">
         <div class="col-1">
             {% for image in articleImages %}
-                <img src={{image}} alt="hoodie" class="w-100 border my-1 thumbnail-images">
+                <img src={{image}} alt="hoodie" class="w-100 border my-1 thumbnail-images{% if image == articleImages.0 %} border-secondary{% endif %}">
             {% endfor %}
         </div>
         <div class="col-4">
@@ -37,7 +37,7 @@
                     
                     {% if variations.colors is not null %}
                         <div class="form-group col-md-3 mx-auto">  
-                            <label for="color_selector">Colors</label>
+                            <label for="color_selector" >Colors</label>
                             <br>
                             <select class="form-control" id="color_selector">
                                 {% for color in variations.colors  %}
