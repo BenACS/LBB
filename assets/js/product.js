@@ -48,17 +48,15 @@ function checkArticle() {
     const url = variation_form.action;
     axios.post(url, params)
         .then(function(response) { 
-            console.log(response.data)
             js_stock_message.innerHTML = response.data.stockMessage;
-            js_stock.textContent = response.data.stock;
-            js_articleId.value = response.data.articleId;
+            quantity_selector.dataset.articleId = response.data.articleId;
+            quantity_selector.dataset.stock = response.data.stock;
             changeQuantitySelector();
         })
 }
 
 function changeQuantitySelector() {
-    let n = parseInt(js_stock.innerText);
-    
+    let n = parseInt(quantity_selector.dataset.stock);
     if (n == 0) {
         cart_form.style.display = "none";
     } else {
@@ -75,7 +73,6 @@ function changeQuantitySelector() {
         }
     }
 }
-changeQuantitySelector();
 
 window.onload = function() {
     checkArticle();
