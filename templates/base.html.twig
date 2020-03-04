@@ -46,7 +46,7 @@
                             {% for categories in categories %}
                                 {% if categories.parentId == 0 %}
                                     <li class="nav-item categories">
-                                        <a class="nav-link" href="{{ path('category', {category: categories.categoryName, id: categories.id})}}">{{ categories.categoryName }}</a>
+                                        <a class="nav-link" href="{{ path('category', {category: categories.categoryName})}}">{{ categories.categoryName }}</a>
                                     </li>
                                 {% endif %}
                             {% endfor %}
