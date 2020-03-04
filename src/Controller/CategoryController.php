@@ -16,7 +16,7 @@ use App\Service\Header\HeaderService;
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/{category}/{id}", name="category")
+     * @Route("/{category}", name="category")
      */
     public function index(HeaderService $cat)
     {
