@@ -37,8 +37,6 @@ class HomeController extends AbstractController
             }
         }
 
-        dump($images);
-
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'categories' => $cat->createHeader(),
