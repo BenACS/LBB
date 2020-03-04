@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="col-4 text-center">
-            <form>
+            <form action="{{ path('product_checkArticle', {id : product.id}) }}" method="POST" onsubmit="event.preventDefault(); return false;" id="variation_form">
                 <div class="border rounded">
                     <h2>{{product.title}}</h2>
                     <p class="text-justify p-4">{{product.description}}</p>
@@ -27,7 +27,7 @@
                         <div class="form-group col-md-3 mx-auto">
                             <label for="size_selector">Sizes</label>
                             <br>
-                            <select class="form-control" id="size_selector">
+                            <select class="form-control" id="size_selector" name="size">
                                 {% for size in variations.sizes  %}
                                     <option>{{size}}</option>
                                 {% endfor %}
@@ -39,7 +39,7 @@
                         <div class="form-group col-md-3 mx-auto">  
                             <label for="color_selector" >Colors</label>
                             <br>
-                            <select class="form-control" id="color_selector">
+                            <select class="form-control" id="color_selector" name="color">
                                 {% for color in variations.colors  %}
                                     <option>{{color}}</option>
                                 {% endfor %}
@@ -51,7 +51,7 @@
                         <div class="form-group col-md-5 mx-auto">  
                             <label for="device_selector">Devices</label>
                             <br>
-                            <select class="form-control" id="device_selector">
+                            <select class="form-control" id="device_selector" name="device">
                                 {% for device in variations.devices  %}
                                     <option>{{device}}</option>
                                 {% endfor %}
@@ -59,10 +59,10 @@
                         </div>
                     {% endif %}  
                     <p style="font-size:2em"><b>{{price.priceDf}} €</b></p>
-                                
+                    
                 </div>
                 <div >
-                    <p class="text-success ">{{ stock }}</p>
+                    <p class="text-success " id="js_stock">{{ article.stockMessage }}</p>
                     <br>
                     <select>
                         <option >1</option>
@@ -71,9 +71,9 @@
                         <option >4</option>
                         <option >5+</option>
                     </select>
-                    <input type="text" value="{{ articleId }}">
+                    <input type="hidden" value="{{ article.id }}" id="js_articleId">
                     <button class="btn btn-warning mx-2">
-                        Ajouter au panier
+                        Add to cart
                     </button>
                 </div>
             </form> 
@@ -177,5 +177,8 @@
 {% endblock %}
 
 {% block javascripts %} 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
     {{ encore_entry_script_tags('product') }}
+
 {% endblock %}
