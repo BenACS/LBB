@@ -10,12 +10,12 @@
 
         <div class="container col-lg-9">
             {% for categories in categories %}
-                {# {% if categories.parentId == app.request.get('id') %} #}
+                {% if categories.parentId == app.request.get('id') %}
                     <div class="container subCat">
                         <img src="{{ articleImages[2] }}" alt="">
                         <h3>{{ categories.categoryName }}</h3>
                     </div>
-                {# {% endif %} #}
+                {% endif %}
             {% endfor %}
         </div>
     </div>

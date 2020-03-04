@@ -16,7 +16,7 @@ use App\Service\Header\HeaderService;
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/{category}", name="category")
+     * @Route("/{category}/{id}", name="category")
      */
     public function index(HeaderService $cat, Request $request)
     {
@@ -37,7 +37,7 @@ class CategoryController extends AbstractController
             }
         }
 
-        // $request->request->get('id');
+        $request->query->get('id');
         
         return $this->render('category/index.html.twig', [
             'controller_name' => 'CategoryController',
