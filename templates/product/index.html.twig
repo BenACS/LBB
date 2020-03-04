@@ -20,10 +20,10 @@
             </div>
         </div>
         <div class="col-4 text-center">
-            <form action="{{ path('product_checkArticle', {id : product.id}) }}" method="POST" onsubmit="event.preventDefault(); return false;" id="variation_form">
-                <div class="border rounded">
-                    <h2>{{product.title}}</h2>
-                    <p class="text-justify p-4">{{product.description}}</p>
+            <div class="border rounded">
+                <h2>{{product.title}}</h2>
+                <p class="text-justify p-4">{{product.description}}</p>
+                <form action="{{ path('product_checkArticle', {id : product.id}) }}" method="POST" id="variation_form">
                     {% if variations.sizes is not null %}
                         <div class="form-group col-md-3 mx-auto">
                             <label for="size_selector">Sizes</label>
@@ -58,26 +58,20 @@
                                 {% endfor %}
                             </select>
                         </div>
-                    {% endif %}  
-                    <p style="font-size:2em"><b>{{price.priceDf}} €</b></p>
-                    
-                </div>
-                <div >
-                    <p class="text-success " id="js_stock">{{ article.stockMessage }}</p>
-                    <br>
-                    <select>
-                        <option >1</option>
-                        <option >2</option>
-                        <option >3</option>
-                        <option >4</option>
-                        <option >5+</option>
-                    </select>
+                    {% endif %} 
+                </form> 
+                <p style="font-size:2em"><b>{{price.priceDf}} €</b></p>
+            </div>
+            <div>
+                <p id="js_stock_message">{{ article.stockMessage | raw }}</p><span id="js_stock" style="display:none;">{{ article.stock }}</span>
+                <br>
+                <form id="cart_form">
+                    <select id="quantity_selector"></select>
                     <input type="hidden" value="{{ article.id }}" id="js_articleId">
-                    <button class="btn btn-warning mx-2">
-                        Add to cart
-                    </button>
-                </div>
-            </form> 
+                    <button class="btn btn-warning mx-2">Add to cart</button>
+                </form>
+            </div>
+            
         </div>       
     </div>
     <div class="row justify-content-center my-2">

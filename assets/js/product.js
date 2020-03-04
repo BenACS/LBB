@@ -49,7 +49,34 @@ function checkArticle() {
     axios.post(url, params)
         .then(function(response) { 
             console.log(response.data)
+            js_stock_message.innerHTML = response.data.stockMessage;
             js_stock.textContent = response.data.stock;
             js_articleId.value = response.data.articleId;
+            changeQuantitySelector();
         })
+}
+
+function changeQuantitySelector() {
+    let n = parseInt(js_stock.innerText);
+    
+    if (n == 0) {
+        cart_form.style.display = "none";
+    } else {
+        cart_form.style.display = "block";
+        quantity_selector.innerHTML = '';
+        for (let i = 1 ; i<=n ; i++) {
+            if (i <=5 ) {
+                let option = document.createElement("OPTION");
+                option.innerText = i;
+                quantity_selector.appendChild(option);
+            } else {
+                break;
+            }
+        }
+    }
+}
+changeQuantitySelector();
+
+window.onload = function() {
+    checkArticle();
 }

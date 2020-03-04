@@ -170,11 +170,11 @@ class Article
 
     public function getStockMessage() : string {
         if ($this->getStock() > 5) {
-            $msg = "In stock";
+            $msg = '<span class="text-success">In stock</span>';
         } elseif ($this->getStock()> 0) {
-            $msg = $this->getStock() . "left";
+            $msg = '<span class="text-warning"> Only '. $this->getStock() . ' left</span>';
         } else {
-            $msg = "Not available";
+            $msg = '<span class="text-danger">Not available</span>';
         }
 
         return $msg;
