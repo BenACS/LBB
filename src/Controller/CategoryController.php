@@ -16,7 +16,7 @@ use App\Service\Header\HeaderService;
 class CategoryController extends AbstractController
 {
     /**
-     * @Route("/{category}", name="category")
+     * @Route("/{category}", name="category", requirements={"category": "^(?!product).+"})
      */
     public function index(HeaderService $cat)
     {
