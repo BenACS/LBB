@@ -12,8 +12,8 @@ for (let i = 0; i < thumbnails.length; i++) {
 }
 
 if (document.getElementById("color_selector")) {
+    changeImageDependingOnColor(color_selector);
     for (let i = 0; i < color_selector.length; i++) {
-        changeImageDependingOnColor(color_selector[i]);
         color_selector[i].onclick = function () {
             changeImageDependingOnColor(color_selector[i]);
         }
