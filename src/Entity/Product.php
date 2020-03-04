@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use App\Entity\Article;
+use App\Entity\ArticleImages;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
@@ -219,4 +222,53 @@ class Product
 
         return $this;
     }
+
+    public function getAllUniqueImages():array {
+        foreach ($this->getArticles() as $article) {
+            foreach($article->getArticleImages() as $image) {
+                if (!isset($images) || !in_array($image->getURL(),$images)) {
+                    $images[] = $image->getUrl();
+                }
+            }
+        }
+        return $images;
+    }
+
+    public function getAllSizes() {
+        foreach ($this->getArticles() as $article) {
+            if ($article->getSize() !== null && (!isset($sizes) || (!in_array($article->getSize(),$sizes)))) {
+                $sizes[] = $article->getSize();
+            } elseif ($article->getSize() === null) {
+                $sizes = null;
+            }
+        }
+        return $sizes;
+    }
+
+    public function getAllColors() {
+        foreach ($this->getArticles() as $article) {
+            if ($article->getColor() !== null && (!isset($colors) || (!in_array($article->getColor(),$colors)))) {
+                $colors[] = $article->getColor();
+            } elseif ($article->getColor() === null) {
+                $colors = null;
+            }
+        }
+        return $colors;
+    }
+
+    public function getAllDevices() {
+        foreach ($this->getArticles() as $article) {
+            if ($article->getDevice() !== null && (!isset($devices) || (!in_array($article->getDevice(),$devices)))) {
+                $devices[] = $article->getDevice();
+            } elseif ($article->getDevice() === null) {
+                $devices = null;
+            }
+        }
+        return $devices;
+    }
+    
+    public function getArticleId(ArticleRepository $articleRepo) {
+        
+    }
+    
 }

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
  */
@@ -200,4 +201,17 @@ class Article
 
         return $this;
     }
+
+    public function getStockMessage() : string {
+        if ($this->getStock() > 5) {
+            $msg = "In stock";
+        } elseif ($this->getStock()> 0) {
+            $msg = $this->getStock() . "left";
+        } else {
+            $msg = "Not available";
+        }
+
+        return $msg;
+    }
+
 }
