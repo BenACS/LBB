@@ -54,8 +54,8 @@ class ProductController extends AbstractController
 
         return $this->json([
             'articleId'=> $article->getId(),
-            'stock' => $article->getStockMessage(),
-            'request' => $request->request->all()   
+            'stockMessage' => $article->getStockMessage(),
+            'stock' => $article->getStock()
             ],200);
     }
 }
