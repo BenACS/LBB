@@ -55,15 +55,9 @@ class Article
      */
     private $articleImages;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Orders", mappedBy="articles")
-     */
-    private $orders;
-
     public function __construct()
     {
         $this->articleImages = new ArrayCollection();
-        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,34 +163,6 @@ class Article
             if ($articleImage->getImage() === $this) {
                 $articleImage->setImage(null);
             }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Orders[]
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
-    public function addOrder(Orders $order): self
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->addArticle($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Orders $order): self
-    {
-        if ($this->orders->contains($order)) {
-            $this->orders->removeElement($order);
-            $order->removeArticle($this);
         }
 
         return $this;

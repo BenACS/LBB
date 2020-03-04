@@ -35,14 +35,15 @@ class Orders
     private $account;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Article", inversedBy="orders")
+     * @ORM\OneToMany(targetEntity="App\Entity\Cart", mappedBy="orders", orphanRemoval=true)
      */
-    private $articles;
+    private $carts;
 
     public function __construct()
     {
-        $this->articles = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -86,28 +87,34 @@ class Orders
     }
 
     /**
-     * @return Collection|Article[]
+     * @return Collection|Cart[]
      */
-    public function getArticles(): Collection
+    public function getCarts(): Collection
     {
-        return $this->articles;
+        return $this->carts;
     }
 
-    public function addArticle(Article $article): self
+    public function addCart(Cart $cart): self
     {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
+        if (!$this->carts->contains($cart)) {
+            $this->carts[] = $cart;
+            $cart->setOrders($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(Article $article): self
+    public function removeCart(Cart $cart): self
     {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
+        if ($this->carts->contains($cart)) {
+            $this->carts->removeElement($cart);
+            // set the owning side to null (unless already changed)
+            if ($cart->getOrders() === $this) {
+                $cart->setOrders(null);
+            }
         }
 
         return $this;
     }
+
 }
