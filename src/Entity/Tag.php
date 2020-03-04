@@ -28,6 +28,11 @@ class Tag
      */
     private $tagProduct;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tags")
+     */
+    private $category;
+
     public function __construct()
     {
         $this->tagProduct = new ArrayCollection();
@@ -72,6 +77,18 @@ class Tag
         if ($this->tagProduct->contains($tagProduct)) {
             $this->tagProduct->removeElement($tagProduct);
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

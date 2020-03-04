@@ -8,15 +8,34 @@
             <img class="img-fluid" src="https://www.ladn.eu/wp-content/uploads/2018/11/big-mac-soixante.jpg" alt="pubalacon">
         </div>
 
-        <div class="container col-lg-9">
-            {% for categories in categories %}
-                {% if categories.parentId == app.request.get('id') %}
-                    <div class="container subCat">
-                        <img src="{{ articleImages[2] }}" alt="">
-                        <h3>{{ categories.categoryName }}</h3>
-                    </div>
+        <div class="container col-lg-9 d-flex flex-row flex-wrap justify-content-around">
+
+            {% set categoryFromUrl = app.request.get('category') %}
+            {% set i = 0 %}
+
+            {% for category in categories %}
+                {% if category.categoryName == categoryFromUrl %}
+                {% set categoryId = category.Id %}
+
+                    {% for i in range(0, categories|length - 1) %}
+
+                        {% if categories[i].parentId == categoryId and categories[i].parentId != 0 %}
+
+                            <div class="d-flex flex-column border col-4">
+                                <div>
+                                    <img class="img-fluid" src="https://avatars1.githubusercontent.com/u/30369625?s=460" alt="">
+                                </div>
+                                <div>
+                                    <p>{{categories[i].categoryName}}</p>
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    {% endfor %}
+
                 {% endif %}
             {% endfor %}
+
         </div>
     </div>
 {% endblock %}

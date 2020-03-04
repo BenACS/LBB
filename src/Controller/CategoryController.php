@@ -18,7 +18,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/{category}/{id}", name="category")
      */
-    public function index(HeaderService $cat, Request $request)
+    public function index(HeaderService $cat)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -36,11 +36,8 @@ class CategoryController extends AbstractController
                 }
             }
         }
-
-        $request->query->get('id');
         
         return $this->render('category/index.html.twig', [
-            'controller_name' => 'CategoryController',
             'articleImages' => $images,
             'categories' => $cat->createHeader()
         ]);

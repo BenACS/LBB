@@ -267,8 +267,4 @@ class Product
         return $devices;
     }
     
-    public function getArticleId(ArticleRepository $articleRepo) {
-        
-    }
-    
 }
