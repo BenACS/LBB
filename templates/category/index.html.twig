@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}J'apprécie les fruits au sirop{% endblock %}
+
+{% block body %}
+    <div class="container-fluid d-flex flex-row ">
+        <div class="container col-lg-3 ">
+            <img class="img-fluid" src="https://www.ladn.eu/wp-content/uploads/2018/11/big-mac-soixante.jpg" alt="pubalacon">
+        </div>
+
+        <div class="container col-lg-9">
+            {% for categories in categories %}
+                {# {% if categories.parentId == app.request.get('id') %} #}
+                    <div class="container subCat">
+                        <img src="{{ articleImages[2] }}" alt="">
+                        <h3>{{ categories.categoryName }}</h3>
+                    </div>
+                {# {% endif %} #}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

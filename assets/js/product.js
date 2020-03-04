@@ -1,8 +1,8 @@
 let thumbnails = document.getElementsByClassName("thumbnail-images");
 
 
-for (let i=0 ; i<thumbnails.length ; i++) {
-    thumbnails[i].onmouseover = function() {
+for (let i = 0; i < thumbnails.length; i++) {
+    thumbnails[i].onmouseover = function () {
         for (thumbnail of thumbnails) {
             thumbnail.classList.remove('border-secondary');
         }
