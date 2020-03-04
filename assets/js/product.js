@@ -74,6 +74,8 @@ function changeQuantitySelector() {
     }
 }
 
+console.log("ceci est un test");
+
 window.onload = function() {
     checkArticle();
 }
