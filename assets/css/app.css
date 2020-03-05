@@ -7,7 +7,7 @@ html,body {
 
 body {
     position:relative;
-    background-color: rgba(235,235,235);
+    background-color: white; /* rgba(235,235,235) */
 }
 
 footer#myfooter {
