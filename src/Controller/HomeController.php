@@ -25,22 +25,25 @@ class HomeController extends AbstractController
     	$products = $em->getRepository(Product::class)->findAll();
 		$article = $em->getRepository(Article::class)->findAll();
     	$articleImages = $em->getRepository(ArticleImages::class)->findAll();
+        $latestProducts = $em->getRepository(Product::class)->findLatestsProducts(array('id'));
 
     	// Lets us filter for the URLs
     	foreach ( $products as $product) {
-            foreach ( $product -> getArticles() as $article) {
-                foreach ( $article -> getArticleImages() as $image) {
-                    if (!isset ($images) || !in_array($image->getUrl(),$images)) {
-                        $images[] = $image->getUrl();
-                    }
-                }
-            }
+            $images[] = $product->getAllUniqueImages()[0];
         }
+
+        foreach ( $latestProducts as $product) {
+            $latestImages[] = $product->getAllUniqueImages()[0];
+        }
+
+        // $latestImages = array_reverse($images);
 
         return $this->render('home/index.html.twig', [
             'categories' => $cat->createHeader(),
             'products' => $products,
-            'articleImages' => $images
+            'articleImages' => $images,
+            'latestProducts' => $latestProducts,
+            'latestImages' => $latestImages
         ]);
     }
 }

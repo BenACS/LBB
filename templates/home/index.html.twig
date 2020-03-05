@@ -30,6 +30,10 @@
     <!-- Best sellers carousel -->
     <div class="container my-4">
         <hr class="my-4">
+       
+        <div class="text-center">
+            <h1>Best sellers</h1>
+        </div>
 
         <!-- Wrapper -->
         <div id="hots" class="carousel slide carousel-multi-item" data-interval="false">
@@ -98,6 +102,10 @@
     <div class="container my-4">
         <hr class="my-4">
 
+        <div class="text-center">
+            <h1>New products</h1>
+        </div>
+
         <!--Wrapper-->
         <div id="news" class="carousel slide carousel-multi-item" data-interval="false">
             <div class="d-flex flex-row align-items-center">
@@ -114,8 +122,8 @@
                             {% for i in 0..2 %}
                                 <div class="col-4  text-center">                                 
                                     <div class='text-center border p-2' style='height:85%'>
-                                        <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
-                                        <h4 class="pb-1">{{ products[i].title }}</h4>
+                                        <img src="{{ latestImages[i] }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1">{{ latestProducts[i].title }}</h4>
                                     </div>                               
                                     <a class="btn buttonColor mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
                                 </div>
@@ -129,8 +137,8 @@
                             {% for i in 3..5 %}
                             <div class="col-4  text-center">                                 
                                 <div class='text-center border p-2' style='height:85%'>
-                                    <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
-                                    <h4 >{{ products[i].title }}</h4>
+                                    <img src="{{ latestImages[i] }}" alt="Card image cap" width="100%">
+                                    <h4 >{{ latestProducts[i].title }}</h4>
                                 </div>                               
                                 <a class="btn buttonColor mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
                             </div>
@@ -144,8 +152,8 @@
                             {% for i in 6..7 %}
                             <div class="col-4  text-center">                                 
                                 <div class='text-center border p-2' style='height:85%'>
-                                    <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
-                                    <h4 >{{ products[i].title }}</h4>
+                                    <img src="{{ latestImages[i] }}" alt="Card image cap" width="100%">
+                                    <h4 >{{ latestProducts[i].title }}</h4>
                                 </div>                               
                                 <a class="btn buttonColor mt-2" href="{{ path('product', {id : products[i].id  })}}">View</a>
                             </div>
@@ -160,15 +168,7 @@
             </div>
         </div>
     </div>
-
-<!-- 	<div class="album py-5 bg-light">
-		<div class="container">
-
-			{% for articleImage in articleImages %}
-				<img src="{{ articleImage }}">
-			{% endfor %}
-		  
-		</div>
-	</div> -->
-
+    {{ dump(latestProducts) }}
+    {{ dump(latestImages) }}
+    {{ dump(articleImages) }}
 {% endblock %}
