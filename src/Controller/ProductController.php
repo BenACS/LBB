@@ -27,7 +27,6 @@ class ProductController extends AbstractController
         if ($id == 0 || !isset($product)) {
             return $this->redirectToRoute("home");
         }
-        $test = $article->getArticleInfos($product->getId());
 
         return $this->render('product/index.html.twig', [
             'product' => $product,
@@ -36,7 +35,6 @@ class ProductController extends AbstractController
             'articleImages' => $product->getAllUniqueImages(),
             'categories' => $cat->createHeader(),
             'article'=> $product->getArticles()[0],
-            'test'=> $test
         ]);
     }
 

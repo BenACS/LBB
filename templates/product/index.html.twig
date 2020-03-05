@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product
-{% endblock %}
+{% block title %} {{ product.title }} {% endblock %}
 
 {% block body %}
 
@@ -63,11 +62,10 @@
                 <p style="font-size:2em"><b>{{price.priceDf}} €</b></p>
             </div>
             <div>
-                <p id="js_stock_message">{{ article.stockMessage | raw }}</p><span id="js_stock" style="display:none;">{{ article.stock }}</span>
+                <p id="js_stock_message">{{ article.stockMessage | raw }}</p>
                 <br>
                 <form id="cart_form">
-                    <select id="quantity_selector"></select>
-                    <input type="hidden" value="{{ article.id }}" id="js_articleId">
+                    <select id="quantity_selector" data-article-id="{{ article.id}}" data-stock="{{ article.stock}}"></select>
                     <button class="btn btn-warning mx-2">Add to cart</button>
                 </form>
             </div>
