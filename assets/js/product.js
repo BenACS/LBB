@@ -1,10 +1,11 @@
+import { addToastCart } from "./app.js"
+
 let thumbnails = document.getElementsByClassName("thumbnail-images");
-
-
+console.log(thumbnails);
 for (let i = 0; i < thumbnails.length; i++) {
     thumbnails[i].onmouseover = function () {
-        for (thumbnail of thumbnails) {
-            thumbnail.classList.remove('border-secondary');
+        for (let i = 0; i < thumbnails.length; i++) {
+            thumbnails[i].classList.remove('border-secondary');
         }
         thumbnails[i].classList.add('border-secondary');
         main_image.src = thumbnails[i].src;
@@ -30,29 +31,13 @@ if (document.getElementById("device_selector")) {
 
 
 function changeImageDependingOnColor(element) {
-    for (thumbnail of thumbnails) {
-        thumbnail.classList.remove('border-secondary');
-        if (thumbnail.src.includes(element.value.toLowerCase())) {
-            main_image.src = thumbnail.src;
-            thumbnail.classList.add('border-secondary');
+    for (let i = 0; i < thumbnails.length; i++) {
+        thumbnails[i].classList.remove('border-secondary');
+        if (thumbnails[i].src.includes(element.value.toLowerCase())) {
+            main_image.src = thumbnails[i].src;
+            thumbnails[i].classList.add('border-secondary');
         }
     }
-}
-
-function checkArticle() {
-    const params = new URLSearchParams();
-        params.append('size',document.getElementById("size_selector") ? size_selector.value : null);
-        params.append('color',document.getElementById("color_selector") ? color_selector.value : null);
-        params.append('device',document.getElementById("device_selector") ? device_selector.value : null);
-
-    const url = variation_form.action;
-    axios.post(url, params)
-        .then(function(response) { 
-            js_stock_message.innerHTML = response.data.stockMessage;
-            quantity_selector.dataset.articleId = response.data.articleId;
-            quantity_selector.dataset.stock = response.data.stock;
-            changeQuantitySelector();
-        })
 }
 
 function changeQuantitySelector() {
@@ -74,7 +59,35 @@ function changeQuantitySelector() {
     }
 }
 
-console.log("ceci est un test");
+function checkArticle() {
+    const params = new URLSearchParams();
+        params.append('size',document.getElementById("size_selector") ? size_selector.value : null);
+        params.append('color',document.getElementById("color_selector") ? color_selector.value : null);
+        params.append('device',document.getElementById("device_selector") ? device_selector.value : null);
+
+    const url = variation_form.action;
+    axios.post(url, params)
+        .then(function(response) { 
+            js_stock_message.innerHTML = response.data.stockMessage;
+            quantity_selector.dataset.articleId = response.data.articleId;
+            quantity_selector.dataset.stock = response.data.stock;
+            changeQuantitySelector();
+        })
+}
+cart_form.onsubmit = function(e) {
+    e.preventDefault();
+    const params = new URLSearchParams();
+        params.append('articleId',quantity_selector.dataset.articleId);
+        params.append('quantity',quantity_selector.value?quantity_selector.value:1);
+
+    const url = this.action;
+    axios.post(url, params)
+        .then(function(response) { 
+            cart_badge.innerText = response.data.itemsInCart;
+            addToastCart(response.data.image,response.data.title,response.data.quantity);
+        })
+}
+
 
 window.onload = function() {
     checkArticle();

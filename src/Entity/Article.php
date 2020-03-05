@@ -180,4 +180,20 @@ class Article
         return $msg;
     }
 
+    public function getArticleTitle() : string {
+        $title = $this->getProduct()->getTitle();
+
+        if ($this->getColor()) {
+            $title .= ' - ' . ucfirst($this->getColor());
+        }
+        if ($this->getSize()) {
+            $title .= ' - ' . $this->getSize();
+        }
+        if ($this->getDevice()) {
+            $title .= ' - ' . $this->getDevice();
+        }
+
+        return $title;
+    }
+
 }

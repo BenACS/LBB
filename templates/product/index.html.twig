@@ -64,12 +64,11 @@
             <div>
                 <p id="js_stock_message">{{ article.stockMessage | raw }}</p>
                 <br>
-                <form id="cart_form">
+                <form id="cart_form" action="{{path("cart_add")}}" method="POST">
                     <select id="quantity_selector" data-article-id="{{ article.id}}" data-stock="{{ article.stock}}"></select>
-                    <button class="btn btn-warning mx-2">Add to cart</button>
+                    <button type="submit" class="btn btn-warning mx-2">Add to cart</button>
                 </form>
             </div>
-            
         </div>       
     </div>
     <div class="row justify-content-center my-2">
