@@ -8,7 +8,7 @@
             <img class="img-fluid" src="https://www.ladn.eu/wp-content/uploads/2018/11/big-mac-soixante.jpg" alt="pubalacon">
         </div>
 
-        <div class="container col-lg-9 d-flex flex-row flex-wrap justify-content-around">
+        <div class="container col-lg-9 d-flex flex-row flex-wrap justify-content-around align-items-center">
 
             {% set categoryFromUrl = app.request.get('category') %}
             {% set i = 0 %}
@@ -21,12 +21,14 @@
 
                         {% if categories[i].parentId == categoryId and categories[i].parentId != 0 %}
 
-                            <div class="d-flex flex-column border col-4">
-                                <div>
-                                    <img class="img-fluid" src="https://avatars1.githubusercontent.com/u/30369625?s=460" alt="">
+                            <div class="d-flex flex-column col-3 p-0 mx-1 border">
+                                <div class="">
+                                    <a href="#">
+                                        <img class="img-fluid w-100" src="{{ categories[i].image }}" alt="">
+                                    </a>
                                 </div>
-                                <div>
-                                    <p>{{categories[i].categoryName}}</p>
+                                <div class="text-center">
+                                    <p>{{ categories[i].categoryName }}</p>
                                 </div>
                             </div>
 
