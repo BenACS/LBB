@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use App\Repository\CategoryRepository;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
@@ -43,12 +44,14 @@ class Category
      */
     private $image;
 
+    private $catRepo;
 
-    public function __construct()
+    public function __construct(CategoryRepository $catRepo)
     {
         $this->category = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->catRepo = $catRepo;
     }
 
     public function getId(): ?int
@@ -149,6 +152,11 @@ class Category
         $this->image = $image;
 
         return $this;
+    }
+
+    public function getMainCatName():string 
+    {
+        return $this->catRepo->find($this->parentId)->getCategoryName();
     }
 
     

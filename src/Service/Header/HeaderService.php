@@ -13,8 +13,15 @@ class HeaderService {
     }
 
     public function createHeader() : array {
-        $categories = $this->categoryRepo->findAll();
-        return $categories;
+
+        return $this->categoryRepo->findAll();
+    }
+
+    public function getMainCategoriesName() : array {
+    	foreach ($this->categoryRepo->findMainCategories() as $cat) {
+    		$catName[] = $cat->getCategoryName();
+    	}
+    	return $catName;
     }
 
     
