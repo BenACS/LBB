@@ -12,12 +12,12 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20200228103523 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
         // this up() migration is auto-generated, please modify it to your needs
@@ -30,14 +30,17 @@ final class Version20200228103523 extends AbstractMigration
         (6, 'Thermic', 3),
         (7, 'T-shirts', 1),
         (8, 'Hoodies', 1),
-        (9, 'Underwear', 1),
-        (10, 'Totebag', 2),
-        (11, 'Beanie', 2),
-        (12, 'Phone Case', 2),
+        (9, 'Underwears', 1),
+        (10, 'Totebags', 2),
+        (11, 'Beanies', 2),
+        (12, 'Phone Cases', 2),
         (13, 'Socks', 2),
-        (14, 'Gourd', 2),
+        (14, 'Gourds', 2),
         (15, 'Books', 4),
-        (16, 'Scarfs', 2)");
+        (16, 'Scarves', 2),
+        (17, 'Collection', 0),
+        (18, 'Full Stack', 17),
+        ");
         $this->addSql("INSERT INTO `price` (`id`, `price_df`) VALUES
         (1, 19.99),
         (2, 19.99),
@@ -100,7 +103,7 @@ final class Version20200228103523 extends AbstractMigration
         (20, 20, 'https://ibb.co/m512Hfg')");
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
