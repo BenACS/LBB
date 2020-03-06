@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use App\Repository\CategoryRepository;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
@@ -154,10 +155,12 @@ class Category
         return $this;
     }
 
-    public function getMainCatName():string 
+    public function getMainCatName(): string
     {
         return $this->catRepo->find($this->parentId)->getCategoryName();
     }
-
-    
+    public function __toString()
+    {
+        return $this->categoryName;
+    }
 }
