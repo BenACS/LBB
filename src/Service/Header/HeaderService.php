@@ -12,10 +12,17 @@ class HeaderService {
         $this->categoryRepo = $categoryRepo;
     }
 
-    public function createHeader() : array {
-        $categories = $this->categoryRepo->findAll();
-        return $categories;
+    public function getCategories() : array {
+
+        return $this->categoryRepo->findAll();
     }
 
+    public function getMainCatName(int $parentId):string {
+        if ($parentId == 0) {
+            return "";
+        }
+
+        return $this->categoryRepo->find($parentId)->getCategoryName();
+    }
     
 }

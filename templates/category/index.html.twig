@@ -13,22 +13,22 @@
             {% set categoryFromUrl = app.request.get('category') %}
             {% set i = 0 %}
 
-            {% for category in categories %}
+            {% for category in header.categories %}
                 {% if category.categoryName == categoryFromUrl %}
                 {% set categoryId = category.Id %}
 
-                    {% for i in range(0, categories|length - 1) %}
+                    {% for i in range(0, header.categories|length - 1) %}
 
-                        {% if categories[i].parentId == categoryId and categories[i].parentId != 0 %}
+                        {% if header.categories[i].parentId == categoryId and header.categories[i].parentId != 0 %}
 
                             <div class="d-flex flex-column col-3 p-0 mx-1 border">
                                 <div class="">
                                     <a href="#">
-                                        <img class="img-fluid w-100" src="{{ categories[i].image }}" alt="">
+                                        <img class="img-fluid w-100" src="{{ header.categories[i].image }}" alt="">
                                     </a>
                                 </div>
                                 <div class="text-center">
-                                    <p>{{ categories[i].categoryName }}</p>
+                                    <p>{{ header.categories[i].categoryName }}</p>
                                 </div>
                             </div>
 
@@ -37,7 +37,6 @@
 
                 {% endif %}
             {% endfor %}
-
         </div>
     </div>
 {% endblock %}
