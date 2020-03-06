@@ -12,11 +12,11 @@ class SubcategoriesController extends AbstractController
     /**
      * @Route("/{category}/{subcategories}", name="subcategories")
      */
-    public function index(HeaderService $cat)
+    public function index(HeaderService $header)
     {
         return $this->render('subcategories/index.html.twig', [
             'controller_name' => 'SubcategoriesController',
-            'categories' => $cat->createHeader()
+            'header' => $header
         ]);
     }
 }

@@ -12,11 +12,11 @@ class AuthentificationController extends AbstractController
     /**
      * @Route("/authentification", name="authentification")
      */
-    public function index(HeaderService $cat)
+    public function index(HeaderService $header)
     {
         return $this->render('authentification/index.html.twig', [
             'controller_name' => 'AuthentificationController',
-            'categories' => $cat->createHeader()
+            'header' => $header
         ]);
     }
 }

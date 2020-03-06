@@ -9,7 +9,7 @@ use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\ArticleImages;
 use App\Entity\Article;
-
+use App\Repository\CategoryRepository;
 use App\Service\Header\HeaderService;
 
 class HomeController extends AbstractController
@@ -17,13 +17,13 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(HeaderService $cat)
+    public function index(HeaderService $header,CategoryRepository $catRepo)
     {
 
     	$em = $this->getDoctrine()->getManager();
 
     	$products = $em->getRepository(Product::class)->findAll();
-		$article = $em->getRepository(Article::class)->findAll();
+		$articles = $em->getRepository(Article::class)->findAll();
     	$articleImages = $em->getRepository(ArticleImages::class)->findAll();
         $latestProducts = $em->getRepository(Product::class)->findLatestsProducts(array('id'));
 
@@ -39,11 +39,11 @@ class HomeController extends AbstractController
         // $latestImages = array_reverse($images);
 
         return $this->render('home/index.html.twig', [
-            'categories' => $cat->createHeader(),
+            'header' => $header,
             'products' => $products,
             'articleImages' => $images,
             'latestProducts' => $latestProducts,
-            'latestImages' => $latestImages
+            'latestImages' => $latestImages,
         ]);
     }
 }
