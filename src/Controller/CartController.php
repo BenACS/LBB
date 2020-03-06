@@ -17,11 +17,11 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="cart")
      */
-    public function index(HeaderService $cat)
+    public function index(HeaderService $header)
     {
         return $this->render('cart/index.html.twig', [
             'controller_name' => 'CartController',
-            'categories' => $cat->createHeader()
+            'header' => $header
         ]);
     }
 
