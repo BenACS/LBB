@@ -1,7 +1,7 @@
-let deleteButtons = document.getElementsByClassName("js-btn-delete");
-let quantitySelectors = document.getElementsByClassName('js-quantity-selector');
+let deleteButtons = document.querySelectorAll(".js-btn-delete");
+let quantitySelectors = document.querySelectorAll('.js-quantity-selector');
 
-let itemsBox = document.getElementsByClassName('item-box');
+let itemsBox = document.querySelectorAll('.item-box');
 
 function getCartValue() {
     let totalValue = 0;
@@ -12,7 +12,8 @@ function getCartValue() {
     }
 
     js_totalPriceDF.innerText = totalValue.toFixed(2);
-    js_totalPriceVAT.innerText = totalValue.toFixed(2) - parseFloat(js_discount.innerText);
+    let totalValueFinal = totalValue - parseFloat(js_discount.innerText);
+    js_totalPriceVAT.innerText = totalValueFinal.toFixed(2);
 }
 getCartValue();
 
