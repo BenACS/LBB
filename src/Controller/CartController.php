@@ -20,16 +20,20 @@ class CartController extends AbstractController
      */
     public function index(HeaderService $header, SessionInterface $session, ArticleRepository $articleRepository)
     {
-        foreach ($session->get('cart') as $itemId => $quantity) {
-            $cart[] = [
-                'article' => $articleRepository->find($itemId),
-                'quantity' => $quantity
-            ];
+        if ($session->get('cart')) {
+            foreach ($session->get('cart') as $itemId => $quantity) {
+                $cart[] = [
+                    'article' => $articleRepository->find($itemId),
+                    'quantity' => $quantity
+                ];
+            }
         }
+        
+        
 
         return $this->render('cart/index.html.twig', [
             'header' => $header,
-            'itemsInCart' => count($session->get('cart')),
+            'itemsInCart' => count($cart ?? []),
             'cart' => $cart ?? []
         ]);
     }

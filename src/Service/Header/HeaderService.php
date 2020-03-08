@@ -30,6 +30,6 @@ class HeaderService {
     
     public function getCartInt():int {
 
-        return count($this->session->get('cart')) ?? 0;
+        return count($this->session->get('cart') ?? []);
     }
 }
