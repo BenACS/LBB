@@ -35,6 +35,10 @@ class HeaderService
         return $this->categoryRepo->find($parentId)->getCategoryName();
     }
 
+    public function getCatId($name): int {
+        return $this->categoryRepo->findOneBy(['categoryName'=>$name])->getId();
+    }
+
     public function getCartInt(): int
     {
 
@@ -48,5 +52,18 @@ class HeaderService
         }
 
         return implode(",", $tagName);
+    }
+    public function getTagNamesArray(): array
+    {
+        foreach ($this->tagRepo->findAll() as $tags) {
+            $tagName[] = $tags->getTagName();
+        }
+
+        return $tagName;
+    }
+
+    public function getTagCategory(int $id)
+    {
+        return $this->tagRepo->find($id)->getCategory();
     }
 }

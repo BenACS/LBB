@@ -10,33 +10,33 @@
 
         <div class="container col-lg-9 d-flex flex-row flex-wrap justify-content-around align-items-center">
 
+
             {% set categoryFromUrl = app.request.get('category') %}
-            {% set i = 0 %}
 
             {% for category in header.categories %}
+                {# get the mainCatId#}
                 {% if category.categoryName == categoryFromUrl %}
-                {% set categoryId = category.Id %}
-
-                    {% for i in range(0, header.categories|length - 1) %}
-
-                        {% if header.categories[i].parentId == categoryId and header.categories[i].parentId != 0 %}
-
+                    {% set mainCatId = category.Id %}
+                    
+                    {% for category in header.categories %}
+                        {# check if category is subcat of main #}
+                        {% if category.parentId == mainCatId and category.parentId != 0 %}
                             <div class="d-flex flex-column col-3 p-0 mx-1 border">
                                 <div class="">
-                                    <a href="#">
-                                        <img class="img-fluid w-100" src="{{ header.categories[i].image }}" alt="">
+                                    <a href="{{path('subcategories',{category:categoryFromUrl,subcategories:category.categoryName})}}">
+                                        <img class="img-fluid w-100" src="{{ category.image }}" alt="">
                                     </a>
                                 </div>
                                 <div class="text-center">
-                                    <p>{{ header.categories[i].categoryName }}</p>
+                                    <p>{{ category.categoryName }}</p>
                                 </div>
                             </div>
-
                         {% endif %}
                     {% endfor %}
-
                 {% endif %}
             {% endfor %}
+            
+            
         </div>
     </div>
 {% endblock %}

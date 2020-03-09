@@ -5,12 +5,10 @@ use App\Entity\Category;
 
 class SearchData
 {
-
-
 	/**
-	 * @var string
+	 * @var integer
 	 */
-	public $q = '';
+	public $page = 1;
 
 	/**
 	 * @var Category[]

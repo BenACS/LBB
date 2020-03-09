@@ -35,6 +35,9 @@ class PriceRepository extends ServiceEntityRepository
         ;
     }
     */
+     public function findIntoRange($min = null, $max = null) {
+
+     }
 
     /*
     public function findOneBySomeField($value): ?Price

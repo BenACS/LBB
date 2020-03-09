@@ -7,8 +7,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use App\Data\SearchData;
-
+use App\Entity\Category;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class SearchForm extends AbstractType
 {
@@ -17,20 +21,19 @@ class SearchForm extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('q', TextType::class, [
-				'label' => false,
-				'required' => false,
-				'attr' => [
-					'placeholder' => 'Search'
-				]
-			])
-
 			->add('categories', EntityType::class, [
 				'label' => false,
 				'required' => false,
 				'class' => Category::class,
+				'query_builder'=> function (EntityRepository $er) use($options) {
+					return $er->createQueryBuilder('c')
+						->select('c')
+						->andWhere('c.parentId = :catId')
+						->setParameter('catId', $options['catId'])
+						;
+				},
 				'expanded' => true,
-				'mutiple' => true
+				'multiple' => true
 			])
 
 			->add('min', NumberType::class, [
@@ -45,21 +48,16 @@ class SearchForm extends AbstractType
 				'required' => false,
 				'attr' => [
 					'placeholder' => 'Max price']
-			])
-
-			>add('max', CheckboxType::class, [
-				'label' => 'Promo',
-				'required' => false,
-			])
-		;
+			]);
 	}
 
 	public function configureOptions(OptionsResolver $resolver)
 	{
 		$resolver->setDefaults([
 			'data_class' => SearchData::class,
-			'method' => 'GET',
-			'csrf_protection' => false
+			'method' => 'POST',
+			'csrf_protection' => false,
+			'catId'=>1
 		]);
 	}
 

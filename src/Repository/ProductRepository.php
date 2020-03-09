@@ -6,6 +6,12 @@ use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+
+use App\Data\SearchData;
+
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
  * @method Product|null findOneBy(array $criteria, array $orderBy = null)
@@ -43,42 +49,32 @@ class ProductRepository extends ServiceEntityRepository
         $query = $this
             ->createQueryBuilder('p')
             ->select('c', 'p')
-            ->join('p.categories', 'c');
-
-        if(!empty($search->q)){
-            $query = $query
-                ->andWhere('p.name LIKE :q')
-                ->setParameter('q', "%{$search->q}%");
-        }
+            ->join('p.category', 'c')
+            ;
 
         if(!empty($search->min)){
             $query = $query
                 ->andWhere('p.price >= :min')
-                ->setParameter('min', "%{$search->min}%");
+                ->setParameter('min', $search->min);
         }
 
         if(!empty($search->max)){
             $query = $query
-                ->andWhere('p.price >= :max')
-                ->setParameter('max', "%{$search->max}%");
-        }
-
-        if(!empty($search->promo)){
-            $query = $query
-                ->andWhere('p.promo = 1');
+                ->andWhere('p.price <= :max')
+                ->setParameter('max', $search->max);
         }
 
         if(!empty($search->categories)){
             $query = $query
-                ->andWhere('p.id IN (:categories)')
+                ->andWhere('c.id IN (:categories)')
                 ->setParameter('categories', $search->categories);
         }
 
         $query = $query->getQuery();
         return $this->paginator->paginate(
             $query,
-            1,
-            15
+            $search->page,
+            8
         );
     }
     

@@ -10,6 +10,8 @@ use App\Entity\Product;
 use App\Entity\ArticleImages;
 use App\Entity\Article;
 
+use Symfony\Component\HttpFoundation\Request;
+
 use App\Repository\CategoryRepository;
 use App\Service\Header\HeaderService;
 use App\Service\Header\TagService;
@@ -46,6 +48,44 @@ class HomeController extends AbstractController
             'articleImages' => $images,
             'latestProducts' => $latestProducts,
             'latestImages' => $latestImages
+        ]);
+    }
+
+    /**
+     * @Route("/searchTag/tag/tag", name="searchTag")
+     * 
+     */
+    public function searchTag(HeaderService $header, Request $request)
+    {
+        foreach ($header->getTagNamesArray() as $id => $name) {
+            if ($request->request->get('tag') == $name) {
+                $tagId = $id + 1;
+                $subCatName = $header->getTagCategory($tagId)->getCategoryName();
+                $subParentId = $header->getTagCategory($tagId)->getParentId();
+                $catName = $header->getMainCatName($subParentId);
+            }
+        }
+        if (!isset($tagId)) {
+            return $this->redirectToRoute('error');
+        }
+
+        return $this->redirectToRoute(
+            'subcategories',
+            [
+                'category' => $catName,
+                'subcategories' => $subCatName
+            ]
+        );
+    }
+
+    /**
+     * 
+     * @Route("/errorPage/error", name="error")
+     */
+    public function errorPage(HeaderService $header)
+    {
+        return $this->render('errorPage/index.html.twig', [
+            'header' => $header
         ]);
     }
 }
