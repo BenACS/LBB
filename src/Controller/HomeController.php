@@ -45,7 +45,7 @@ class HomeController extends AbstractController
             'products' => $products,
             'articleImages' => $images,
             'latestProducts' => $latestProducts,
-            'latestImages' => $latestImages,
+            'latestImages' => $latestImages
         ]);
     }
 }
