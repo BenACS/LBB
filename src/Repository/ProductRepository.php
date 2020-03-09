@@ -60,13 +60,13 @@ class ProductRepository extends ServiceEntityRepository
         if(!empty($search->min)){
             $query = $query
                 ->andWhere('p.price >= :min')
-                ->setParameter('min', "%{$search->min}%");
+                ->setParameter('min', $search->min);
         }
 
         if(!empty($search->max)){
             $query = $query
-                ->andWhere('p.price >= :max')
-                ->setParameter('max', "%{$search->max}%");
+                ->andWhere('p.price <= :max')
+                ->setParameter('max', $search->max);
         }
 
         if(!empty($search->category)){
