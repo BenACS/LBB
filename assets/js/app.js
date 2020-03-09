@@ -164,5 +164,5 @@ function autocomplete(inp, arr) {
 
 let jsTagNames = document.querySelector('#js-tagNames');
 let jsonNames = jsTagNames.dataset.tagNames
-// console.log(jsonNames[0])
+console.log(jsonNames[18])
 // autocomplete(document.getElementById("searchTag"), jsonNames)

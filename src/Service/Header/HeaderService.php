@@ -11,12 +11,8 @@ class HeaderService
     protected $categoryRepo;
     protected $session;
 
-<<<<<<< HEAD
-    public function __construct(CategoryRepository $categoryRepo)
+    public function __construct(CategoryRepository $categoryRepo, SessionInterface $session)
     {
-=======
-    public function __construct(CategoryRepository $categoryRepo, SessionInterface $session) {
->>>>>>> 37dd191f89869d130ed6d712d338edddfda9b19a
         $this->categoryRepo = $categoryRepo;
         $this->session = $session;
     }
@@ -35,13 +31,10 @@ class HeaderService
 
         return $this->categoryRepo->find($parentId)->getCategoryName();
     }
-<<<<<<< HEAD
-}
-=======
-    
-    public function getCartInt():int {
+
+    public function getCartInt(): int
+    {
 
         return count($this->session->get('cart') ?? []);
     }
 }
->>>>>>> 37dd191f89869d130ed6d712d338edddfda9b19a
