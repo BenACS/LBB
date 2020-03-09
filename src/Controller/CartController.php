@@ -62,13 +62,20 @@ class CartController extends AbstractController
             $cart[$articleId] = $quantity;
         }
 
+        if ($cart[$articleId] > 5) {
+            $cart[$articleId] = 5;
+        }
+        // if ($quantity == 0) {
+        //     $quantity = 1;
+        // }
+
         $session->set('cart', $cart);
 
         return $this->json([
             'title' =>  $article->getArticleTitle(),
             'image' => $article->getProduct()->getAllUniqueImages()[0],
             'itemsInCart' => count($cart),
-            'quantity' => $quantity,
+            'quantity' => $quantity == 0 ? 1 : $quantity,
             'sessionCart' => $session
         ], 200);
     }

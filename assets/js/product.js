@@ -78,7 +78,7 @@ cart_form.onsubmit = function(e) {
     e.preventDefault();
     const params = new URLSearchParams();
         params.append('articleId',quantity_selector.dataset.articleId);
-        params.append('quantity',quantity_selector.value??1);
+        params.append('quantity',quantity_selector.value);
 
     const url = this.action;
     axios.post(url, params)
