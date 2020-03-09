@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use App\Data\SearchData;
 use App\Entity\Category;
-
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -21,18 +21,17 @@ class SearchForm extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('q', TextType::class, [
-				'label' => false,
-				'required' => false,
-				'attr' => [
-					'placeholder' => 'Search'
-				]
-			])
-
-			->add('category', EntityType::class, [
+			->add('categories', EntityType::class, [
 				'label' => false,
 				'required' => false,
 				'class' => Category::class,
+				'query_builder'=> function (EntityRepository $er) use($options) {
+					return $er->createQueryBuilder('c')
+						->select('c')
+						->andWhere('c.parentId = :catId')
+						->setParameter('catId', $options['catId'])
+						;
+				},
 				'expanded' => true,
 				'multiple' => true
 			])
@@ -56,8 +55,9 @@ class SearchForm extends AbstractType
 	{
 		$resolver->setDefaults([
 			'data_class' => SearchData::class,
-			'method' => 'GET',
-			'csrf_protection' => false
+			'method' => 'POST',
+			'csrf_protection' => false,
+			'catId'=>1
 		]);
 	}
 

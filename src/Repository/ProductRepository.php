@@ -49,13 +49,8 @@ class ProductRepository extends ServiceEntityRepository
         $query = $this
             ->createQueryBuilder('p')
             ->select('c', 'p')
-            ->join('p.category', 'c');
-
-        if(!empty($search->q)){
-            $query = $query
-                ->andWhere('p.categoryName LIKE :q')
-                ->setParameter('q', "%{$search->q}%");
-        }
+            ->join('p.category', 'c')
+            ;
 
         if(!empty($search->min)){
             $query = $query
@@ -69,17 +64,17 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('max', "%{$search->max}%");
         }
 
-        if(!empty($search->category)){
+        if(!empty($search->categories)){
             $query = $query
-                ->andWhere('c.id IN (:category)')
-                ->setParameter('category', $search->category);
+                ->andWhere('c.id IN (:categories)')
+                ->setParameter('categories', $search->categories);
         }
 
         $query = $query->getQuery();
         return $this->paginator->paginate(
             $query,
-            1,
-            15
+            $search->page,
+            8
         );
     }
     
