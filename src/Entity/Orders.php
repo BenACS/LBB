@@ -116,5 +116,4 @@ class Orders
 
         return $this;
     }
-
 }

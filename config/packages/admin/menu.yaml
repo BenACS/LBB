@@ -1,0 +1,27 @@
+easy_admin:
+  design:
+    menu:
+      - label: 'Categories'
+        icon : 'bars'
+        children: 
+        - {entity: 'Category', icon: 'boxes', label: 'Category'}
+        - {entity: 'Tag', icon: 'tags', label: 'Tag'}
+      - label: 'Products'
+        icon : 'boxes'
+        children:
+          - {entity: 'Price', icon: 'dollar-sign', label: 'Price'}
+          - {entity: 'Product', icon: 'box', label: 'Product'}
+          - {entity: 'Article', icon: 'box-open', label: 'Article'}
+          - {entity: 'ArticleImages', icon: 'images', label: 'ArticleImages'}
+      - label: 'Cart'
+        icon : 'shopping-cart'
+        children:
+          - {entity: 'Orders', icon: 'shopping-cart', label: 'Orders'}
+          - {entity: 'Cart', icon: 'shopping-cart', label: 'Cart'}      
+      - label: 'Users'
+        icon : 'user'
+        children:
+          - {entity: 'Account', icon: 'user', label: 'Account'}
+          - {entity: 'Adress', icon: 'map-marked-alt', label: 'Adress'}
+          - {entity: 'Review', icon: 'star', label: 'Review'}
+          

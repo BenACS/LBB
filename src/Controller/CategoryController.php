@@ -10,6 +10,7 @@ use App\Entity\Category;
 use App\Repository\CategoryRepository;
 
 use App\Service\Header\HeaderService;
+use App\Service\Header\TagService;
 
 class CategoryController extends AbstractController
 {
@@ -22,6 +23,5 @@ class CategoryController extends AbstractController
         return $this->render('category/index.html.twig', [
             'header' => $header
         ]);
-        
     }
 }

@@ -19,7 +19,7 @@ class Price
     private $id;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="string")
      */
     private $priceDf;
 
@@ -38,12 +38,12 @@ class Price
         return $this->id;
     }
 
-    public function getPriceDf(): ?float
+    public function getPriceDf(): ?string
     {
         return $this->priceDf;
     }
 
-    public function setPriceDf(float $priceDf): self
+    public function setPriceDf(string $priceDf): self
     {
         $this->priceDf = $priceDf;
 
@@ -79,5 +79,9 @@ class Price
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->priceDf;
     }
 }
