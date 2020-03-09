@@ -23,7 +23,10 @@ for (let i = 0; i < displayCat.length; i++) {
         for (let j = 0; j < displaySubCat.length; j++) {
             displaySubCat[j].classList.add('disNone');
         }
-        displaySubCat[i].classList.remove('disNone');
+        if (!(displaySubCat[i].classList.contains("exception"))) {
+            displaySubCat[i].classList.remove('disNone');
+        }
+
     }
     displaySubCat[i].onmouseover = function () {
         displaySubCat[i].classList.remove('disNone');
@@ -78,7 +81,7 @@ function autocomplete(inp, str) {
             // console.log(val.toUpperCase())
 
             /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length) == val) {
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
                 /*create a DIV element for each matching element:*/
 
                 b = document.createElement("DIV");
