@@ -55,9 +55,10 @@ function removeToastCart(toast) {
 }
 
 
-function autocomplete(inp, arr) {
+function autocomplete(inp, str) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
+    let arr = str.split(",")
     let currentFocus;
     /*execute a function when someone writes in the text field:*/
     inp.addEventListener("input", function (e) {
@@ -164,5 +165,6 @@ function autocomplete(inp, arr) {
 
 let jsTagNames = document.querySelector('#js-tagNames');
 let jsonNames = jsTagNames.dataset.tagNames
-console.log(jsonNames[18])
-// autocomplete(document.getElementById("searchTag"), jsonNames)
+
+console.log(jsonNames)
+autocomplete(document.getElementById("searchTag"), jsonNames)

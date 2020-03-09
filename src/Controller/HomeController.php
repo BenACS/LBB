@@ -19,7 +19,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(HeaderService $header, CategoryRepository $catRepo, TagService $tag)
+    public function index(HeaderService $header, CategoryRepository $catRepo)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -46,7 +46,6 @@ class HomeController extends AbstractController
             'articleImages' => $images,
             'latestProducts' => $latestProducts,
             'latestImages' => $latestImages,
-            'tags' => $tag->getTagNames()
         ]);
     }
 }

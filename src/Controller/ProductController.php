@@ -24,7 +24,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/{id}", name="product", requirements={"id"="\d+"})
      */
-    public function index(int $id = 0, Product $product = null, HeaderService $header, ArticleService $article, TagService $tag)
+    public function index(int $id = 0, Product $product = null, HeaderService $header, ArticleService $article)
     {
 
         if ($id == 0 || !isset($product)) {
@@ -37,8 +37,7 @@ class ProductController extends AbstractController
             'variations' => ['sizes' => $product->getAllSizes(), 'colors' => $product->getAllColors(), 'devices' => $product->getAllDevices()],
             'articleImages' => $product->getAllUniqueImages(),
             'header' => $header,
-            'article' => $product->getArticles()[0],
-            'tags' => $tag->getTagNames()
+            'article' => $product->getArticles()[0]
         ]);
     }
 
