@@ -87,6 +87,7 @@ img.thumbnail-images:hover,img.thumbnail-images.active {
         transform: scale(0);
     }
 }
+<<<<<<< HEAD
 .autocomplete-items {
     border: 1px solid #d4d4d4;
     border-bottom: none;
@@ -115,3 +116,8 @@ color:white;
 background-color: DodgerBlue !important; 
 color: #ffffff; 
 }
+=======
+
+/* =============================== CART PAGE STYLE =============================== */
+
+>>>>>>> 37dd191f89869d130ed6d712d338edddfda9b19a

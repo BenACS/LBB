@@ -78,17 +78,20 @@ cart_form.onsubmit = function(e) {
     e.preventDefault();
     const params = new URLSearchParams();
         params.append('articleId',quantity_selector.dataset.articleId);
-        params.append('quantity',quantity_selector.value?quantity_selector.value:1);
+        params.append('quantity',quantity_selector.value??1);
 
     const url = this.action;
     axios.post(url, params)
         .then(function(response) { 
             cart_badge.innerText = response.data.itemsInCart;
             addToastCart(response.data.image,response.data.title,response.data.quantity);
+            console.log(response.data);
         })
 }
 
-
+quantity_selector.onchange = function(e) {
+    js_price.innerText = (parseFloat(quantity_selector.dataset.unitPrice)*quantity_selector.value).toFixed(2);
+}
 window.onload = function() {
     checkArticle();
 }
