@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\ArticleRepository;
 
 use App\Service\Header\HeaderService;
+use App\Service\Header\TagService;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +18,12 @@ class CartController extends AbstractController
     /**
      * @Route("/cart", name="cart")
      */
-    public function index(HeaderService $header)
+    public function index(HeaderService $header, TagService $tag)
     {
         return $this->render('cart/index.html.twig', [
             'controller_name' => 'CartController',
-            'header' => $header
+            'header' => $header,
+            'tags' => $tag->getTagNames()
         ]);
     }
 
@@ -32,7 +34,8 @@ class CartController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function addToCart(Request $request, ArticleRepository $articleRepo) : Response {
+    public function addToCart(Request $request, ArticleRepository $articleRepo): Response
+    {
 
         $article = $articleRepo->find($request->request->get("articleId"));
 
@@ -41,6 +44,6 @@ class CartController extends AbstractController
             'image' => $article->getProduct()->getAllUniqueImages()[0],
             'quantity' => $request->request->get("quantity"),
             'itemsInCart' => 1
-            ],200);
+        ], 200);
     }
 }

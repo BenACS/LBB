@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Price;
 use App\Entity\Article;
 use App\Entity\Product;
+use App\Entity\Tag;
 use App\Entity\Category;
 use App\Entity\ArticleImages;
 
 use App\Service\Header\HeaderService;
+use App\Service\Header\TagService;
 use App\Service\Article\ArticleService;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +24,8 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/{id}", name="product", requirements={"id"="\d+"})
      */
-    public function index(int $id = 0, Product $product = null, HeaderService $header, ArticleService $article){
+    public function index(int $id = 0, Product $product = null, HeaderService $header, ArticleService $article, TagService $tag)
+    {
 
         if ($id == 0 || !isset($product)) {
             return $this->redirectToRoute("home");
@@ -34,7 +37,8 @@ class ProductController extends AbstractController
             'variations' => ['sizes' => $product->getAllSizes(), 'colors' => $product->getAllColors(), 'devices' => $product->getAllDevices()],
             'articleImages' => $product->getAllUniqueImages(),
             'header' => $header,
-            'article'=> $product->getArticles()[0],
+            'article' => $product->getArticles()[0],
+            'tags' => $tag->getTagNames()
         ]);
     }
 
@@ -46,14 +50,15 @@ class ProductController extends AbstractController
      * @param ArticleService $articleService
      * @return Response
      */
-    public function checkArticle(int $id, Request $request, ArticleService $articleService) : Response {
+    public function checkArticle(int $id, Request $request, ArticleService $articleService): Response
+    {
 
-        $article = $articleService->getArticleInfos($id,$request->request->all());
+        $article = $articleService->getArticleInfos($id, $request->request->all());
 
         return $this->json([
-            'articleId'=> $article->getId(),
+            'articleId' => $article->getId(),
             'stockMessage' => $article->getStockMessage(),
             'stock' => $article->getStock()
-            ],200);
+        ], 200);
     }
 }
