@@ -162,9 +162,10 @@ function autocomplete(inp, str) {
 
 }
 
+if (document.querySelector('#js-tagNames')) {
+    let jsTagNames = document.querySelector('#js-tagNames');
+    let jsonNames = jsTagNames.dataset.tagNames;
+    autocomplete(document.getElementById("searchTag"), jsonNames);
+}
 
-let jsTagNames = document.querySelector('#js-tagNames');
-let jsonNames = jsTagNames.dataset.tagNames
 
-console.log(jsonNames)
-autocomplete(document.getElementById("searchTag"), jsonNames)
