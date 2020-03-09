@@ -4,132 +4,31 @@
 
 {% block body %}
 
-    <div class="pt-3">
-        <div class="d-flex flex-row justify-content-center mt-5">
-            <button onclick="displaySignIn()">Sign In</button>
-            <button onclick="displaySignUp()">Sign up</button>
-        </div>
+    <h2>Sign In</h1>
 
-            <div id="signIn">
-                <div class="container-fluid d-flex flex-row offset-lg-2 col-lg-8">
-                    <div class="container col-lg-4 d-flex flex-column mt-4">
-                        <h3 class="mx-auto mt-3 mb-5">Sign in</h3>
-                            <form>
-                                <div class="form-row align-items-center">
-                                    <div class="col-auto w-100">
-                                        <label class="sr-only" for="inlineFormInput">Email</label>
-                                            <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="fas fa-envelope"></i></div>
-                                        </div>
-                                            <input type="text" class="form-control" id="inlineFormInput" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-auto w-100">
-                                        <label class="sr-only" for="inlineFormInputGroup">Password</label>
-                                            <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                            <div class="input-group-text"><i class="fas fa-asterisk"></i></div>
-                                        </div>
-                                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <div class="col-auto mx-auto">
-                                    <div class="form-check mb-2">
-                                        <input class="form-check-input" type="checkbox" id="autoSizingCheck">
-                                        <label class="form-check-label" for="autoSizingCheck">Remember me</label>
-                                    </div>
-                                    </div>
-                                </div>
-                            </form>
-                            <a href="" class=" mx-auto">Forgot your password ?</a>
-                        <div class="col-auto mt-2 mx-auto"><button type="submit" class="btn btn-primary mb-2">Login</button></div>
-                        <div class="g-signin2 mx-auto mt-5" data-onsuccess="onSignIn"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="signUp" class="disNone">
-                <div class="container col-lg-4 d-flex flex-column justify-content-center mt-4 d-none">
-                    <h3 class="mx-auto mt-3 mb-5">Sign Up</h3>
-                        <form>
-                            <div class="form-row align-items-center">
-                                <div class="col-auto w-100">
-                                    <label class="sr-only" for="inlineFormInput">Email</label>
-                                        <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fas fa-envelope"></i></div>
-                                    </div>
-                                        <input type="text" class="form-control" id="inlineFormInput" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-auto w-100">
-                                    <label class="sr-only" for="inlineFormInputGroup">Password</label>
-                                        <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fas fa-asterisk"></i></div>
-                                    </div>
-                                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Password">
-                                    </div>
-                                </div>
-                                <div class="col-auto w-100">
-                                <label class="sr-only" for="inlineFormInputGroup">Confirm password</label>
-                                        <div class="input-group mb-2">
-                                        <div class="input-group-prepend">
-                                        <div class="input-group-text"><i class="fas fa-asterisk"></i></div>
-                                    </div>
-                                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Confirm password">
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="form-check mb-2 ">
-                                        <i class="far fa-square"></i>
-                                        <label class="form-check-label" for="autoSizingCheck">8 characters minimum</label>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="form-check mb-2">
-                                    <i class="far fa-square"></i>
-                                        <label class="form-check-label" for="autoSizingCheck">1 Special chararacter minimum</label>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="form-check mb-2">
-                                    <i class="far fa-square"></i>
-                                        <label class="form-check-label" for="autoSizingCheck">1 Capital character minimum</label>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="form-check mb-2">
-                                    <i class="far fa-square"></i>
-                                        <label class="form-check-label" for="autoSizingCheck">1 Number minimum</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    <div class="mt-2 mx-auto"><button type="submit" class="btn btn-primary mb-2">Sign Up</button></div>
-                <span class="text-center">By creating an account, you agree to our <a href="">Conditions of Use</a> and <a href="">Privacy Notice</a></span>
-            </div>
-        </div>
-    </div>
-    {% block javascripts %}
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-    <script type="text/javascript"> 
+    {{ form_start(form)}}
+        {{ form_start(form2)}}
     
-    function displaySignUp() {
-        signIn.classList.remove('disBlock');
-        signIn.classList.add('disNone');
-        signUp.classList.remove('disNone');
-        signUp.classList.add('disBlock');
+            {{ form_row(form.email, { 'label':'Email','attr': {'placeholder': 'your email ...'}})}}
+            {{ form_row(form.password , { 'label':'Password','attr': {'placeholder': 'your password ...'}})}}
+            <button type="submit" class="btn btn-success">sign In</button>
+            {# <div class="d-none"> #}
+            {{ form_row(form.firstname, { 'label':'First Name','attr': {'placeholder': 'your first name ...'}})}}
+            {{ form_row(form.lastname , { 'label':'Last name','attr': {'placeholder': 'your last name ...'}})}}
+            {{ form_row(form.birthdate, { 'label':'Birthdate'})}}
+            {{ form_row(form.accountType , { 'label':'Company or individual'})}}
+            {{ form_row(form2.country , { 'label':'Country'})}}
+            {{ form_row(form2.city , { 'label':'City'})}}
+            {{ form_row(form2.zip , { 'label':'Postal Code'})}}
+            {{ form_row(form2.address , { 'label':'Adress'})}}
+            {{ form_row(form.newsletter , { 'label':'Newsletter'})}}
 
-    }
-    function displaySignIn() {
-        signIn.classList.remove('disNone');
-        signIn.classList.add('disBlock');
-        signUp.classList.remove('disBlock');
-        signUp.classList.add('disNone');
-    }
-    </script>
+         {{ form_end(form2)}}
+    {{ form_end(form)}}
+
+   
+    {# </div> #}
+
+    {% block javascripts %}
     {% endblock %}
 {% endblock %}

@@ -88,6 +88,7 @@ img.thumbnail-images:hover,img.thumbnail-images.active {
     }
 }
 .autocomplete-items {
+    position: absolute;
     border: 1px solid #d4d4d4;
     border-bottom: none;
     border-top: none;
@@ -98,22 +99,22 @@ img.thumbnail-images:hover,img.thumbnail-images.active {
 }
   
 .autocomplete-items div {
-padding: 10px;
-cursor: pointer;
-background-color: #fff; 
-border-bottom: 1px solid #d4d4d4; 
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff; 
+    border-bottom: 1px solid #d4d4d4; 
 }
 
 /*when hovering an item:*/
 .autocomplete-items div:hover {
-background-color: #009EE2; 
-color:white;
+    background-color: #009EE2; 
+    color:white;
 }
 
 /*when navigating through the items using the arrow keys:*/
 .autocomplete-active {
-background-color: DodgerBlue !important; 
-color: #ffffff; 
+    background-color: DodgerBlue !important; 
+    color: #ffffff; 
 }
 
 /* =============================== FILTER STYLE =============================== */
