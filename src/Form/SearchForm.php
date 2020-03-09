@@ -23,7 +23,35 @@ class SearchForm extends AbstractType
 				'attr' => [
 					'placeholder' => 'Search'
 				]
-			]);
+			])
+
+			->add('categories', EntityType::class, [
+				'label' => false,
+				'required' => false,
+				'class' => Category::class,
+				'expanded' => true,
+				'mutiple' => true
+			])
+
+			->add('min', NumberType::class, [
+				'label' => false,
+				'required' => false,
+				'attr' => [
+					'placeholder' => 'Min price']
+			])
+
+			->add('max', NumberType::class, [
+				'label' => false,
+				'required' => false,
+				'attr' => [
+					'placeholder' => 'Max price']
+			])
+
+			>add('max', CheckboxType::class, [
+				'label' => 'Promo',
+				'required' => false,
+			])
+		;
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

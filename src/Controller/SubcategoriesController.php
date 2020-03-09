@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\ProductRepository;
 use App\Entity\Product;
@@ -20,11 +21,12 @@ class SubcategoriesController extends AbstractController
     /**
      * @Route("/{category}/{subcategories}", name="subcategories")
      */
-    public function index(ProductRepository $productRepo, HeaderService $header)
+    public function index(ProductRepository $productRepo, HeaderService $header, Request $request)
     {   
         $em = $this->getDoctrine()->getManager();
 
-        $products = $em->getRepository(Product::class)->findAll();
+        $products = $productRepo->findSearch();
+        
         $articles = $em->getRepository(Article::class)->findAll();
         $articleImages = $em->getRepository(ArticleImages::class)->findAll();
 
@@ -32,8 +34,10 @@ class SubcategoriesController extends AbstractController
             $images[] = $product->getAllUniqueImages()[0];
         }
 
+        // Filter form-related
         $data = new SearchData();
         $form = $this->createForm(SearchForm::class, $data);
+        $form->handleRequest($request);
 
         return $this->render('subcategories/index.html.twig', [
             'header' => $header,

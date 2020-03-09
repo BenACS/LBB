@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Data;
+use App\Entity\Category;
 
 class SearchData
 {
@@ -25,5 +26,10 @@ class SearchData
 	 * @var null|integer
 	 */
 	public $min;
+
+	/**
+	 * @var boolean
+	 */
+	public $promo = false;
 	
 }
