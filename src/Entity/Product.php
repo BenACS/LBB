@@ -223,10 +223,11 @@ class Product
         return $this;
     }
 
-    public function getAllUniqueImages():array {
+    public function getAllUniqueImages(): array
+    {
         foreach ($this->getArticles() as $article) {
-            foreach($article->getArticleImages() as $image) {
-                if (!isset($images) || !in_array($image->getURL(),$images)) {
+            foreach ($article->getArticleImages() as $image) {
+                if (!isset($images) || !in_array($image->getURL(), $images)) {
                     $images[] = $image->getUrl();
                 }
             }
@@ -234,9 +235,10 @@ class Product
         return $images;
     }
 
-    public function getAllSizes() {
+    public function getAllSizes()
+    {
         foreach ($this->getArticles() as $article) {
-            if ($article->getSize() !== null && (!isset($sizes) || (!in_array($article->getSize(),$sizes)))) {
+            if ($article->getSize() !== null && (!isset($sizes) || (!in_array($article->getSize(), $sizes)))) {
                 $sizes[] = $article->getSize();
             } elseif ($article->getSize() === null) {
                 $sizes = null;
@@ -245,9 +247,10 @@ class Product
         return $sizes;
     }
 
-    public function getAllColors() {
+    public function getAllColors()
+    {
         foreach ($this->getArticles() as $article) {
-            if ($article->getColor() !== null && (!isset($colors) || (!in_array($article->getColor(),$colors)))) {
+            if ($article->getColor() !== null && (!isset($colors) || (!in_array($article->getColor(), $colors)))) {
                 $colors[] = $article->getColor();
             } elseif ($article->getColor() === null) {
                 $colors = null;
@@ -256,9 +259,10 @@ class Product
         return $colors;
     }
 
-    public function getAllDevices() {
+    public function getAllDevices()
+    {
         foreach ($this->getArticles() as $article) {
-            if ($article->getDevice() !== null && (!isset($devices) || (!in_array($article->getDevice(),$devices)))) {
+            if ($article->getDevice() !== null && (!isset($devices) || (!in_array($article->getDevice(), $devices)))) {
                 $devices[] = $article->getDevice();
             } elseif ($article->getDevice() === null) {
                 $devices = null;
@@ -266,5 +270,9 @@ class Product
         }
         return $devices;
     }
-    
+    public function __toString()
+    {
+        return $this->title;
+        return $this->price;
+    }
 }

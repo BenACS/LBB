@@ -1,0 +1,8 @@
+easy_admin:
+  entities:
+    Adress:
+      class:  App\Entity\Adress
+      list:
+        actions:
+          - {name: 'edit', icon: 'edit', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Cart{% endblock %}</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+        <meta name="google-signin-client_id" content="592932938646-v8c874ffig14j97e8ukktsvfmqradul6.apps.googleusercontent.com">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <style>
+            .bs-example{
+                margin: 20px;        
+            }
+            /* Style to change separator  */
+            .breadcrumb-item + .breadcrumb-item::before {
+                content: '────';
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav class="row bg-light justify-content-start align-items-center">
+                <div class="col-lg-4 col-2">
+                    <a class="navbar-brand m-2" href="{{ path('home') }}"><img src="https://cdn.discordapp.com/attachments/682142335601344612/682865705917349908/Logo.png" alt="logo" width="40px"></a>
+                </div>
+                <ol class="col-lg-4 col-9 m-2 breadcrumb justify-content-lg-center justify-content-end bg-light">
+                  <li class="breadcrumb-item text-primary">Recap</li>
+                  <li class="breadcrumb-item">Delivery</li>
+                  <li class="breadcrumb-item">Payment</li>
+                </ol>
+              </nav>
+        </header>
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+        
+        {{ encore_entry_script_tags('app') }}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -68,16 +68,13 @@
 							</div>
 						{% endif %}
 					</form>
-					<p style="font-size:2em">
-						<b>{{price.priceDf}}
-							€</b>
-					</p>
+					<p style="font-size:2em"><b><span id="js_price">{{price.priceDf}}</span> €</b></p>
 				</div>
 				<div>
 					<p id="js_stock_message">{{ article.stockMessage | raw }}</p>
 					<br>
 					<form id="cart_form" action="{{path("cart_add")}}" method="POST">
-						<select id="quantity_selector" data-article-id="{{ article.id}}" data-stock="{{ article.stock}}"></select>
+						<select id="quantity_selector" data-article-id="{{ article.id}}" data-stock="{{ article.stock}}" data-unit-price = "{{price.priceDf}}"></select>
 						<button type="submit" class="btn btn-warning mx-2">Add to cart</button>
 					</form>
 				</div>

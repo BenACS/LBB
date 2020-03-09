@@ -168,11 +168,12 @@ class Article
         return $this;
     }
 
-    public function getStockMessage() : string {
+    public function getStockMessage(): string
+    {
         if ($this->getStock() > 5) {
             $msg = '<span class="text-success">In stock</span>';
-        } elseif ($this->getStock()> 0) {
-            $msg = '<span class="text-warning"> Only '. $this->getStock() . ' left</span>';
+        } elseif ($this->getStock() > 0) {
+            $msg = '<span class="text-warning"> Only ' . $this->getStock() . ' left</span>';
         } else {
             $msg = '<span class="text-danger">Not available</span>';
         }
@@ -180,7 +181,8 @@ class Article
         return $msg;
     }
 
-    public function getArticleTitle() : string {
+    public function getArticleTitle(): string
+    {
         $title = $this->getProduct()->getTitle();
 
         if ($this->getColor()) {
@@ -196,4 +198,8 @@ class Article
         return $title;
     }
 
+    public function __toString()
+    {
+        return $this->getArticleTitle();
+    }
 }

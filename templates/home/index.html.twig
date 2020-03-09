@@ -125,7 +125,7 @@
                                         <img src="{{ latestImages[i] }}" alt="Card image cap" width="100%">
                                         <h4 class="pb-1">{{ latestProducts[i].title }}</h4>
                                     </div>                               
-                                    <a class="btn buttonColor mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
+                                    <a class="btn buttonColor mt-2" href="{{ path('product', {id : latestProducts[i].id })}}">View</a>
                                 </div>
                             {% endfor %}
                         </div>
@@ -140,7 +140,7 @@
                                     <img src="{{ latestImages[i] }}" alt="Card image cap" width="100%">
                                     <h4 >{{ latestProducts[i].title }}</h4>
                                 </div>                               
-                                <a class="btn buttonColor mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
+                                <a class="btn buttonColor mt-2" href="{{ path('product', {id : latestProducts[i].id })}}">View</a>
                             </div>
                             {% endfor %}
                         </div>
@@ -155,7 +155,7 @@
                                     <img src="{{ latestImages[i] }}" alt="Card image cap" width="100%">
                                     <h4 >{{ latestProducts[i].title }}</h4>
                                 </div>                               
-                                <a class="btn buttonColor mt-2" href="{{ path('product', {id : products[i].id  })}}">View</a>
+                                <a class="btn buttonColor mt-2" href="{{ path('product', {id : latestProducts[i].id  })}}">View</a>
                             </div>
                             {% endfor %}
                         </div>
