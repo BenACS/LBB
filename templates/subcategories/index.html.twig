@@ -3,5 +3,52 @@
 {% block title %}Hello SubcategoriesController!{% endblock %}
 
 {% block body %}
+	<div class="container-fluid d-flex flex-row col-12">
+		<!-- Filters -->
+		<div class="container-fluid col-2 text-center">
+			<div>
+				<p>Filter</p>
+			</div>
+			<div>
+				{{ form_start(form) }}
+					{{ form_row(form.q) }}
 
+					<h4>Categories</h4>
+					{{ form_row(form.category) }}
+
+					<h4>Prices</h4>
+					<div class="row">
+						<div class="col-6">
+							{{ form_row(form.min) }}
+						</div>
+						<div class="col-6">
+							{{ form_row(form.max) }}
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-primary w-100">Filter</button>
+				{{ form_end(form) }}
+			</div>
+		</div>
+
+		<!-- Products -->
+		<div class="container col-8 d-flex flex-column">
+			<div class="container col-12 d-flex flex-row flex-wrap">
+				{% for i in range(0, products|length - 1) %}
+					<div class="col-4 text-center">                                 
+	                    <div class='text-center border p-2' style='height:85%'>
+	                        <img class="img-fluid" src="{{ articleImages[i] }}" alt="" width="100%">
+	                        <h4 class="pb-1">{{ products[i].title }}</h4>
+	                    </div>                               
+	                    <a class="btn buttonColor mt-2" href="">View</a>
+	                </div>
+				{% endfor %}
+			</div>
+
+			<!-- Pagination -->
+			<div>
+				{{ knp_pagination_render(products) }}
+			</div>
+		</div>
+	</div>
 {% endblock %}
