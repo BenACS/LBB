@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Service\Header\HeaderService;
+use App\Service\Header\TagService;
 
 class AuthentificationController extends AbstractController
 {

@@ -15,6 +15,7 @@ use App\Data\SearchData;
 use App\Form\SearchForm;
 
 use App\Service\Header\HeaderService;
+use App\Service\Header\TagService;
 
 class SubcategoriesController extends AbstractController
 {

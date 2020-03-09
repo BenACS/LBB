@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\ArticleRepository;
 
 use App\Service\Header\HeaderService;
+use App\Service\Header\TagService;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,8 +29,8 @@ class CartController extends AbstractController
                 ];
             }
         }
-        
-        
+
+
 
         return $this->render('cart/index.html.twig', [
             'header' => $header,
@@ -47,28 +48,29 @@ class CartController extends AbstractController
      * @param SessionInterface $session
      * @return Response
      */
-    public function addToCart(Request $request, ArticleRepository $articleRepo, SessionInterface $session) : Response {
+    public function addToCart(Request $request, ArticleRepository $articleRepo, SessionInterface $session): Response
+    {
 
         $articleId = $request->request->get('articleId');
         $quantity = (int) $request->request->get('quantity');
         $article = $articleRepo->find($articleId);
-        $cart = $session->get('cart',[]);
+        $cart = $session->get('cart', []);
 
         if (!empty($cart[$articleId])) {
             $cart[$articleId] += $quantity;
         } else {
             $cart[$articleId] = $quantity;
         }
-        
-        $session->set('cart',$cart);
+
+        $session->set('cart', $cart);
 
         return $this->json([
             'title' =>  $article->getArticleTitle(),
             'image' => $article->getProduct()->getAllUniqueImages()[0],
             'itemsInCart' => count($cart),
-            'quantity'=>$quantity,
+            'quantity' => $quantity,
             'sessionCart' => $session
-        ],200);
+        ], 200);
     }
 
     /**
@@ -79,20 +81,21 @@ class CartController extends AbstractController
      * @param SessionInterface $session
      * @return Response
      */
-    public function removeFromCart(Request $request, SessionInterface $session) : Response {
+    public function removeFromCart(Request $request, SessionInterface $session): Response
+    {
         $articleId = (int) $request->request->get('articleId');
-        $cart = $session->get('cart',[]);
+        $cart = $session->get('cart', []);
 
         if (!empty($cart[$articleId])) {
             unset($cart[$articleId]);
         }
-        
-        $session->set('cart',$cart);
-        
+
+        $session->set('cart', $cart);
+
         return $this->json([
-            'articleId'=> $articleId,
+            'articleId' => $articleId,
             'itemsInCart' => count($cart)
-        ],200);
+        ], 200);
     }
 
     /**
@@ -103,21 +106,22 @@ class CartController extends AbstractController
      * @param SessionInterface $session
      * @return Response
      */
-    public function modifyArticleQuantity(Request $request, SessionInterface $session):Response {
+    public function modifyArticleQuantity(Request $request, SessionInterface $session): Response
+    {
         $articleId = (int) $request->request->get('articleId');
         $quantity = (int) $request->request->get('quantity');
-        $cart = $session->get('cart',[]);
+        $cart = $session->get('cart', []);
 
         if (!empty($cart[$articleId])) {
             $cart[$articleId] = $quantity;
         }
-        
-        $session->set('cart',$cart);
-        
+
+        $session->set('cart', $cart);
+
         return $this->json([
-            'articleId'=> $articleId,
+            'articleId' => $articleId,
             'quantity' => $quantity
-        ],200);
+        ], 200);
     }
 
     /**
@@ -128,11 +132,12 @@ class CartController extends AbstractController
      * @param SessionInterface $session
      * @return Response
      */
-    public function giveMeCart(Request $request, SessionInterface $session):Response {
+    public function giveMeCart(Request $request, SessionInterface $session): Response
+    {
         $cart = $session->get('cart');
 
         return $this->json([
             'cart' => $cart
-        ],200);
+        ], 200);
     }
 }
