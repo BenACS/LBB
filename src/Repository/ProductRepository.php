@@ -6,6 +6,12 @@ use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+
+use App\Data\SearchData;
+
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
  * @method Product|null findOneBy(array $criteria, array $orderBy = null)
@@ -43,11 +49,11 @@ class ProductRepository extends ServiceEntityRepository
         $query = $this
             ->createQueryBuilder('p')
             ->select('c', 'p')
-            ->join('p.categories', 'c');
+            ->join('p.category', 'c');
 
         if(!empty($search->q)){
             $query = $query
-                ->andWhere('p.name LIKE :q')
+                ->andWhere('p.categoryName LIKE :q')
                 ->setParameter('q', "%{$search->q}%");
         }
 
@@ -63,15 +69,10 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('max', "%{$search->max}%");
         }
 
-        if(!empty($search->promo)){
+        if(!empty($search->category)){
             $query = $query
-                ->andWhere('p.promo = 1');
-        }
-
-        if(!empty($search->categories)){
-            $query = $query
-                ->andWhere('p.id IN (:categories)')
-                ->setParameter('categories', $search->categories);
+                ->andWhere('c.id IN (:category)')
+                ->setParameter('category', $search->category);
         }
 
         $query = $query->getQuery();

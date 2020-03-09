@@ -7,8 +7,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use App\Data\SearchData;
+use App\Entity\Category;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class SearchForm extends AbstractType
 {
@@ -25,12 +29,12 @@ class SearchForm extends AbstractType
 				]
 			])
 
-			->add('categories', EntityType::class, [
+			->add('category', EntityType::class, [
 				'label' => false,
 				'required' => false,
 				'class' => Category::class,
 				'expanded' => true,
-				'mutiple' => true
+				'multiple' => true
 			])
 
 			->add('min', NumberType::class, [
@@ -45,13 +49,7 @@ class SearchForm extends AbstractType
 				'required' => false,
 				'attr' => [
 					'placeholder' => 'Max price']
-			])
-
-			>add('max', CheckboxType::class, [
-				'label' => 'Promo',
-				'required' => false,
-			])
-		;
+			]);
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

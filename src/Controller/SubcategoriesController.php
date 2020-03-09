@@ -14,6 +14,8 @@ use App\Entity\ArticleImages;
 use App\Data\SearchData;
 use App\Form\SearchForm;
 
+use App\Entity\Category;
+
 use App\Service\Header\HeaderService;
 use App\Service\Header\TagService;
 
@@ -26,7 +28,8 @@ class SubcategoriesController extends AbstractController
     {   
         $em = $this->getDoctrine()->getManager();
 
-        $products = $productRepo->findSearch();
+        $data = new SearchData(); // Filter form-related
+        $products = $productRepo->findSearch($data);
         
         $articles = $em->getRepository(Article::class)->findAll();
         $articleImages = $em->getRepository(ArticleImages::class)->findAll();
@@ -36,7 +39,6 @@ class SubcategoriesController extends AbstractController
         }
 
         // Filter form-related
-        $data = new SearchData();
         $form = $this->createForm(SearchForm::class, $data);
         $form->handleRequest($request);
 
@@ -54,7 +56,7 @@ class SubcategoriesController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 
-        $products = $productRepo->findSearch();
+        $products = $productRepo->findSearch($data);
 
         $articles = $em->getRepository(Article::class)->findAll();
         $articleImages = $em->getRepository(ArticleImages::class)->findAll();
