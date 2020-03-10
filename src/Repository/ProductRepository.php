@@ -67,7 +67,7 @@ class ProductRepository extends ServiceEntityRepository
             8
         );
     }
-    
+
     /**
      * Get min and max prices related to a search
      * @param SearchData $search
@@ -92,7 +92,7 @@ class ProductRepository extends ServiceEntityRepository
             ->leftjoin('p.price','price')
             ;
 
-        if(!empty($search->min)){
+        if(!empty($search->min && $ignorePrice = false)){
             $query = $query
                 ->andWhere('price.priceDf >= :min')
                 ->setParameter('min', $search->min);

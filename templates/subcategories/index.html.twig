@@ -27,8 +27,8 @@
 								{{ form_row(form.max) }}
 							</div>
 						</div>
-						<div class="my-2" id="price_slider" data-min="{{ min }}" data-max="{{ max }}"></div>
 
+						<div class="my-2" id="price_slider" data-min="{{ min }}" data-max="{{ max }}"></div>
 						<button type="submit" class="btn btn-primary w-100 m-2">Filter</button>
 					{{ form_end(form) }}
 				</div>
@@ -39,6 +39,7 @@
 				<div class="d-flex justify-content-end mb-2"> 
 					{{knp_pagination_sortable(products,'Price ','price.priceDf')}}
 				</div>
+
 				<div class="row justify-content-start">
 					{% for product in products %}
 						<div class="col-3 text-center">                                 
@@ -63,7 +64,6 @@
 		</div>
 	</div>
 {% endblock %}
-
 {% block javascripts %}
 	{{ encore_entry_script_tags('filters') | replace({'src=':'defer src='}) | raw }}
 {% endblock %}

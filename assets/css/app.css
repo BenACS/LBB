@@ -118,7 +118,11 @@ img.thumbnail-images:hover,img.thumbnail-images.active {
 }
 
 /* =============================== FILTER STYLE =============================== */
+
 .filter {
     display:block;
     position:sticky;
 }
+
+/* =============================== UISLIDER STYLE =============================== */
+
