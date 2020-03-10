@@ -16,8 +16,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class SearchForm extends AbstractType
 {
-
-
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder

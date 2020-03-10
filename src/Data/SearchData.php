@@ -29,5 +29,9 @@ class SearchData
 	 * @var boolean
 	 */
 	public $promo = false;
+
+	public function __construct(Category $category = null) {
+		$this->categories = [$category];
+	}
 	
 }
