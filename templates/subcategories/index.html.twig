@@ -39,7 +39,7 @@
 								<small class="pb-1"><b>{{ product.title }}</b></small>
 								<div class="text-primary">{{ product.price.priceDf}} €</div>
 							</div>                               
-							<a class="btn buttonColor my-2 mb-4" href="">View</a>
+							<a class="btn buttonColor my-2 mb-4" href="{{path('product',{id:product.id})}}">View</a>
 						</div>
 					{% endfor %}
 				</div>
