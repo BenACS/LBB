@@ -62,20 +62,31 @@ class HomeController extends AbstractController
                 $tagId = $id + 1;
                 $subCatName = $header->getTagCategory($tagId)->getCategoryName();
                 $subParentId = $header->getTagCategory($tagId)->getParentId();
-                $catName = $header->getMainCatName($subParentId);
+                if ($subParentId != 0) {
+                    $catName = $header->getMainCatName($subParentId);
+                }
             }
         }
         if (!isset($tagId)) {
             return $this->redirectToRoute('error');
         }
 
-        return $this->redirectToRoute(
-            'subcategories',
-            [
-                'category' => $catName,
-                'subcategories' => $subCatName
-            ]
-        );
+        if (isset($catName)) {
+            return $this->redirectToRoute(
+                'subcategories',
+                [
+                    'category' => $catName,
+                    'subcategories' => $subCatName
+                ]
+            );
+        } else {
+            return $this->redirectToRoute(
+                'category',
+                [
+                    'category' => $subCatName
+                ]
+            );
+        }
     }
 
     /**
