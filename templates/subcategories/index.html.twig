@@ -1,12 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SubcategoriesController!{% endblock %}
+{% set subCatFromUrl = app.request.get('subcategories') %}
+
+{% block title %} {{subCatFromUrl}} {% endblock %}
+{% block stylesheets %}
+	{{ encore_entry_link_tags('filters') }}
+{% endblock %}
 
 {% block body %}
 	<div class="container-fluid">
 		<div class="row">
 			<!-- Filters -->
-			<div class=" col-2">
+			<div class="col-3 mx-1">
 				<div>
 					{{ form_start(form, {attr: {class: 'filter'}}) }}
 
@@ -23,25 +28,19 @@
 							</div>
 						</div>
 
-						<div id="priceslider" data-min="{{ min }}" data-max="{{ max }}" class="mb-3">
-
-						</div>
-
-						<button type="submit" class="btn btn-primary w-100">Filter</button>
+						<div class="my-2" id="price_slider" data-min="{{ min }}" data-max="{{ max }}"></div>
+						<button type="submit" class="btn btn-primary w-100 m-2">Filter</button>
 					{{ form_end(form) }}
 				</div>
 			</div>
 
 			<!-- Products -->
 			<div class="container col-8">
-				<!-- Sort by... -->
-				<div class="d-flex justify-content-end mb-2">
-					{{ knp_pagination_sortable(products, 'Price', 'p.price') }}
+				<div class="d-flex justify-content-end mb-2"> 
+					{{knp_pagination_sortable(products,'Price ','price.priceDf')}}
 				</div>
 
-				<!-- Shown products -->
 				<div class="row justify-content-start">
-
 					{% for product in products %}
 						<div class="col-3 text-center">                                 
 							<div class='text-center border p-2' style='height:85%'>
@@ -51,6 +50,9 @@
 							</div>                               
 							<a class="btn buttonColor my-2 mb-4" href="{{path('product',{id:product.id})}}">View</a>
 						</div>
+
+					{% else %}
+						<div>No product found</div>
 					{% endfor %}
 				</div>
 
@@ -63,5 +65,5 @@
 	</div>
 {% endblock %}
 {% block javascripts %}
-    {{ encore_entry_script_tags('app') | replace({'src=': 'defer src='}) | raw }}
+	{{ encore_entry_script_tags('filters') | replace({'src=':'defer src='}) | raw }}
 {% endblock %}
