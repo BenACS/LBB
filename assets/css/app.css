@@ -116,3 +116,9 @@ img.thumbnail-images:hover,img.thumbnail-images.active {
     background-color: DodgerBlue !important; 
     color: #ffffff; 
 }
+
+/* =============================== FILTER STYLE =============================== */
+.filter {
+    display:block;
+    position:sticky;
+}

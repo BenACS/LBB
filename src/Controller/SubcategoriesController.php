@@ -24,28 +24,22 @@ class SubcategoriesController extends AbstractController
     /**
      * @Route("/{category}/{subcategories}", name="subcategories")
      */
-    public function index(ProductRepository $productRepo, HeaderService $header, Request $request)
+    public function index(string $category, ProductRepository $productRepo, HeaderService $header, Request $request)
     {   
         $em = $this->getDoctrine()->getManager();
 
         $data = new SearchData(); // Filter form-related
-        $products = $productRepo->findSearch($data);
-        
-        $articles = $em->getRepository(Article::class)->findAll();
-        $articleImages = $em->getRepository(ArticleImages::class)->findAll();
-
-        foreach ( $products as $product) {
-            $images[] = $product->getAllUniqueImages()[0];
-        }
+        $data->page = $request->get('page',1);
 
         // Filter form-related
-        $form = $this->createForm(SearchForm::class, $data);
+        $form = $this->createForm(SearchForm::class, $data, $options = ['catId'=>$header->getCatId($category)]);
         $form->handleRequest($request);
+
+        $products = $productRepo->findSearch($data);
 
         return $this->render('subcategories/index.html.twig', [
             'header' => $header,
             'products' => $products,
-            'articleImages' => $images,
             'form' => $form->createView()
         ]);
     }
