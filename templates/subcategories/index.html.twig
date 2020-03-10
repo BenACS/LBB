@@ -23,6 +23,10 @@
 							</div>
 						</div>
 
+						<div id="priceslider" data-min="{{ min }}" data-max="{{ max }}" class="mb-3">
+
+						</div>
+
 						<button type="submit" class="btn btn-primary w-100">Filter</button>
 					{{ form_end(form) }}
 				</div>
@@ -30,6 +34,12 @@
 
 			<!-- Products -->
 			<div class="container col-8">
+				<!-- Sort by... -->
+				<div class="d-flex justify-content-end mb-2">
+					{{ knp_pagination_sortable(products, 'Price', 'p.price') }}
+				</div>
+
+				<!-- Shown products -->
 				<div class="row justify-content-start">
 
 					{% for product in products %}
@@ -51,4 +61,7 @@
 			</div>
 		</div>
 	</div>
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') | replace({'src=': 'defer src='}) | raw }}
 {% endblock %}

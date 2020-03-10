@@ -12,6 +12,8 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 
 use App\Data\SearchData;
 
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
  * @method Product|null findOneBy(array $criteria, array $orderBy = null)
@@ -46,19 +48,44 @@ class ProductRepository extends ServiceEntityRepository
      */
     public function findSearch(SearchData $search): PaginationInterface
     {
+        $query = $this->getSearchQuery($search)->getQuery();
+        return $this->paginator->paginate(
+            $query,
+            $search->page,
+            8
+        );
+    }
+
+    /**
+     *  Get minimum and maximum prices based on a search
+     * @param SearchData $search
+     * @return integer[]
+     */
+    public function findMinMax(SearchData $search): array
+    {
+        $results = $this->getSearchQuery($search, true)
+            ->select('MIN(p.price) as min', 'MAX(p.price) as max')
+            ->getQuery()
+            ->getScalarResult();
+
+        return [(int)$results[0]['min'], (int)$results[0]['max']];
+    }
+
+    private function getSearchQuery(SearchData $search, $ignorePrice = false): QueryBuilder
+    {
         $query = $this
             ->createQueryBuilder('p')
             ->select('c', 'p')
             ->join('p.category', 'c')
             ;
 
-        if(!empty($search->min)){
+        if(!empty($search->min && $ignorePrice = false)){
             $query = $query
                 ->andWhere('p.price >= :min')
                 ->setParameter('min', $search->min);
         }
 
-        if(!empty($search->max)){
+        if(!empty($search->max && $ignorePrice = false)){
             $query = $query
                 ->andWhere('p.price <= :max')
                 ->setParameter('max', $search->max);
@@ -70,12 +97,7 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('categories', $search->categories);
         }
 
-        $query = $query->getQuery();
-        return $this->paginator->paginate(
-            $query,
-            $search->page,
-            8
-        );
+        return $query;
     }
     
 

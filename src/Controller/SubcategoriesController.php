@@ -35,12 +35,17 @@ class SubcategoriesController extends AbstractController
         $form = $this->createForm(SearchForm::class, $data, $options = ['catId'=>$header->getCatByName($category)->getId()]);
         $form->handleRequest($request);
 
+        // Prices search-related
+        [$min, $max] = $productRepo->findMinMax($data);
+
         $products = $productRepo->findSearch($data);
 
         return $this->render('subcategories/index.html.twig', [
             'header' => $header,
             'products' => $products,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'min' => $min,
+            'max' => $max
         ]);
     }
 
