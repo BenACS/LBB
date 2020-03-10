@@ -67,7 +67,7 @@ class ProductRepository extends ServiceEntityRepository
             8
         );
     }
-    
+
     /**
      * Get min and max prices related to a search
      * @param SearchData $search
