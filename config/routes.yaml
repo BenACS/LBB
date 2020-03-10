@@ -1,3 +1,100 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+# With this file, we can change priorities for routes
+# The lower a route is, the lower its priority is compared to the routes above
+
+index:
+   path: /
+   controller: App\Controller\HomeController::index
+
+# Search-related
+
+searchTag:
+   path: /searchTag/tag
+   controller: App\Controller\HomeController::searchTag
+
+error:
+   path: /error
+   controller: App\Controller\HomeController::errorPage
+
+# Surprises category
+
+surprises:
+    path: /Surprises
+    controller: App\Controller\CategoryController::surprisesPage
+
+# Login
+
+security_login:
+    path: /login
+    controller: App\Controller\AuthentificationController::login
+
+# Cart-related
+
+cart:
+    path: /cart/recap
+    controller: App\Controller\CartController::index
+
+cart_add:
+    path: /product/addToCart
+    controller: App\Controller\CartController::addToCart
+
+cart_remove:
+    path: /product/removeFromCart
+    controller: App\Controller\CartController::removeFromCart
+
+cart_modify:
+    path: /product/modifyCart
+    controller: App\Controller\CartController::modifyArticleQuantity
+
+cart_show:
+    path: /product/showCart
+    controller: App\Controller\CartController::giveMeCart
+
+# Product-related
+
+product:
+    path: /product/{id}
+    controller: App\Controller\ProductController::index
+    requirements:
+        path: '{"id"="\d+"}'
+
+product_checkArticle:
+    path: /product/{id}/checkArticle
+    controller: App\Controller\ProductController::checkArticle
+    requirements:
+        path: '{"id"="\d+"}'
+
+# Authentification-related
+
+authentification:
+    path: /authentification
+    controller: App\Controller\AuthentificationController::index
+
+authentificationTwo:
+    path: /authentificationTwo
+    controller: App\Controller\AuthentificationController::indexSequel
+
+# Logout
+
+logout:
+    path: /logout
+    controller: App\Controller\AuthentificationController::logout
+
+# Profil
+
+profil:
+    path: /profil
+    controller: App\Controller\ProfilController::index
+
+# Subcategories
+
+subcategories:
+    path: /{category}/{subcategories}
+    controller: App\Controller\SubcategoriesController::index
+
+# Main categories, this needs to stay at the bottom of this file
+
+category:
+    path: /{category}
+    controller: App\Controller\CategoryController::index
+    requirements:
+        path: "^(?!product|card|login|profil|authentification|logout|searchTag|error|Surprises|admin).+"

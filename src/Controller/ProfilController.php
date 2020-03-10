@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProfilController extends AbstractController
 {
     /**
-     * @Route("/profil/profil/profil", name="profil")
+     * @Route("/profil", name="profil")
      */
     public function index(HeaderService $header)
     {
