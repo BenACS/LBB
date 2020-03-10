@@ -4,31 +4,25 @@
 
 {% block body %}
 
-    <h2>Sign In</h1>
+    <div class="col-lg-6 mx-auto"> 
+      <div class="pt-3">
+        <div class="d-flex flex-row justify-content-center mt-5">
+        <a href="{{ path('security_login') }}"><button >Sign In</button></a>
+    </div>
+    <h2 class="mt-5">Sign Up</h1>
 
     {{ form_start(form)}}
-        {{ form_start(form2)}}
     
+            <div id="stepOne">
             {{ form_row(form.email, { 'label':'Email','attr': {'placeholder': 'your email ...'}})}}
             {{ form_row(form.password , { 'label':'Password','attr': {'placeholder': 'your password ...'}})}}
-            <button type="submit" class="btn btn-success">sign In</button>
-            {# <div class="d-none"> #}
-            {{ form_row(form.firstname, { 'label':'First Name','attr': {'placeholder': 'your first name ...'}})}}
-            {{ form_row(form.lastname , { 'label':'Last name','attr': {'placeholder': 'your last name ...'}})}}
-            {{ form_row(form.birthdate, { 'label':'Birthdate'})}}
-            {{ form_row(form.accountType , { 'label':'Company or individual'})}}
-            {{ form_row(form2.country , { 'label':'Country'})}}
-            {{ form_row(form2.city , { 'label':'City'})}}
-            {{ form_row(form2.zip , { 'label':'Postal Code'})}}
-            {{ form_row(form2.address , { 'label':'Adress'})}}
-            {{ form_row(form.newsletter , { 'label':'Newsletter'})}}
+            {{ form_row(form.confirmPassword , { 'label':'Confirm Password','attr': {'placeholder': 'Confirm your password ...'}})}}
+                <button type="submit" class="btn btn-success">Sign Up</button>
 
-         {{ form_end(form2)}}
+                </div>
+            </div>
+
     {{ form_end(form)}}
 
-   
-    {# </div> #}
 
-    {% block javascripts %}
-    {% endblock %}
 {% endblock %}

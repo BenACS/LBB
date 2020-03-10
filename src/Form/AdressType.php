@@ -3,12 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Adress;
-use App\Entity\Account;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegistrationTypeStepTwoType extends AbstractType
+class AdressType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -17,8 +16,8 @@ class RegistrationTypeStepTwoType extends AbstractType
             ->add('city')
             ->add('zip')
             ->add('address')
-            // ->add('optionalInfo')
-            // ->add('defaultAdress')
+            ->add('optionalInfo')
+            ->add('defaultAdress')
             // ->add('account')
         ;
     }

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Give us information{% endblock %}
+
+{% block body %}
+
+    <div class="col-lg-6 mx-auto">
+    <h2 class="mt-5">Sign Up</h1>
+    {{ form_start(form2)}}
+
+        <div id="stepOne">
+        {{ form_row(form2.firstname, { 'label':'First Name','attr': {'placeholder': 'your first name ...'}})}}
+        {{ form_row(form2.lastname , { 'label':'Last name','attr': {'placeholder': 'your last name ...'}})}}
+        {{ form_row(form2.birthdate, { 'label':'Birthdate'})}}
+        {{ form_row(form2.accountType)}}
+        {{ form_row(form2.newsletter , { 'label':'Newsletter'})}}
+            <div id="siretAndTva" class="disNone">
+        {{ form_row(form2.siret , { 'label':'Siret'})}}
+        {{ form_row(form2.codeTva , { 'label':'CodeTva'})}}
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+
+    {{ form_end(form2)}}
+    <script type="text/javascript"> 
+    document.getElementById("registration_type_two_accountType").onchange = function() {displayCompany()};
+    function displayCompany() {
+        let displayTva = document.getElementById("siretAndTva");
+
+        if (document.getElementById("registration_type_two_accountType").value == "company") {
+            displayTva.classList.remove("disNone");
+        } else {
+            displayTva.classList.add("disNone");
+        }
+    }
+    
+    </script>
+{% endblock %}

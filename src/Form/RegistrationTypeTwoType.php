@@ -6,20 +6,28 @@ use App\Entity\Account;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
-class RegistrationType extends AbstractType
+class RegistrationTypeTwoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
-            ->add('confirmPassword', PasswordType::class)
+            ->add('lastname')
+            ->add('firstname')
+            ->add('birthdate', BirthdayType::class)
+            ->add('newsletter')
+            ->add('accountType', ChoiceType::class, [
+                'choices' => [
+                    'Individual' => 'individual',
+                    'Company' => 'company'
+                ]
+            ])
+            ->add('siret')
+            ->add('codeTva')
         ;
+        
     }
 
     public function configureOptions(OptionsResolver $resolver)
