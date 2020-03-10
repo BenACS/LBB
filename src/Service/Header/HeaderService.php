@@ -35,8 +35,8 @@ class HeaderService
         return $this->categoryRepo->find($parentId)->getCategoryName();
     }
 
-    public function getCatId($name): int {
-        return $this->categoryRepo->findOneBy(['categoryName'=>$name])->getId();
+    public function getCatByName($name): Category {
+        return $this->categoryRepo->findOneBy(['categoryName'=>$name]);
     }
 
     public function getCartInt(): int

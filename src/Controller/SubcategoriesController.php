@@ -24,15 +24,15 @@ class SubcategoriesController extends AbstractController
     /**
      * @Route("/{category}/{subcategories}", name="subcategories")
      */
-    public function index(string $category, ProductRepository $productRepo, HeaderService $header, Request $request)
+    public function index(string $category, string $subcategories, ProductRepository $productRepo, HeaderService $header, Request $request)
     {   
         $em = $this->getDoctrine()->getManager();
 
-        $data = new SearchData(); // Filter form-related
+        $data = new SearchData($header->getCatByName($subcategories)); // Filter form-related
         $data->page = $request->get('page',1);
 
         // Filter form-related
-        $form = $this->createForm(SearchForm::class, $data, $options = ['catId'=>$header->getCatId($category)]);
+        $form = $this->createForm(SearchForm::class, $data, $options = ['catId'=>$header->getCatByName($category)->getId()]);
         $form->handleRequest($request);
 
         $products = $productRepo->findSearch($data);
@@ -41,28 +41,6 @@ class SubcategoriesController extends AbstractController
             'header' => $header,
             'products' => $products,
             'form' => $form->createView()
-        ]);
-    }
-
-
-    public function getProductsData(HeaderService $header, ProductRepository $productRepo)
-    {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $products = $productRepo->findSearch($data);
-
-        $articles = $em->getRepository(Article::class)->findAll();
-        $articleImages = $em->getRepository(ArticleImages::class)->findAll();
-
-        foreach ( $products as $product) {
-            $images[] = $product->getAllUniqueImages()[0];
-        }
-
-        return $this->render('subcategories/index.html.twig', [
-            'header' => $header,
-            'products' => $products,
-            'articleImages' => $images,
         ]);
     }
 
