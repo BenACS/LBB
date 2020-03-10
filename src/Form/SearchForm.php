@@ -19,20 +19,20 @@ class SearchForm extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
-			->add('categories', EntityType::class, [
-				'label' => false,
-				'required' => false,
-				'class' => Category::class,
-				'query_builder'=> function (EntityRepository $er) use($options) {
-					return $er->createQueryBuilder('c')
-						->select('c')
-						->andWhere('c.parentId = :catId')
-						->setParameter('catId', $options['catId'])
-						;
-				},
-				'expanded' => true,
-				'multiple' => true
-			])
+			// ->add('categories', EntityType::class, [
+			// 	'label' => false,
+			// 	'required' => false,
+			// 	'class' => Category::class,
+			// 	'query_builder'=> function (EntityRepository $er) use($options) {
+			// 		return $er->createQueryBuilder('c')
+			// 			->select('c')
+			// 			->andWhere('c.parentId = :catId')
+			// 			->setParameter('catId', $options['catId'])
+			// 			;
+			// 	},
+			// 	'expanded' => true,
+			// 	'multiple' => true
+			// ])
 
 			->add('min', NumberType::class, [
 				'label' => false,

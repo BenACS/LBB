@@ -37,11 +37,11 @@ class SubcategoriesController extends AbstractController
 
         [$min,$max] = $productRepo->findMinMax($data);
 
-        // dd($data);
         $products = $productRepo->findSearch($data);
 
         return $this->render('subcategories/index.html.twig', [
             'header' => $header,
+            'mainCat' => $header->getCatByName($category),
             'products' => $products,
             'form' => $form->createView(),
             'min' => $min,

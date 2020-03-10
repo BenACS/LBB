@@ -92,7 +92,7 @@ class ProductRepository extends ServiceEntityRepository
             ->leftjoin('p.price','price')
             ;
 
-        if(!empty($search->min)){
+        if(!empty($search->min) && $ignorePrice === false){
             $query = $query
                 ->andWhere('price.priceDf >= :min')
                 ->setParameter('min', $search->min);
@@ -104,7 +104,7 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('max', $search->max);
         }
 
-        if(!empty($search->categories) && $ignorePrice === false){
+        if(!empty($search->categories)){
             $query = $query
                 ->andWhere('c.id IN (:categories)')
                 ->setParameter('categories', $search->categories);
