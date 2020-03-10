@@ -2,14 +2,20 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AccountRepository")
+ * @UniqueEntity(
+ *  fields = {"email"},
+ *  message= "This email is already used")
  */
-class Account
+class Account implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -30,26 +36,33 @@ class Account
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8", minMessage="Your password must contain 8 characters")
+     * @Assert\EqualTo(propertyPath="confirmPassword",message="Your password doesn't match")
      */
     private $password;
 
+    /**
+     * @Assert\EqualTo(propertyPath="confirmPassword",message="Your password doesn't match")
+     */
+    public $confirmPassword;
     /**
      * @ORM\Column(type="date")
      */
     private $birthdate;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $newsletter;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $registerDate;
 
@@ -84,7 +97,7 @@ class Account
     private $adresses;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=15, nullable=true)
      */
     private $role;
 
@@ -323,5 +336,17 @@ class Account
         $this->role = $role;
 
         return $this;
+    }
+    public function eraseCredentials() {}
+
+    public function getSalt() {}
+
+    public function getRoles() {
+        return ['ROLE_USER'];
+    }
+
+    public function getUsername() {
+
+        return $this->email;
     }
 }
