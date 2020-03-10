@@ -3,14 +3,15 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use App\Data\SearchData;
+use Doctrine\ORM\Query\Expr\Join;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 
-use App\Data\SearchData;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -50,17 +51,18 @@ class ProductRepository extends ServiceEntityRepository
             ->createQueryBuilder('p')
             ->select('c', 'p')
             ->join('p.category', 'c')
+            ->leftjoin('p.price','price')
             ;
 
         if(!empty($search->min)){
             $query = $query
-                ->andWhere('p.price >= :min')
+                ->andWhere('price.priceDf >= :min')
                 ->setParameter('min', $search->min);
         }
 
         if(!empty($search->max)){
             $query = $query
-                ->andWhere('p.price <= :max')
+                ->andWhere('price.priceDf <= :max')
                 ->setParameter('max', $search->max);
         }
 
