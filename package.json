@@ -12,11 +12,12 @@
     "dev": "encore dev",
     "watch": "encore dev --watch",
     "build": "encore production --progress",
-    "lbb" : "encore dev --watch --watch--poll"
+    "lbb": "encore dev --watch --watch--poll"
   },
   "dependencies": {
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
+    "nouislider": "^14.1.1",
     "popper.js": "^1.16.1"
   }
 }

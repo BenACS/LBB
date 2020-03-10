@@ -52,7 +52,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/searchTag/tag/tag", name="searchTag")
+     * @Route("/searchTag/tag", name="searchTag")
      * 
      */
     public function searchTag(HeaderService $header, Request $request)
@@ -91,7 +91,7 @@ class HomeController extends AbstractController
 
     /**
      * 
-     * @Route("/errorPage/error", name="error")
+     * @Route("/error", name="error")
      */
     public function errorPage(HeaderService $header)
     {
