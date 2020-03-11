@@ -71,7 +71,7 @@ class CartController extends AbstractController
 
         return $this->json([
             'title' =>  $article->getArticleTitle(),
-            'image' => $article->getProduct()->getAllUniqueImages()[0],
+            'image' => $article->getImages()[0]->getUrl(),
             'itemsInCart' => count($cart),
             'quantity' => $quantity == 0 ? 1 : $quantity,
             'sessionCart' => $session

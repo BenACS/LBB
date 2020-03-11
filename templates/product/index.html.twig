@@ -9,12 +9,12 @@
 	<div class="container-fluid">
 		<div class="row mt-5 justify-content-center">
 			<div class="col-1">
-				{% for image in articleImages %}
-					<img src={{image}} alt="hoodie" class="w-100 border my-1 thumbnail-images{% if image == articleImages.0 %} border-secondary{% endif %}">
+				{% for image in images %}
+					<img src={{image.url}} alt="hoodie" class="w-100 border my-1 thumbnail-images{% if image == images.0 %} border-secondary{% endif %}">
 				{% endfor %}
 			</div>
 			<div class="col-4">
-				<img src={{articleImages.0}} alt="hoodie" width="95%" id="main_image">
+				<img src={{images.0.url}} alt="hoodie" width="95%" id="main_image">
 				<div class="text-center">
 					<span id="rating" class="text-warning mx-2">
 						<i class="far fa-star"></i>

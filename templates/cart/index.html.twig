@@ -17,7 +17,7 @@
                     <!-- start loop articlesInCart -->
                     {% for item in cart %}
                         <div class="item-box row col-10 my-1 p-2 border rounded" id="item_{{item.article.id}}">
-                            <img src="{{item.article.articleImages.0.url}}" width="80px" height="80px">
+                            <img src="{{item.article.images.0.url}}" width="80px" height="80px">
                             <div class="col-10 px-3">
                                 <div class="row justify-content-between">
                                     <div class="col-9 article-title"><b>{{item.article.articleTitle}}</b></div>

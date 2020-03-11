@@ -7,7 +7,6 @@ use App\Entity\Article;
 use App\Entity\Product;
 use App\Entity\Tag;
 use App\Entity\Category;
-use App\Entity\ArticleImages;
 
 use App\Service\Header\HeaderService;
 use App\Service\Header\TagService;
@@ -35,7 +34,7 @@ class ProductController extends AbstractController
             'product' => $product,
             'price' => $product->getPrice(),
             'variations' => ['sizes' => $product->getAllSizes(), 'colors' => $product->getAllColors(), 'devices' => $product->getAllDevices()],
-            'articleImages' => $product->getAllUniqueImages(),
+            'images' => $article->getAllImages($id),
             'header' => $header,
             'article' => $product->getArticles()[0]
         ]);
