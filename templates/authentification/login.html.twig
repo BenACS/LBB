@@ -5,12 +5,12 @@
 {% block body %}
 
     <div class="pt-3">
-        <div class="d-flex flex-row justify-content-center mt-5">
-        <a href="{{ path('authentification') }}" class="btn btn-secondary">Sign Up</a>
+        <div class="d-flex flex-row justify-content-center my-5">
+        <a href="{{ path('authentification') }}"><button>Sign up</button></a>
     </div>
     
-    <div class="col-lg-6 mx-auto"> 
-        <h2 class="mt-5 text-center">Sign In</h1>
+    <div class="col-lg-6 mx-auto border borderSize"> 
+        <h2 class="my-3">Sign In</h1>
             <form action="{{ path('security_login')}}" method="post">
                 <div class="form-group">
                     <input placeholder="Email" required name="_username" type="text" class="form-control">
