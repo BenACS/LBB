@@ -19,7 +19,7 @@ class ProfilController extends AbstractController
         $this->session = $session;
     }
     /**
-     * @Route("/profil/profil/profil", name="profil")
+     * @Route("/profil", name="profil")
      */
     public function index(HeaderService $header, Request $request)
     {
@@ -31,6 +31,7 @@ class ProfilController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            // $userAdress->setAccount($this->session);
             $manager->persist($userAdress);
             $manager->flush();
 

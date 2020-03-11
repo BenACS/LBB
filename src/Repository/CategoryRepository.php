@@ -37,11 +37,11 @@ class CategoryRepository extends ServiceEntityRepository
     //  * Returns subcategories based on main category's parentId
     //  * @return Category[] Returns an array of Category objects
     //  */
-    public function findSubcategories(int $category)
+    public function findSubcategories(int $mainCatId)
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.parentId = :cat')
-            ->setParameter('cat', $category)
+            ->setParameter('cat', $mainCatId)
             ->getQuery()
             ->getResult()
         ;
