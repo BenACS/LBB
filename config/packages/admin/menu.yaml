@@ -1,6 +1,9 @@
 easy_admin:
   design:
     menu:
+      - label: 'Return to website'
+        route: 'home'
+        icon: 'arrow-circle-left'
       - label: 'Categories'
         icon : 'bars'
         children: 

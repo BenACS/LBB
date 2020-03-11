@@ -3,6 +3,8 @@
 html,body {
     min-height: 100vh;
     color:rgba(75,75,75);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 16px;
 }
 
 body {
@@ -20,9 +22,15 @@ footer#myfooter {
     color: white;
 }
 .buttonColor {
-    background-color: rgb(214, 132, 132);
+    background-color: rgb(0, 107, 23);
+    color: white;
 }
-
+.borderSize{
+    border-style:solid!important;
+    border-width: 5px!important;
+    border-color: rgb(70, 70, 70)!important;
+    background-color: #e2e2e2;
+}
 
 /* NAVBAR */
 
@@ -32,14 +40,66 @@ footer#myfooter {
 .disBlock{
     display: block;
 }
-
+.blackButton {
+    color: black!important;
+}
 /* =============================== PRODUCT PAGE STYLE =============================== */
 
 img.thumbnail-images:hover,img.thumbnail-images.active {
     cursor:pointer;
 }
 
+/* =============================== Loggin Button =============================== */
 
+.myButton {
+	box-shadow: 3px 4px 0px 0px rgb(0, 0, 0);
+	background:linear-gradient(to bottom, #6d6d6d 5%, #000000 100%);
+	background-color:#79bbff;
+	border-radius:5px;
+	border:1px solid #535353;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:12px 44px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #000000;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #378de5 5%, #79bbff 100%);
+	background-color:#378de5;
+}
+.myButton:active {
+	position:relative;
+}
+
+.myButton2 {
+	box-shadow:inset 0px 0px 15px 3px #23395e;
+	background:linear-gradient(to bottom, #2e466e 5%, #415989 100%);
+	background-color:#2e466e;
+	border-radius:17px;
+	border:1px solid #1f2f47;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	padding:6px 13px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #263666;
+}
+.myButton2:hover {
+	background:linear-gradient(to bottom, #415989 5%, #2e466e 100%);
+	background-color:#415989;
+}
+.myButton2:active {
+	position:relative;
+	top:1px;
+}
+
+/* =============================== / Loggin Button =============================== */
 
 .fadeIn{
     animation-name: fadeIn;
