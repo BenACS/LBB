@@ -22,7 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/product/{id}", name="product", requirements={"id"="\d+"})
+     * @Route("/product/{id?0}", name="product", requirements={"id"="\d+"})
      */
     public function index(int $id = 0, Product $product = null, HeaderService $header, ArticleService $article)
     {

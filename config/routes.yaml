@@ -52,7 +52,7 @@ cart_show:
 # Product-related
 
 product:
-    path: /product/{id}
+    path: /product/{id?0}
     controller: App\Controller\ProductController::index
     requirements:
         path: '{"id"="\d+"}'
