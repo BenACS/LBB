@@ -81,9 +81,29 @@ logout:
 
 # Profil
 
-profil:
+profile:
     path: /profil
     controller: App\Controller\ProfilController::index
+
+editProfile:
+    path: /profil/editProfile"
+    controller: App\Controller\ProfilController::editProfile
+
+editPassword:
+    path: /profil/editPassword
+    controller: App\Controller\ProfilController::editPassword
+
+newPassword:
+    path: /profil/newPassword
+    controller: App\Controller\ProfilController::newPassword
+
+adresses:
+    path: /profil/adresses
+    controller: App\Controller\ProfilController::adresses
+
+addAdress:
+    path: /profil/addAdress
+    controller: App\Controller\ProfilController::addAdress
 
 # Subcategories
 

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile Page
+{% endblock %}
+
+{% block body %}
+
+	<div class="col-lg-6 mx-auto">
+		<div class="pt-3">
+
+			<h2 class="mt-1">Add an adress to your profile</h2>
+
+			{{ form_start(form)}}
+
+			<div id="stepOne">
+				{{ form_row(form.country, { 'label':'Country','attr': {'placeholder': 'Country'}})}}
+				{{ form_row(form.city , { 'label':'City','attr': {'placeholder': 'City'}})}}
+				{{ form_row(form.zip , { 'label':'ZipCode','attr': {'placeholder': 'Zip Code'}})}}
+				{{ form_row(form.address, { 'label':'Adress','attr': {'placeholder': 'Adress'}})}}
+				{{ form_row(form.optionalInfo, { 'label':'Optional informations','attr': {'placeholder': ''}})}}
+				{{ form_row(form.defaultAdress, { 'label':'Default adress ?'})}}
+
+
+				<button type="submit" class="btn btn-success">
+					Validate
+				</button>
+
+			</div>
+		</div>
+	</div>
+
+	{{ form_end(form)}}
+{% endblock %}

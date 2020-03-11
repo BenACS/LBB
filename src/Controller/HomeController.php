@@ -99,4 +99,15 @@ class HomeController extends AbstractController
             'header' => $header
         ]);
     }
+
+    /**
+     * 
+     * @Route("/success", name="success")
+     */
+    public function successPage(HeaderService $header)
+    {
+        return $this->render('successPage/index.html.twig', [
+            'header' => $header
+        ]);
+    }
 }

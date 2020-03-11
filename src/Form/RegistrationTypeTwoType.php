@@ -6,6 +6,7 @@ use App\Entity\Account;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
@@ -25,9 +26,7 @@ class RegistrationTypeTwoType extends AbstractType
                 ]
             ])
             ->add('siret')
-            ->add('codeTva')
-        ;
-        
+            ->add('codeTva');
     }
 
     public function configureOptions(OptionsResolver $resolver)
