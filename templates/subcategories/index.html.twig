@@ -14,13 +14,14 @@
 			<div class="col-3 mx-1">
 				<div>
 					{{ form_start(form, {attr: {class: 'filter'}}) }}
-
-						<h4>All subcategories</h4>
-						<ul>
-							{% for subcat in header.subcategories(mainCat) %}
-								<li><a href={{path('subcategories',{category:mainCat.categoryName,subcategories:subcat.categoryName})}}>{{subcat.categoryName}}</a></li>
-							{% endfor %}
-						</ul>
+						{% if mainCat is defined %}
+							<h4>All subcategories</h4>
+							<ul>
+								{% for subcat in header.subcategories(mainCat) %}
+									<li><a href={{path('subcategories',{category:mainCat.categoryName,subcategories:subcat.categoryName})}}>{{subcat.categoryName}}</a></li>
+								{% endfor %}
+							</ul>
+						{% endif %}
 						<h4>Prices</h4>
 						<div class="row">
 							<div class="col-6">
