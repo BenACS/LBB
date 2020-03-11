@@ -30,9 +30,13 @@
                             <a href="">Forgot your password ?</a>
                         <div class="form-group text-center mt-2">
                     <button type="submit" class="btn btn-success myButton2">Sign In</button>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 </div>
             </form>
             
         </div>
     </div>
+    {% block javascripts %}
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    {% endblock %}
 {% endblock %}
