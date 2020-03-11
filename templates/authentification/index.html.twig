@@ -4,12 +4,13 @@
 
 {% block body %}
 
-    <div class="col-lg-6 mx-auto"> 
+    <div class="col-lg-6 mx-auto "> 
       <div class="pt-3">
-        <div class="d-flex flex-row justify-content-center mt-5">
+        <div class="d-flex flex-row justify-content-center mt-5 mb-4">
         <a href="{{ path('security_login') }}"><button >Sign In</button></a>
     </div>
-    <h2 class="mt-5">Sign Up</h1>
+        <div class="px-3 py-3 border borderSize">
+            <h2 class="my-2">Sign Up</h1>
 
     {{ form_start(form)}}
     
@@ -21,6 +22,7 @@
 
                 </div>
             </div>
+        </div>
 
     {{ form_end(form)}}
 
