@@ -7,19 +7,19 @@
     <div class="col-lg-6 mx-auto "> 
       <div class="pt-3">
         <div class="d-flex flex-row justify-content-center mt-5 mb-4">
-        <a href="{{ path('security_login') }}"><button >Sign In</button></a>
+        <a href="{{ path('security_login') }}"><button class="myButton">Sign In</button></a>
     </div>
         <div class="px-3 py-3 border borderSize">
-            <h2 class="my-2">Sign Up</h1>
+            <h2 class="my-2 text-center">Sign Up</h1>
 
     {{ form_start(form)}}
     
             <div id="stepOne">
-            {{ form_row(form.email, { 'label':'Email','attr': {'placeholder': 'yYur email ...'}})}}
-            {{ form_row(form.password , { 'label':'Password','attr': {'placeholder': 'Your password ...'}})}}
-            {{ form_row(form.confirmPassword , { 'label':'Confirm Password','attr': {'placeholder': 'Confirm your password ...'}})}}
+            {{ form_row(form.email, { 'label':'Email','attr': {'placeholder': 'RogerMartin@typicalfrench.com'}})}}
+            {{ form_row(form.password , { 'label':'Password','attr': {'placeholder': "That's a secret"}})}}
+            {{ form_row(form.confirmPassword , { 'label':'Confirm Password','attr': {'placeholder': 'secret 2.0'}})}}
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-success">Sign Up</button>
+                        <button type="submit" class="btn btn-success myButton2">Sign Up</button>
                     </div>
                 </div>
             </div>
