@@ -62,7 +62,7 @@ class Account implements UserInterface
     private $newsletter;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $registerDate;
 
@@ -106,6 +106,9 @@ class Account implements UserInterface
         $this->reviews = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->adresses = new ArrayCollection();
+        if(!$this->registerDate){
+            $this->registerDate = new \DateTime();
+        }
     }
 
     public function getId(): ?int
