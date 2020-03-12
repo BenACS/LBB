@@ -97,7 +97,7 @@ class Account implements UserInterface
     private $adresses;
 
     /**
-    * @ORM\Column(type="json")
+    * @ORM\Column(type="json", nullable=true)
     */
     private $roles;
 
@@ -329,12 +329,7 @@ class Account implements UserInterface
         return $this;
     }
 
-    // public function getRole(): ?string
-    // {
-    //     return $this->role;
-    // }
-
-    public function setRoles(string $roles): self
+    public function setRoles(?array $roles): self
     {
         $this->roles = $roles;
 
@@ -345,7 +340,7 @@ class Account implements UserInterface
     public function getSalt() {}
 
 
-    public function getRoles():array {
+    public function getRoles(): ?array {
 
         $roles = $this->roles;
         // // guarantee every user at least has ROLE_USER
