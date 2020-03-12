@@ -58,6 +58,9 @@ class Article
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        if(!$this->creationDate){
+            $this->creationDate = new \DateTime();
+        }
     }
 
     public function getId(): ?int
