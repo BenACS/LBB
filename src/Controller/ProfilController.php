@@ -33,6 +33,7 @@ class ProfilController extends AbstractController
     public function index(HeaderService $header)
     {
         $user = $this->getUser();
+
         return $this->render('profil/index.html.twig', [
             'header' => $header,
             'user' => $user
@@ -71,6 +72,7 @@ class ProfilController extends AbstractController
         $oldPass = $request->request->get('oldPassword');
         if (isset($oldPass)) {
             if ($encoder->isPasswordValid($user, $oldPass)) {
+                $this->session->set('pass', 'true');
                 return $this->redirectToRoute('newPassword');
             } else {
                 $msg = "Your password doesn't match";
@@ -106,12 +108,16 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('success');
         }
 
-        return $this->render('profil/newPassword.html.twig', [
-            'header' => $header,
-            'form' => $form->createView(),
-            'method' => 'POST'
+        if ($this->session->get('pass')) {
+            return $this->render('profil/newPassword.html.twig', [
+                'header' => $header,
+                'form' => $form->createView(),
+                'method' => 'POST'
 
-        ]);
+            ]);
+        } else {
+            return $this->redirectToRoute('profile');
+        }
     }
 
     /**
