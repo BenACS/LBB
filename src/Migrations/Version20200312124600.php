@@ -22,7 +22,7 @@ final class Version20200312124600 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE account DROP role');
+        $this->addSql('ALTER TABLE account DROP roles');
         $this->addSql('ALTER TABLE account ADD roles JSON DEFAULT NULL, CHANGE register_date register_date DATETIME NOT NULL');
     }
 
