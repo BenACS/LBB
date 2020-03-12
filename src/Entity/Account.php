@@ -99,7 +99,7 @@ class Account implements UserInterface
     /**
     * @ORM\Column(type="json", nullable=true)
     */
-    private $roles;
+    private $roles = [];
 
     public function __construct()
     {
