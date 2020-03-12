@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile Page
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="col-lg-6 mx-auto ">
+		<div class="pt-3">
+
+			<h2 class="mt-1">Edit your adress</h2>
+
+			<form method="post" action="{{path('editAdress',{adressId: adress.id })}}">
+				<div class="form-group">
+					<label>Country</label>
+					<input class="form-control" type="text" value="{{ adress.country }}" name="adressCountry">
+				</div>
+				<div class="form-group">
+					<label>City</label>
+					<input class="form-control" type="text" value="{{ adress.city }}" name="adressCity">
+				</div>
+				<div class="form-group">
+					<label>ZipCode</label>
+					<input class="form-control" type="text" value="{{ adress.zip }}" name="adressZip">
+				</div>
+				<div class="form-group">
+					<label>Adress</label>
+					<input class="form-control" type="text" value="{{ adress.address }}" name="adressAdress">
+				</div>
+				<div class="form-group">
+					<label>Optional informations</label>
+					<input class="form-control" type="text" value="{{ adress.optionalInfo }}" name="adressOptions">
+				</div>
+
+				<div class="form-check">
+					{% if adress.defaultAdress == false %}
+						<input class="form-check-input" type="checkbox" id="defaultAdress" name="defaultAdress">
+						<label for="defaultAdress">Default Adress</label>
+					{% else %}
+						<input class="form-check-input" type="checkbox" id="defaultAdress" name="defaultAdress" checked="checked">
+						<label for="defaultAdress">Default Adress</label>
+					{% endif %}
+				</div>
+				<button type="submit" class="btn btn-success">
+					Confirm</button>
+			</form>
+
+		</div>
+	</div>
+{% endblock %}
