@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact us{% endblock %}
+
+{% block body %}
+	<div class="col-lg-6 mx-auto border">
+		<h2>Contact us</h2>
+
+		<div id="contactForm">
+			{{ form_start(form) }}
+				{{ form_row(form.email,{'label': 'Email', 'attr': {'placeholder': 'AlHead@sendhelp.com'}})}}
+				{{ form_row(form.reason,{'label': 'Why you are contacting us ?'})}}
+				{{ form_row(form.message,{'label': 'Message', 'attr': {'placeholder': 'Your message here'}})}}
+
+				<div class="form-group text-center">
+					<button type="submit" class="btn btn-success">Send message</button>
+				</div>
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}
