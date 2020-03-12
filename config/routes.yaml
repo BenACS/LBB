@@ -105,6 +105,13 @@ addAdress:
     path: /profil/addAdress
     controller: App\Controller\ProfilController::addAdress
 
+removeAdress:
+    path: /profil/removeAdress/{adressId}
+    controller: App\Controller\ProfilController::removeAdress
+
+editAdress:
+    path: /profil/editAdress/{adressId}
+    controller: App\Controller\ProfilController::editAdress
 # Subcategories
 
 subcategories:

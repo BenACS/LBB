@@ -4,45 +4,48 @@
 {% endblock %}
 
 {% block body %}
-
-	<div class="col-lg-6 mx-auto">
-		<div class="pt-3">
-
-			<h2 class="mt-1">Your adresses</h2>
-			{% if  adresses|length < 5 %}
-				<a href='{{ path('addAdress')}}'>
-					<i class="fas fa-plus"></i>
-					Add an adress
-				</a>
-			{% endif %}
-			{% for adress in adresses %}
-				<div class="border mt-2 text-center row justify-content-center">
-					<div class="col-12">
-						{{ adress.address }}
-						{{ adress.optionalInfo }}
-						{{ adress.zip }}
-						{{ adress.city }}
-						{{ adress.country }}
-					</div>
-					<div class="form-check col-12 text-success">
-						{% if  adress.defaultAdress == true %}
-							<label for="checkDefaultAdress">
-								<i class="fas fa-check"></i>
-								Default Adress</label>
-						{% endif %}
-					</div>
-					<div class="col-1">
-						<a href='' class="text-danger">
-							<i class="fas fa-trash-alt"></i>
-						</a>
-					</div>
-					<div class="col-1">
-						<a href=''>
-							<i class="fas fa-edit"></i>
-						</a>
-					</div>
+	<div class="col-12 text-center mb-2">
+		<h2 class="mt-1">Your addresses</h2>
+		{% if  adresses|length < 5 %}
+			<a href='{{ path('addAdress')}}'>
+				<i class="fas fa-plus"></i>
+				Add an address
+			</a>
+		{% endif %}
+	</div>
+	<div class="col-lg-8 mx-auto justify-content-center row">
+		{% for adress in adresses %}
+			<div class="border mt-2 text-center row justify-content-center col-4 mx-3">
+				<div class="col-12">
+					{{ adress.address }}
+					{% if  adress.optionalInfo%}
+						<br>
+					{% endif %}
+					{{ adress.optionalInfo }}
+					<br>
+					{{ adress.zip }}
+					{{ adress.city }}
+					<br>
+					{{ adress.country }}
 				</div>
-			{% endfor %}
-		</div>
+				<div class="form-check col-12 text-success">
+					{% if  adress.defaultAdress == true %}
+						<label for="checkDefaultAdress">
+							<i class="fas fa-check"></i>
+							Default Address</label>
+					{% endif %}
+				</div>
+				<div class="col-1">
+					<a href='{{ path('removeAdress', {adressId: adress.id }) }}' class="text-danger">
+						<i class="fas fa-trash-alt"></i>
+					</a>
+				</div>
+				<div class="col-1">
+					<a href='{{ path('editAdress', {adressId: adress.id }) }}' style='color: rgb(104, 38, 38)'>
+						<i class="fas fa-edit"></i>
+					</a>
+				</div>
+			</div>
+		{% endfor %}
 	</div>
 {% endblock %}
