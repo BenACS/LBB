@@ -39,7 +39,6 @@ class ContactController extends AbstractController
     public function showSuccessMessage(HeaderService $header, Swift_Mailer $mailer, Request $request)
     {
     	$this->createEmail($mailer);
-    	dd($request->request->get('email'));
 
     	return $this->render('contact/success.html.twig', [
     		'header' => $header
@@ -50,17 +49,20 @@ class ContactController extends AbstractController
     // Create & send Email via SwiftMailer
     public function createEmail(array $test, Swift_Mailer $mailer)
     {
-    	dd($test);
+    	//dd($test);
 
     	$message = (new \Swift_Message('Test Email'))
-    		->setFrom('test@example.com')
-    		->setTo('LeBonMail@lbb.com')
+    		->setFrom($test['email'])
+    		->setTo('lesbonsbooleens@gmail.com')
+    		->setSubject($test['reason'])
     		->setBody(
     			$this->renderView(
-    				'email_swift_mailer.html.twig'
+    				'email_swift_mailer.html.twig',
+    				['test' => $test]
     			),
     			'text/html'
     		)
+    		->setCharset('utf-8')
     	;
 
     	$mailer->send($message);

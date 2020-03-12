@@ -1,10 +1,19 @@
-{# templates/emails/registration.html.twig #}
-<h3>THE EMAIL WAS SENT OMG</h3>
+<h1 style="text-decoration: underline;">Issue report :</h1>
 
-I CAN'T BELIEVE IT
+<div>
+	<div>
+		<div>
+			<p style="font-size: 1.4em; text-decoration: underline;">Type of issue :</p>
+			<p style="font-size: 1.3em;"><em>{{ test['reason'] }}</em></p>
+		</div>
+		<div>
+			<p style="font-size: 1.4em; text-decoration: underline;">User info :</p>
+			<p style="font-size: 1.3em;"><em>{{ test['email'] }}</em></p>
+		</div>
+	</div>
 
-{# example, assuming you have a route named "login" #}
-BTW GIMME FRIES
-
-{# Makes an absolute URL to the /images/logo.png file #}
-OMG
+	<div>
+		<p style="font-size: 1.4em; text-decoration: underline;">Message :</p>
+		<p style="font-size: 1.2em; text-decoration: none;">{{ test['message'] }}</p>
+	</div>
+</div>
