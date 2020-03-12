@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message sent !{% endblock %}
+
+{% block body %}
+	<div class="col-lg-6 mx-auto border">
+		<p>Your message was successfully sent.</p>
+		<div>
+			<button href="{{ path('home') }}" class="btn btn-primary">Go back to homepage</button>
+		</div>
+	</div>
+{% endblock %}
