@@ -33,6 +33,7 @@ class ProfilController extends AbstractController
     public function index(HeaderService $header)
     {
         $user = $this->getUser();
+
         return $this->render('profil/index.html.twig', [
             'header' => $header,
             'user' => $user
@@ -71,6 +72,7 @@ class ProfilController extends AbstractController
         $oldPass = $request->request->get('oldPassword');
         if (isset($oldPass)) {
             if ($encoder->isPasswordValid($user, $oldPass)) {
+                $this->session->set('pass', 'true');
                 return $this->redirectToRoute('newPassword');
             } else {
                 $msg = "Your password doesn't match";
@@ -106,12 +108,16 @@ class ProfilController extends AbstractController
             return $this->redirectToRoute('success');
         }
 
-        return $this->render('profil/newPassword.html.twig', [
-            'header' => $header,
-            'form' => $form->createView(),
-            'method' => 'POST'
+        if ($this->session->get('pass')) {
+            return $this->render('profil/newPassword.html.twig', [
+                'header' => $header,
+                'form' => $form->createView(),
+                'method' => 'POST'
 
-        ]);
+            ]);
+        } else {
+            return $this->redirectToRoute('profile');
+        }
     }
 
     /**
@@ -121,15 +127,11 @@ class ProfilController extends AbstractController
     {
         $manager = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $userAdresses = $user->getAdresses();
 
-        foreach ($userAdresses as $adress) {
-            dump($adress);
-        }
         return $this->render('profil/adressesPage.html.twig', [
             'header' => $header,
             'user' => $user,
-            'adresses' => $userAdresses
+            'adresses' => $user->getAdresses()
         ]);
     }
     /**
@@ -142,21 +144,100 @@ class ProfilController extends AbstractController
 
         $userAdress = new Adress();
 
+
         $form = $this->createForm(AdressType::class, $userAdress);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (count($user->getAdresses()) < 5) {
+                foreach ($request->request->get('adress') as  $key => $adressInfo) {
+                    if ("$key" === "defaultAdress") {
+                        $default = $adressInfo;
+                    }
+                }
+                foreach ($user->getAdresses() as $adress) {
+                    if (isset($default) && "$default" === "1") {
+                        $adress->setDefaultAdress(false);
+                    }
+                }
+                $userAdress->setAccount($user);
+                $manager->persist($userAdress);
+                $manager->persist($user);
+                $manager->flush();
 
-            $userAdress->setAccount($user);
-            $manager->persist($userAdress);
-            $manager->flush();
-
-            return $this->redirectToRoute('adresses');
+                return $this->redirectToRoute('adresses');
+            } else {
+                return $this->redirectToRoute('error');
+            }
         }
 
         return $this->render('profil/addAdress.html.twig', [
             'header' => $header,
             'form' => $form->createView()
+        ]);
+    }
+    /**
+     * @Route("/profil/removeAdress/{adressId}", name="removeAdress")
+     */
+    public function removeAdress(HeaderService $header, Request $request, $adressId)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+
+        foreach ($user->getAdresses() as $adress) {
+            if ($adress->getId() == $adressId) {
+                $remove = $user->removeAdress($adress);
+            }
+        }
+
+        $manager->persist($user);
+        $manager->flush();
+
+        return $this->redirectToRoute('adresses');
+    }
+    /**
+     * @Route("/profil/editAdress/{adressId?0}", name="removeAdress")
+     */
+    public function editAdress(HeaderService $header, Request $request, int $adressId = 0)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+
+        foreach ($user->getAdresses() as $adress) {
+            if ($adress->getId() == $adressId) {
+                $adressToEdit = $adress;
+            }
+        }
+        if ($adressId == 0 || !isset($adressToEdit)) {
+            return $this->redirectToRoute("adresses");
+        }
+
+        if ($request->isMethod('POST')) {
+            $adressToEdit->setCountry(ucfirst($request->request->get('adressCountry')));
+            $adressToEdit->setCity(ucfirst($request->request->get('adressCity')));
+            $adressToEdit->setZip($request->request->get('adressZip'));
+            $adressToEdit->setAddress($request->request->get('adressAdress'));
+            $adressToEdit->setOptionalInfo(ucfirst($request->request->get('adressOptions')));
+
+            if ($request->request->get('defaultAdress') === 'on') {
+                foreach ($user->getAdresses() as $adress) {
+                    $adress->setDefaultAdress(false);
+                }
+                $adressToEdit->setDefaultAdress(true);
+            } else {
+                $adressToEdit->setDefaultAdress(false);
+            }
+
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->redirectToRoute('adresses');
+        }
+
+        return $this->render('profil/editAdress.html.twig', [
+            'header' => $header,
+            'user' => $user,
+            'adress' => $adressToEdit
         ]);
     }
 }
