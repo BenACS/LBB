@@ -99,7 +99,7 @@ class Account implements UserInterface
     /**
     * @ORM\Column(type="json", nullable=true)
     */
-    private $roles = [];
+    private $roles;
 
     public function __construct()
     {
@@ -108,6 +108,9 @@ class Account implements UserInterface
         $this->adresses = new ArrayCollection();
         if(!$this->registerDate){
             $this->registerDate = new \DateTime();
+        }
+        if (!$this->roles){
+            $this->roles[] = 'ROLE_USER';
         }
     }
 
@@ -331,6 +334,7 @@ class Account implements UserInterface
 
     public function setRoles(?array $roles): self
     {
+
         $this->roles = $roles;
 
         return $this;
@@ -343,10 +347,8 @@ class Account implements UserInterface
     public function getRoles(): ?array {
 
         $roles = $this->roles;
-        // // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-    
-        return array_unique($roles);
+        
+        return $this->roles;
     }
 
     public function getUsername() {
