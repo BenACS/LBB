@@ -142,26 +142,27 @@ class ProfilController extends AbstractController
         $form = $this->createForm(AdressType::class, $userAdress);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() && count($user->getAdresses()) < 5) {
-
-            foreach ($request->request->get('adress') as  $key => $adressInfo) {
-                if ("$key" === "defaultAdress") {
-                    $default = $adressInfo;
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (count($user->getAdresses()) < 5) {
+                foreach ($request->request->get('adress') as  $key => $adressInfo) {
+                    if ("$key" === "defaultAdress") {
+                        $default = $adressInfo;
+                    }
                 }
-            }
-            foreach ($user->getAdresses() as $adress) {
-                if (isset($default) && "$default" === "1") {
-                    $adress->setDefaultAdress(false);
+                foreach ($user->getAdresses() as $adress) {
+                    if (isset($default) && "$default" === "1") {
+                        $adress->setDefaultAdress(false);
+                    }
                 }
-            }
-            $userAdress->setAccount($user);
-            $manager->persist($userAdress);
-            $manager->persist($user);
-            $manager->flush();
+                $userAdress->setAccount($user);
+                $manager->persist($userAdress);
+                $manager->persist($user);
+                $manager->flush();
 
-            return $this->redirectToRoute('adresses');
-        } else {
-            return $this->redirectToRoute('error');
+                return $this->redirectToRoute('adresses');
+            } else {
+                return $this->redirectToRoute('error');
+            }
         }
 
         return $this->render('profil/addAdress.html.twig', [
