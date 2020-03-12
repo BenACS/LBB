@@ -70,7 +70,7 @@ class AuthentificationController extends AbstractController
             $hash = $encoder->encodePassword($user, $userPassword);
             $user->setPassword($hash);
             $user->setRegisterDate(new \DateTime());
-            $user->setRole('user');
+            // $user->setRole('user');
 
             $manager->persist($user);
             $manager->flush();
