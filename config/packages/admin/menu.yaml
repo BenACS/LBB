@@ -15,7 +15,7 @@ easy_admin:
           - {entity: 'Price', icon: 'dollar-sign', label: 'Price'}
           - {entity: 'Product', icon: 'box', label: 'Product'}
           - {entity: 'Article', icon: 'box-open', label: 'Article'}
-          - {entity: 'ArticleImages', icon: 'images', label: 'ArticleImages'}
+          - {entity: 'Image', icon: 'images', label: 'Image'}
       - label: 'Cart'
         icon : 'shopping-cart'
         children:

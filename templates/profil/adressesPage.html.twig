@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile Page
+{% endblock %}
+
+{% block body %}
+
+	<div class="col-lg-6 mx-auto">
+		<div class="pt-3">
+
+			<h2 class="mt-1">Your adresses</h2>
+			{% if  adresses|length < 5 %}
+				<a href='{{ path('addAdress')}}'>
+					<i class="fas fa-plus"></i>
+					Add an adress
+				</a>
+			{% endif %}
+			{% for adress in adresses %}
+				<div class="border mt-2 text-center row justify-content-center">
+					<div class="col-12">
+						{{ adress.address }}
+						{{ adress.optionalInfo }}
+						{{ adress.zip }}
+						{{ adress.city }}
+						{{ adress.country }}
+					</div>
+					<div class="form-check col-12 text-success">
+						{% if  adress.defaultAdress == true %}
+							<label for="checkDefaultAdress">
+								<i class="fas fa-check"></i>
+								Default Adress</label>
+						{% endif %}
+					</div>
+					<div class="col-1">
+						<a href='' class="text-danger">
+							<i class="fas fa-trash-alt"></i>
+						</a>
+					</div>
+					<div class="col-1">
+						<a href=''>
+							<i class="fas fa-edit"></i>
+						</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

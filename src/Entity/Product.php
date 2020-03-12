@@ -32,7 +32,7 @@ class Product
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Price", inversedBy="price")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Price", inversedBy="product")
      * @ORM\JoinColumn(nullable=false)
      */
     private $price;
@@ -221,18 +221,6 @@ class Product
         }
 
         return $this;
-    }
-
-    public function getAllUniqueImages(): array
-    {
-        foreach ($this->getArticles() as $article) {
-            foreach ($article->getArticleImages() as $image) {
-                if (!isset($images) || !in_array($image->getURL(), $images)) {
-                    $images[] = $image->getUrl();
-                }
-            }
-        }
-        return $images;
     }
 
     public function getAllSizes()

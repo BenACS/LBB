@@ -19,18 +19,18 @@ class Price
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="float")
      */
     private $priceDf;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="price")
      */
-    private $price;
+    private $product;
 
     public function __construct()
     {
-        $this->price = new ArrayCollection();
+        $this->product = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -38,12 +38,12 @@ class Price
         return $this->id;
     }
 
-    public function getPriceDf(): ?string
+    public function getPriceDf(): ?float
     {
         return $this->priceDf;
     }
 
-    public function setPriceDf(string $priceDf): self
+    public function setPriceDf(float $priceDf): self
     {
         $this->priceDf = $priceDf;
 
@@ -53,28 +53,28 @@ class Price
     /**
      * @return Collection|Product[]
      */
-    public function getPrice(): Collection
+    public function getProduct(): Collection
     {
-        return $this->price;
+        return $this->product;
     }
 
-    public function addPrice(Product $price): self
+    public function addProduct(Product $product): self
     {
-        if (!$this->price->contains($price)) {
-            $this->price[] = $price;
-            $price->setPrice($this);
+        if (!$this->product->contains($product)) {
+            $this->product[] = $product;
+            $product->setPrice($this);
         }
 
         return $this;
     }
 
-    public function removePrice(Product $price): self
+    public function removeProduct(Product $product): self
     {
-        if ($this->price->contains($price)) {
-            $this->price->removeElement($price);
+        if ($this->product->contains($product)) {
+            $this->product->removeElement($product);
             // set the owning side to null (unless already changed)
-            if ($price->getPrice() === $this) {
-                $price->setPrice(null);
+            if ($product->getPrice() === $this) {
+                $product->setPrice(null);
             }
         }
 
@@ -82,6 +82,6 @@ class Price
     }
     public function __toString()
     {
-        return $this->priceDf;
+        return strval($this->priceDf);
     }
 }

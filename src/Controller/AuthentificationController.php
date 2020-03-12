@@ -66,14 +66,11 @@ class AuthentificationController extends AbstractController
 
         if ($form2->isSubmitted() && $form2->isValid()) {
 
-
             $user->setEmail($userEmail);
-            // $user->setPassword($userPassword);
             $hash = $encoder->encodePassword($user, $userPassword);
             $user->setPassword($hash);
             $user->setRegisterDate(new \DateTime());
             $user->setRole('user');
-
 
             $manager->persist($user);
             $manager->flush();

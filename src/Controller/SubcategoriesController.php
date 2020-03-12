@@ -7,14 +7,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\ProductRepository;
-use App\Entity\Product;
-use App\Entity\Article;
-use App\Entity\ArticleImages;
-
 use App\Data\SearchData;
 use App\Form\SearchForm;
 
-use App\Entity\Category;
 
 use App\Service\Header\HeaderService;
 use App\Service\Header\TagService;

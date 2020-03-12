@@ -16,7 +16,8 @@
 		<header class="position-fixed w-100" style="z-index:80">
 			<nav class="navbar navbar-expand-sm navbar-dark flex-column p-0" style="background-color: #000000">
 				<div class="col-12">
-					<div class="row justify-content-between align-items-center">
+					<div
+						class="row justify-content-between align-items-center">
 
 						<!-- Logo -->
 						<div class="col-lg-3 my-1">
@@ -32,29 +33,29 @@
 								<button class="col-lg-2 col-sm-2 btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
 							</form>
 						</div>
-						
+
 						<div id="js-tagNames" style="display:block" data-tag-names='{{ header.tagNames }}'></div>
 
 						<!-- Buttons -->
 						<div class="col-lg-3 col-md-3 d-flex justify-content-end" id="navbarColor02">
 							<ul class="navbar-nav">
 								{% if app.user %}
-								<li class="nav-item mr-5">
-									<a class="nav-link" href="{{ path('logout') }}">
-										<i class="fas fa-power-off" style="color:Red;"></i>
-									</a>
-								</li>
+									<li class="nav-item mr-5">
+										<a class="nav-link" href="{{ path('logout') }}">
+											<i class="fas fa-power-off" style="color:Red;"></i>
+										</a>
+									</li>
 									<li class="nav-item mr-5 ml-5">
-										<a class="nav-link" href="{{ path('profil') }}">
-									<i class="fas fa-user-plus"></i>
-									</a>
-								</li>
+										<a class="nav-link" href="{{ path('profile') }}">
+											<i class="fas fa-user-alt"></i>
+										</a>
+									</li>
 								{% else %}
-								<li class="nav-item mr-5 ml-5">
-									<a class="nav-link" href="{{ path('security_login') }}">
-										<i class="fas fa-user-alt"></i>
-									</a>
-								</li>
+									<li class="nav-item mr-5 ml-5">
+										<a class="nav-link" href="{{ path('security_login') }}">
+											<i class="fas fa-user-plus"></i>
+										</a>
+									</li>
 								{% endif %}
 								<li class="nav-item ml-5 mr-3">
 									<a class="nav-link" href="{{ path('cart') }}">

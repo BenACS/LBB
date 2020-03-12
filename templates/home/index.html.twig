@@ -51,10 +51,10 @@
                             {% for i in 0..2 %}
                                 <div class="col-4  text-center">                                 
                                     <div class='text-center border p-2' style='height:85%'>
-                                        <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
-                                        <h4 class="pb-1">{{ products[i].title }}</h4>
+                                        <img src="{{ hottest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1">{{ hottest[i].title }}</h4>
                                     </div>                               
-                                    <a class="btn buttonColor mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
+                                    <a class="btn buttonColor mt-2" href="{{ path('product', {id : hottest[i].id })}}">View</a>
                                 </div>
                             {% endfor %}
                         </div>
@@ -64,13 +64,13 @@
                     <div class="carousel-item">
                         <div class="row justify-content-around">
                             {% for i in 3..5 %}
-                            <div class="col-4  text-center">                                 
-                                <div class='text-center border p-2' style='height:85%'>
-                                    <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
-                                    <h4 >{{ products[i].title }}</h4>
-                                </div>                               
-                                <a class="btn buttonColor mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
-                            </div>
+                                <div class="col-4  text-center">                                 
+                                    <div class='text-center border p-2' style='height:85%'>
+                                        <img src="{{ hottest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1">{{ hottest[i].title }}</h4>
+                                    </div>                               
+                                    <a class="btn buttonColor mt-2" href="{{ path('product', {id : hottest[i].id })}}">View</a>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -78,14 +78,14 @@
                     <!-- Third slide -->
                     <div class="carousel-item">
                         <div class="row justify-content-around">
-                            {% for i in 6..7 %}
-                            <div class="col-4  text-center">                                 
-                                <div class='text-center border p-2' style='height:85%'>
-                                    <img src="{{ articleImages[i] }}" alt="Card image cap" width="100%">
-                                    <h4 >{{ products[i].title }}</h4>
-                                </div>                               
-                                <a class="btn buttonColor mt-2" href="{{ path('product', {id : products[i].id })}}">View</a>
-                            </div>
+                            {% for i in 6..8 %}
+                                <div class="col-4  text-center">                                 
+                                    <div class='text-center border p-2' style='height:85%'>
+                                        <img src="{{ hottest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1">{{ hottest[i].title }}</h4>
+                                    </div>                               
+                                    <a class="btn buttonColor mt-2" href="{{ path('product', {id : hottest[i].id })}}">View</a>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -122,10 +122,10 @@
                             {% for i in 0..2 %}
                                 <div class="col-4  text-center">                                 
                                     <div class='text-center border p-2' style='height:85%'>
-                                        <img src="{{ latestImages[i] }}" alt="Card image cap" width="100%">
-                                        <h4 class="pb-1">{{ latestProducts[i].title }}</h4>
+                                        <img src="{{ latest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1">{{ latest[i].title }}</h4>
                                     </div>                               
-                                    <a class="btn buttonColor mt-2" href="{{ path('product', {id : latestProducts[i].id })}}">View</a>
+                                    <a class="btn buttonColor mt-2" href="{{ path('product', {id : latest[i].id })}}">View</a>
                                 </div>
                             {% endfor %}
                         </div>
@@ -135,13 +135,13 @@
                     <div class="carousel-item">
                         <div class="row justify-content-around">
                             {% for i in 3..5 %}
-                            <div class="col-4  text-center">                                 
-                                <div class='text-center border p-2' style='height:85%'>
-                                    <img src="{{ latestImages[i] }}" alt="Card image cap" width="100%">
-                                    <h4 >{{ latestProducts[i].title }}</h4>
-                                </div>                               
-                                <a class="btn buttonColor mt-2" href="{{ path('product', {id : latestProducts[i].id })}}">View</a>
-                            </div>
+                                <div class="col-4  text-center">                                 
+                                    <div class='text-center border p-2' style='height:85%'>
+                                        <img src="{{ latest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1">{{ latest[i].title }}</h4>
+                                    </div>                               
+                                    <a class="btn buttonColor mt-2" href="{{ path('product', {id : latest[i].id })}}">View</a>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -149,14 +149,14 @@
                     <!-- Third slide -->
                     <div class="carousel-item">
                         <div class="row justify-content-around">
-                            {% for i in 6..7 %}
-                            <div class="col-4  text-center">                                 
-                                <div class='text-center border p-2' style='height:85%'>
-                                    <img src="{{ latestImages[i] }}" alt="Card image cap" width="100%">
-                                    <h4 >{{ latestProducts[i].title }}</h4>
-                                </div>                               
-                                <a class="btn buttonColor mt-2" href="{{ path('product', {id : latestProducts[i].id  })}}">View</a>
-                            </div>
+                            {% for i in 6..8 %}
+                                <div class="col-4  text-center">                                 
+                                    <div class='text-center border p-2' style='height:85%'>
+                                        <img src="{{ latest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1">{{ latest[i].title }}</h4>
+                                    </div>                               
+                                    <a class="btn buttonColor mt-2" href="{{ path('product', {id : latest[i].id })}}">View</a>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>             
