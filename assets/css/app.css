@@ -43,6 +43,13 @@ footer#myfooter {
 .blackButton {
     color: white!important;
 }
+#btnSearch{
+    color: white;
+    background-color: #1C6EA4;
+    border: 1px solid;
+    border-color: #1C6EA4;
+}
+
 .mainCategories {
     background: #02396D;
     background: -moz-linear-gradient(left, #02396D 0%, #1C6EA4 50%, #02396D 100%);
