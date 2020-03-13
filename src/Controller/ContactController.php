@@ -22,8 +22,10 @@ class ContactController extends AbstractController
     	$form = $this->createForm(ContactFormType::class);
     	$form->handleRequest($request);
 
+        // If form is OK, send email & redirects to a success page
     	if($form->isSubmitted() && $form->isValid()){
     		$this->createEmail($form->getData(), $mailer);
+            return $this->showSuccessMessage($header);
     	}
 
         return $this->render('contact/index.html.twig', [
@@ -36,10 +38,8 @@ class ContactController extends AbstractController
      * Redirects to a page showing that a message was sent
      * @Route("/contact/success", name="contact_success")
      */
-    public function showSuccessMessage(HeaderService $header, Swift_Mailer $mailer, Request $request)
+    public function showSuccessMessage(HeaderService $header)
     {
-    	$this->createEmail($mailer);
-
     	return $this->render('contact/success.html.twig', [
     		'header' => $header
     	]);

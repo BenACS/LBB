@@ -3,10 +3,10 @@
 {% block title %}Message sent !{% endblock %}
 
 {% block body %}
-	<div class="col-lg-6 mx-auto border">
+	<div class="col-lg-6 mx-auto border text-center">
 		<p>Your message was successfully sent.</p>
 		<div>
-			<button href="{{ path('home') }}" class="btn btn-primary">Go back to homepage</button>
+			<a class="btn btn-primary" href="{{ path('home') }}">Go back to homepage</a>
 		</div>
 	</div>
 {% endblock %}
