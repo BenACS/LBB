@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les Bons Booléens
+{% block title %}Les Bons Booléens{% endblock %}
+
+{% block head %}
+	{# Redirects to homepage after some time #}
+	{{ parent() }}
+	<meta http-equiv="refresh" content="5;url={{ path('home') }}">
 {% endblock %}
 
 {% block body %}
@@ -10,7 +15,10 @@
 			<div>
 				<img src="https://cdn.discordapp.com/attachments/682142335601344612/686560272206397511/oops-fish.png" class="w-100">
 			</div>
-			<p>Sorry, no results match your request</p>
+			<p>
+				Sorry, no results match your request.
+				You will be redirected in 5 seconds.
+			</p>
 		</div>
 	</div>
 
