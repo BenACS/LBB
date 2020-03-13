@@ -8,7 +8,14 @@
 
 		<div id="contactForm">
 			{{ form_start(form) }}
-				{{ form_row(form.email,{'label': 'Email', 'attr': {'placeholder': 'AlHead@sendhelp.com'}})}}
+
+				{# if logged in, use the user's email #}
+				{% if app.user %}
+					{{ form_row(form.email,{'label': 'Email', 'attr': {'placeholder': 'AlHead@sendhelp.com', 'value': user.email }})}}
+				{% else %}
+					{{ form_row(form.email,{'label': 'Email', 'attr': {'placeholder': 'AlHead@sendhelp.com'}})}}
+				{% endif %}
+
 				{{ form_row(form.reason,{'label': 'Why you are contacting us ?'})}}
 				{{ form_row(form.message,{'label': 'Message', 'attr': {'placeholder': 'Your message here'}})}}
 
