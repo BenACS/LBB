@@ -7,7 +7,6 @@ use App\Entity\Article;
 use App\Entity\Product;
 use App\Entity\Tag;
 use App\Entity\Category;
-use App\Entity\ArticleImages;
 
 use App\Service\Header\HeaderService;
 use App\Service\Header\TagService;
@@ -22,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/product/{id}", name="product", requirements={"id"="\d+"})
+     * @Route("/product/{id?0}", name="product", requirements={"id"="\d+"})
      */
     public function index(int $id = 0, Product $product = null, HeaderService $header, ArticleService $article)
     {
@@ -35,7 +34,7 @@ class ProductController extends AbstractController
             'product' => $product,
             'price' => $product->getPrice(),
             'variations' => ['sizes' => $product->getAllSizes(), 'colors' => $product->getAllColors(), 'devices' => $product->getAllDevices()],
-            'articleImages' => $product->getAllUniqueImages(),
+            'images' => $article->getAllImages($id),
             'header' => $header,
             'article' => $product->getArticles()[0]
         ]);

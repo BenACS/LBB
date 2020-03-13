@@ -38,6 +38,11 @@ class Review
      */
     private $account;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $creationDate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,18 @@ class Review
     public function setAccount(?Account $account): self
     {
         $this->account = $account;
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): self
+    {
+        $this->creationDate = $creationDate;
 
         return $this;
     }

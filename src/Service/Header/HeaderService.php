@@ -39,6 +39,14 @@ class HeaderService
         return $this->categoryRepo->findOneBy(['categoryName'=>$name]);
     }
 
+    /**
+     * @param Category $mainCat
+     * @return Category[]
+     */
+    public function getSubcategories(Category $mainCat) : array {
+        return $this->categoryRepo->findSubcategories($mainCat->getId());
+    }
+
     public function getCartInt(): int
     {
 

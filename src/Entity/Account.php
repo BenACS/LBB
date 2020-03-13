@@ -62,7 +62,7 @@ class Account implements UserInterface
     private $newsletter;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime")
      */
     private $registerDate;
 
@@ -97,15 +97,21 @@ class Account implements UserInterface
     private $adresses;
 
     /**
-     * @ORM\Column(type="string", length=15, nullable=true)
-     */
-    private $role;
+    * @ORM\Column(type="json", nullable=true)
+    */
+    private $roles;
 
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->adresses = new ArrayCollection();
+        if(!$this->registerDate){
+            $this->registerDate = new \DateTime();
+        }
+        if (!$this->roles){
+            $this->roles[] = 'ROLE_USER';
+        }
     }
 
     public function getId(): ?int
@@ -326,14 +332,10 @@ class Account implements UserInterface
         return $this;
     }
 
-    public function getRole(): ?string
+    public function setRoles(?array $roles): self
     {
-        return $this->role;
-    }
 
-    public function setRole(string $role): self
-    {
-        $this->role = $role;
+        $this->roles = $roles;
 
         return $this;
     }
@@ -341,8 +343,12 @@ class Account implements UserInterface
 
     public function getSalt() {}
 
-    public function getRoles() {
-        return ['ROLE_USER'];
+
+    public function getRoles(): ?array {
+
+        $roles = $this->roles;
+        
+        return $this->roles;
     }
 
     public function getUsername() {

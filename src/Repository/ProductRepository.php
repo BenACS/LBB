@@ -43,12 +43,22 @@ class ProductRepository extends ServiceEntityRepository
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */
-   
-    public function findLatestsProducts()
+
+    public function findLatestProducts()
     {
         return $this->createQueryBuilder('p')
             ->orderBy('p.id', 'DESC')
-            ->setMaxResults(8)
+            ->setMaxResults(9)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findHottestProducts()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(9)
             ->getQuery()
             ->getResult()
         ;
@@ -92,7 +102,7 @@ class ProductRepository extends ServiceEntityRepository
             ->leftjoin('p.price','price')
             ;
 
-        if(!empty($search->min && $ignorePrice = false)){
+        if(!empty($search->min) && $ignorePrice === false){
             $query = $query
                 ->andWhere('price.priceDf >= :min')
                 ->setParameter('min', $search->min);
@@ -104,7 +114,7 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('max', $search->max);
         }
 
-        if(!empty($search->categories) && $ignorePrice === false){
+        if(!empty($search->categories)){
             $query = $query
                 ->andWhere('c.id IN (:categories)')
                 ->setParameter('categories', $search->categories);

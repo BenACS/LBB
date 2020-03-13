@@ -14,10 +14,15 @@
 			<div class="col-3 mx-1">
 				<div>
 					{{ form_start(form, {attr: {class: 'filter'}}) }}
-
-						<h4>Subcategories</h4>
-						{{ form_row(form.categories) }}
-
+						{% if mainCat is defined %}
+							<h4>All subcategories</h4>
+							<ul class="list-unstyled">
+								{% for subcat in header.subcategories(mainCat) %}
+									<li><a href={{path('subcategories',{category:mainCat.categoryName,subcategories:subcat.categoryName})}}>{{subcat.categoryName}}</a></li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+						
 						<h4>Prices</h4>
 						<div class="row">
 							<div class="col-6">
@@ -44,7 +49,7 @@
 					{% for product in products %}
 						<div class="col-3 text-center">                                 
 							<div class='text-center border p-2' style='height:85%'>
-								<img class="img-fluid" src="{{ product.articles[0].articleImages[0].url }}" alt="" width="100%">
+								<img class="img-fluid" src="{{ product.articles[0].images[0].url }}" alt="" width="100%">
 								<small class="pb-1"><b>{{ product.title }}</b></small>
 								<div class="text-primary">{{ product.price.priceDf}} €</div>
 							</div>                               

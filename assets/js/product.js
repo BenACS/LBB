@@ -33,7 +33,7 @@ if (document.getElementById("device_selector")) {
 function changeImageDependingOnColor(element) {
     for (let i = 0; i < thumbnails.length; i++) {
         thumbnails[i].classList.remove('border-secondary');
-        if (thumbnails[i].src.includes(element.value.toLowerCase())) {
+        if (thumbnails[i].src.toLowerCase().includes(element.value.toLowerCase())) {
             main_image.src = thumbnails[i].src;
             thumbnails[i].classList.add('border-secondary');
         }

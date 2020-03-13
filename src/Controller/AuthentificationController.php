@@ -22,26 +22,24 @@ class AuthentificationController extends AbstractController
     public function __construct(SessionInterface $session)
     {
         $this->session = $session;
-
     }
     /**
      * @Route("/authentification", name="authentification")
      */
     public function index(HeaderService $header, Request $request)
     {
-        
+
         $manager = $this->getDoctrine()->getManager();
         $user = new Account();
 
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid() ) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $this->session->set('userAccount', $user);
 
             return $this->redirectToRoute('authentificationTwo');
-
         }
 
         return $this->render('authentification/index.html.twig', [
@@ -56,31 +54,28 @@ class AuthentificationController extends AbstractController
     public function indexSequel(HeaderService $header, Request $request, UserPasswordEncoderInterface $encoder)
     {
         $manager = $this->getDoctrine()->getManager();
-        $userEmail= $this->session->get('userAccount')->getEmail();
-        $userPassword= $this->session->get('userAccount')->getPassword();
+        $userEmail = $this->session->get('userAccount')->getEmail();
+        $userPassword = $this->session->get('userAccount')->getPassword();
 
         $user = new Account();
-        
+
         $form2 = $this->createForm(RegistrationTypeTwoType::class, $user);
 
         $form2->handleRequest($request);
 
 
-        if ($form2->isSubmitted() && $form2->isValid() ) {
+        if ($form2->isSubmitted() && $form2->isValid()) {
 
-        
             $user->setEmail($userEmail);
-            // $user->setPassword($userPassword);
             $hash = $encoder->encodePassword($user, $userPassword);
             $user->setPassword($hash);
             $user->setRegisterDate(new \DateTime());
-            $user->setRole('user');
-            
+            // $user->setRole('user');
 
             $manager->persist($user);
             $manager->flush();
 
-            return $this->redirectToRoute('security_login"');
+            return $this->redirectToRoute('security_login');
         }
 
 
@@ -101,7 +96,7 @@ class AuthentificationController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @Route("/logout", name="logout")
      */
     public function logout(HeaderService $header)

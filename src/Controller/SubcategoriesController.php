@@ -7,14 +7,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\ProductRepository;
-use App\Entity\Product;
-use App\Entity\Article;
-use App\Entity\ArticleImages;
-
 use App\Data\SearchData;
 use App\Form\SearchForm;
 
-use App\Entity\Category;
 
 use App\Service\Header\HeaderService;
 use App\Service\Header\TagService;
@@ -37,11 +32,11 @@ class SubcategoriesController extends AbstractController
 
         [$min,$max] = $productRepo->findMinMax($data);
 
-        // dd($data);
         $products = $productRepo->findSearch($data);
 
         return $this->render('subcategories/index.html.twig', [
             'header' => $header,
+            'mainCat' => $header->getCatByName($category),
             'products' => $products,
             'form' => $form->createView(),
             'min' => $min,

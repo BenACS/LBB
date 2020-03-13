@@ -51,13 +51,16 @@ class Article
     private $product;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ArticleImages", mappedBy="article", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Image", mappedBy="article")
      */
-    private $articleImages;
+    private $images;
 
     public function __construct()
     {
-        $this->articleImages = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        if(!$this->creationDate){
+            $this->creationDate = new \DateTime();
+        }
     }
 
     public function getId(): ?int
@@ -137,37 +140,6 @@ class Article
         return $this;
     }
 
-    /**
-     * @return Collection|ArticleImages[]
-     */
-    public function getArticleImages(): Collection
-    {
-        return $this->articleImages;
-    }
-
-    public function addArticleImage(ArticleImages $articleImage): self
-    {
-        if (!$this->articleImages->contains($articleImage)) {
-            $this->articleImages[] = $articleImage;
-            $articleImage->setImage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticleImage(ArticleImages $articleImage): self
-    {
-        if ($this->articleImages->contains($articleImage)) {
-            $this->articleImages->removeElement($articleImage);
-            // set the owning side to null (unless already changed)
-            if ($articleImage->getImage() === $this) {
-                $articleImage->setImage(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getStockMessage(): string
     {
         if ($this->getStock() > 5) {
@@ -201,5 +173,33 @@ class Article
     public function __toString()
     {
         return $this->getArticleTitle();
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->addArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            $image->removeArticle($this);
+        }
+
+        return $this;
     }
 }

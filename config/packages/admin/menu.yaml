@@ -1,6 +1,9 @@
 easy_admin:
   design:
     menu:
+      - label: 'Return to website'
+        route: 'home'
+        icon: 'arrow-circle-left'
       - label: 'Categories'
         icon : 'bars'
         children: 
@@ -11,8 +14,8 @@ easy_admin:
         children:
           - {entity: 'Price', icon: 'dollar-sign', label: 'Price'}
           - {entity: 'Product', icon: 'box', label: 'Product'}
-          - {entity: 'Article', icon: 'box-open', label: 'Article'}
-          - {entity: 'ArticleImages', icon: 'images', label: 'ArticleImages'}
+          - {entity: 'Article', icon: 'tshirt', label: 'Article'}
+          - {entity: 'Image', icon: 'images', label: 'Image'}
       - label: 'Cart'
         icon : 'shopping-cart'
         children:
