@@ -34,31 +34,17 @@ class ContactController extends AbstractController
         ]);
     }
 
-    /**
-     * Redirects to a page showing that a message was sent
-     * @Route("/contact", name="contact_success")
-     */
-    public function showSuccessMessage(HeaderService $header)
-    {
-    	return $this->render('contact/success.html.twig', [
-    		'header' => $header
-    	]);
-    }
-
-
     // Create & send Email via SwiftMailer
-    public function createEmail(array $test, Swift_Mailer $mailer)
+    public function createEmail(array $formData, Swift_Mailer $mailer)
     {
-    	//dd($test);
-
     	$message = (new \Swift_Message('Test Email'))
-    		->setFrom($test['email'])
+    		->setFrom($formData['email'])
     		->setTo('lesbonsbooleens@gmail.com')
-    		->setSubject($test['reason'])
+    		->setSubject($formData['reason'])
     		->setBody(
     			$this->renderView(
     				'email_swift_mailer.html.twig',
-    				['test' => $test]
+    				['formData' => $formData]
     			),
     			'text/html'
     		)
@@ -67,4 +53,16 @@ class ContactController extends AbstractController
 
     	$mailer->send($message);
     }
+
+    /**
+     * Redirects to a page showing that a message was sent
+     * @Route("/contact", name="contact_success")
+     */
+    public function showSuccessMessage(HeaderService $header)
+    {
+        return $this->render('contact/success.html.twig', [
+            'header' => $header
+        ]);
+    }
+
 }
