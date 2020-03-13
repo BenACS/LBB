@@ -4,16 +4,16 @@
 	<div>
 		<div>
 			<p style="font-size: 1.4em; text-decoration: underline;">Type of issue :</p>
-			<p style="font-size: 1.3em;"><em>{{ test['reason'] }}</em></p>
+			<p style="font-size: 1.3em;"><em>{{ formData['reason'] }}</em></p>
 		</div>
 		<div>
 			<p style="font-size: 1.4em; text-decoration: underline;">User info :</p>
-			<p style="font-size: 1.3em;"><em>{{ test['email'] }}</em></p>
+			<p style="font-size: 1.3em;"><em>{{ formData['email'] }}</em></p>
 		</div>
 	</div>
 
 	<div>
 		<p style="font-size: 1.4em; text-decoration: underline;">Message :</p>
-		<p style="font-size: 1.2em; text-decoration: none;">{{ test['message'] }}</p>
+		<p style="font-size: 1.2em; text-decoration: none;">{{ formData['message'] }}</p>
 	</div>
 </div>

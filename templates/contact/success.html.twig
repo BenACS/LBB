@@ -2,11 +2,20 @@
 
 {% block title %}Message sent !{% endblock %}
 
+{% block head %}
+	{# Redirects to homepage after some time #}
+	{{ parent() }}
+	<meta http-equiv="refresh" content="5;url={{ path('home') }}">
+{% endblock %}
+
 {% block body %}
-	<div class="col-lg-6 mx-auto border">
-		<p>Your message was successfully sent.</p>
-		<div>
-			<button href="{{ path('home') }}" class="btn btn-primary">Go back to homepage</button>
+	<div class="col-lg-6 mx-auto border text-center">
+		<p>
+			Your message was successfully sent.<br><br>
+			If you aren't redirected within 5 seconds, click the button below.
+		</p>
+		<div class="mb-1">
+			<a class="btn btn-primary" href="{{ path('home') }}">Go back to homepage</a>
 		</div>
 	</div>
 {% endblock %}
