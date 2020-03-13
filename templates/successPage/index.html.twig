@@ -5,7 +5,7 @@
 {% block head %}
 	{# Redirects to homepage after some time #}
 	{{ parent() }}
-	<meta http-equiv="refresh" content="10;url={{ path('home') }}">
+	<meta http-equiv="refresh" content="5;url={{ path('home') }}">
 {% endblock %}
 
 {% block body %}
@@ -15,7 +15,9 @@
 			<div>
 				<img src="https://cdn.discordapp.com/attachments/682142335601344612/687250946082078759/thumbs-up-300x169.jpg" class="w-100">
 			</div>
-			<p>Changes well saved. You will be redirected automatically in 10 seconds.</p>
+			<p>
+				Changes well saved.<br>
+				You will be redirected automatically in 5 seconds.</p>
 		</div>
 	</div>
 

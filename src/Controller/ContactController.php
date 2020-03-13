@@ -19,6 +19,8 @@ class ContactController extends AbstractController
      */
     public function index(HeaderService $header, Request $request, Swift_Mailer $mailer)
     {
+        $user = $this->getUser();
+
     	$form = $this->createForm(ContactFormType::class);
     	$form->handleRequest($request);
 
@@ -30,6 +32,7 @@ class ContactController extends AbstractController
 
         return $this->render('contact/index.html.twig', [
         	'header' => $header,
+            'user' => $user,
         	'form' => $form->createView()
         ]);
     }
