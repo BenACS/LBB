@@ -78,7 +78,10 @@
 
 
 					<!-- Main categories -->
-					<div class="row" style="background-color: #eaeaea">
+					<div class="row" style="background: #011C43;
+																																																																																				background: -moz-linear-gradient(left, #011C43 0%, #1C6EA4 50%, #02396D 100%);
+																																																																																				background: -webkit-linear-gradient(left, #011C43 0%, #1C6EA4 50%, #02396D 100%);
+																																																																																				background: linear-gradient(to right, #011C43 0%, #1C6EA4 50%, #02396D 100%);  ">
 						<ul class="navbar-nav col-12 justify-content-around">
 							{% for category in header.categories %}
 								{% if category.parentId == 0 and category.Id != 4 %}
@@ -95,7 +98,7 @@
 					</div>
 
 					<!-- Subcategories -->
-					<div class="row disNone subCategories" style="background-color: #838383">
+					<div class="row disNone subCategories">
 						<ul class="navbar-nav col-12 justify-content-around">
 							{% for category in header.categories %}
 								{% if category.parentId == 1 %}
@@ -107,7 +110,7 @@
 						</ul>
 					</div>
 
-					<div class="row disNone subCategories" style="background-color:#838383">
+					<div class="row disNone subCategories">
 						<ul class="navbar-nav col-12 justify-content-around">
 							{% for category in header.categories %}
 								{% if category.parentId == 2 %}
@@ -119,7 +122,7 @@
 						</ul>
 					</div>
 
-					<div class="row disNone subCategories" style="background-color:#838383">
+					<div class="row disNone subCategories">
 						<ul class="navbar-nav col-12 justify-content-around">
 							{% for category in header.categories %}
 								{% if category.parentId == 3 %}
@@ -131,7 +134,7 @@
 						</ul>
 					</div>
 
-					<div class="row disNone subCategories exception" style="background-color:#838383">
+					<div class="row disNone subCategories exception">
 						<ul class="navbar-nav col-12 justify-content-around">
 							{% for category in header.categories %}
 								{% if category.parentId == 4 %}
@@ -143,7 +146,7 @@
 						</ul>
 					</div>
 
-					<div class="row disNone subCategories" style="background-color:#838383">
+					<div class="row disNone subCategories">
 						<ul class="navbar-nav col-12 justify-content-around">
 							{% for category in header.categories %}
 								{% if category.parentId == 17 %}
