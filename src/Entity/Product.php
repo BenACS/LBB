@@ -258,6 +258,39 @@ class Product
         }
         return $devices;
     }
+
+    public function getAverageRate()
+    {
+        $ratings = null;
+        foreach ($this->getReviews() as $review) {
+            if ($review->getRating() !== null) {
+                $ratings[] = $review->getRating();
+            }
+        }
+        return $ratings;
+    }
+    public function ratingToStarsAverage($rate)
+    {
+        if (is_int($rate) || round($rate * 2) / 2 == floor($rate)) {
+            $stars = str_repeat('<i class="fas fa-star text-warning"></i>', floor($rate)) . str_repeat('<i
+						class="far fa-star text-warning"></i>', 5 - floor($rate));
+        } else if (round($rate * 2) / 2 == floor($rate) + 0.5) {
+            $stars = str_repeat('<i class="fas fa-star text-warning"></i>', floor($rate)) . '<i class="fas fa-star-half-alt text-warning"></i>' .
+                str_repeat('<i class="far fa-star text-warning"></i>', 4 - floor($rate));
+        } else {
+            $stars = str_repeat('<i class="fas fa-star text-warning"></i>', ceil($rate)) . str_repeat('<i
+						class="far fa-star text-warning"></i>', 5 - ceil($rate));
+        }
+
+        return $stars;
+    }
+    public function ratingToStars($rate)
+    {
+        $stars = str_repeat('<i class="fas fa-star text-warning"></i>', $rate) . str_repeat('<i
+						class="far fa-star text-warning"></i>', 5 - $rate);
+        return $stars;
+    }
+
     public function __toString()
     {
         return $this->title;

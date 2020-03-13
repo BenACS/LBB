@@ -70,7 +70,6 @@ class AuthentificationController extends AbstractController
             $hash = $encoder->encodePassword($user, $userPassword);
             $user->setPassword($hash);
             $user->setRegisterDate(new \DateTime());
-            // $user->setRole('user');
 
             $manager->persist($user);
             $manager->flush();
@@ -91,9 +90,21 @@ class AuthentificationController extends AbstractController
      */
     public function login(HeaderService $header)
     {
+        dump($this->session);
         return $this->render('authentification/login.html.twig', [
             'header' => $header
         ]);
+    }
+    /**
+     * @Route("/login_success", name="login_success")
+     */
+    public function postLoginRedirectAction()
+    {
+        if ($this->session->get('logFromProduct')) {
+            return $this->redirectToRoute('product', ['id' => $this->session->get('logFromProduct')]);
+        } else {
+            return $this->redirectToRoute("home");
+        }
     }
 
     /**

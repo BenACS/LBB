@@ -63,6 +63,12 @@ product_checkArticle:
     requirements:
         path: '{"id"="\d+"}'
 
+editReview:
+    path: /editReview/{idReview?0}
+    controller: App\Controller\ProductController::editReview
+    requirements:
+        path: '{"id"="\d+"}'
+
 # Authentification-related
 
 authentification:
