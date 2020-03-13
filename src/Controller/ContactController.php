@@ -36,7 +36,7 @@ class ContactController extends AbstractController
 
     /**
      * Redirects to a page showing that a message was sent
-     * @Route("/contact/success", name="contact_success")
+     * @Route("/contact", name="contact_success")
      */
     public function showSuccessMessage(HeaderService $header)
     {
