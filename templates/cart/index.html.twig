@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row justify-content-center align-items-baseline m-2">
             <h1 class="mx-2">Cart</h1>
-            <span>(<span id="js_nbr_items">{{ itemsInCart }}</span> products)</span>
+            <span>(<span id="js_nbr_items">{{ cart.total }}</span> products)</span>
         </div>
         <!-- TEST BUTTON TO REMOVE LATER -->
             <a href="{{path('cart_show')}}" id="show_cart">Show</a>
@@ -15,7 +15,7 @@
             <div class="col-xl-6 col-8 justify-content-center" id="js_items_list">
                 <form action="{{path('cart_modify')}}" method="POST" id="quantity_form"></form>
                     <!-- start loop articlesInCart -->
-                    {% for item in cart %}
+                    {% for item in cart.items %}
                         <div class="item-box row col-10 my-1 p-2 border rounded" id="item_{{item.article.id}}">
                             <img src="{{item.article.images.0.url}}" width="80px" height="80px">
                             <div class="col-10 px-3">

@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Orders;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Account;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Orders|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,15 @@ class OrdersRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findOnGoingOrderByUser(Account $user) : ?Orders
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.account = :userId')
+            ->setParameter('userId', $user->getId())
+            ->andWhere('o.validationDate is NULL')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

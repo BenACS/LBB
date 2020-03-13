@@ -13,13 +13,18 @@ use App\Service\Header\TagService;
 
 class HomeController extends AbstractController
 {
+    protected $header;
+
+    public function __construct(HeaderService $header) {
+        $this->header = $header;
+    }
     /**
      * @Route("/", name="home")
      */
-    public function index(HeaderService $header, CategoryRepository $catRepo, ArticleService $product)
+    public function index( ArticleService $product)
     {
         return $this->render('home/index.html.twig', [
-            'header' => $header,
+            'header' => $this->header,
             'latest' => $product->getLatestProducts(),
             'hottest' => $product->getHottestProducts()
         ]);
@@ -29,9 +34,9 @@ class HomeController extends AbstractController
      * @Route("/searchTag/tag", name="searchTag")
      * 
      */
-    public function searchTag(HeaderService $header, Request $request)
+    public function searchTag(Request $request)
     {
-        foreach ($header->getTagNamesArray() as $id => $name) {
+        foreach ($this->header->getTagNamesArray() as $id => $name) {
             if ($request->request->get('tag') == $name) {
                 $tagId = $id + 1;
                 $subCatName = $header->getTagCategory($tagId)->getCategoryName();
@@ -67,10 +72,10 @@ class HomeController extends AbstractController
      * 
      * @Route("/error", name="error")
      */
-    public function errorPage(HeaderService $header)
+    public function errorPage()
     {
         return $this->render('errorPage/index.html.twig', [
-            'header' => $header
+            'header' => $this->header
         ]);
     }
 
@@ -78,10 +83,10 @@ class HomeController extends AbstractController
      * 
      * @Route("/success", name="success")
      */
-    public function successPage(HeaderService $header)
+    public function successPage()
     {
         return $this->render('successPage/index.html.twig', [
-            'header' => $header
+            'header' => $this->header
         ]);
     }
 }
