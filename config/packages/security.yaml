@@ -22,6 +22,8 @@ security:
             form_login:
                 login_path: security_login
                 check_path: security_login
+                default_target_path: login_success
+                always_use_default_target_path: true
 
             guard:
                 authenticators:
@@ -32,6 +34,15 @@ security:
                 # where to redirect after logout
                 # target: app_any_route
             #provider: users_in_memory
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+                # by default, the feature is enabled by checking a
+                # checkbox in the login form (see below), uncomment the
+                # following line to always enable it.
+                # always_remember_me: true
+                
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

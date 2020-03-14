@@ -41,7 +41,24 @@ footer#myfooter {
     display: block;
 }
 .blackButton {
-    color: black!important;
+    color: white!important;
+}
+.mainCategories {
+    background: #02396D;
+    background: -moz-linear-gradient(left, #02396D 0%, #1C6EA4 50%, #02396D 100%);
+    background: -webkit-linear-gradient(left, #02396D 0%, #1C6EA4 50%, #02396D 100%);
+    background: linear-gradient(to right, #02396D 0%, #1C6EA4 50%, #02396D 100%);  
+}
+.subCategories{
+background: #678CBF;
+background: -moz-linear-gradient(left, #678CBF 0%, #8ABBFF 50%, #678CBF 100%);
+background: -webkit-linear-gradient(left, #678CBF 0%, #8ABBFF 50%, #678CBF 100%);
+background: linear-gradient(to right, #678CBF 0%, #8ABBFF 50%, #678CBF 100%);
+    color: #02396D;
+ 
+}
+.subCategories a{
+    color: white !important;
 }
 /* =============================== PRODUCT PAGE STYLE =============================== */
 

@@ -15,15 +15,12 @@
 			</div>
 			<div class="col-4">
 				<img src={{images.0.url}} alt="hoodie" width="95%" id="main_image">
-				<div class="text-center">
-					<span id="rating" class="text-warning mx-2">
-						<i class="far fa-star"></i>
-						<i class="far fa-star"></i>
-						<i class="far fa-star"></i>
-						<i class="far fa-star"></i>
-						<i class="far fa-star"></i>
-					</span>
-					<a href="#reviews">(<span id="nbr_reviews">2 reviews</span>)
+				<div class="text-center mt-2">
+					{% if not reviews | length == 0   %}
+						{{ product.ratingtostarsaverage(averagerating) | raw }}
+					{% endif %}
+					<a href="#reviews">(<span id="nbr_reviews">{{ reviews | length }}
+							reviews</span>)
 					</a>
 				</div>
 			</div>
@@ -68,40 +65,78 @@
 							</div>
 						{% endif %}
 					</form>
-					<p style="font-size:2em"><b><span id="js_price">{{price.priceDf}}</span> €</b></p>
+					<p style="font-size:2em">
+						<b>
+							<span id="js_price">{{price.priceDf}}</span>
+							€</b>
+					</p>
 				</div>
 				<div>
 					<p id="js_stock_message">{{ article.stockMessage | raw }}</p>
 					<br>
 					<form id="cart_form" action="{{path("cart_add")}}" method="POST">
-						<select id="quantity_selector" data-article-id="{{ article.id}}" data-stock="{{ article.stock}}" data-unit-price = "{{price.priceDf}}"></select>
+						<select id="quantity_selector" data-article-id="{{ article.id}}" data-stock="{{ article.stock}}" data-unit-price="{{price.priceDf}}"></select>
 						<button type="submit" class="btn btn-warning mx-2">Add to cart</button>
 					</form>
 				</div>
 			</div>
 		</div>
-		<div id="reviews" class="my-2">
-			<h3 class="text-center">Reviews</h3>
-			<div class="row justify-content-center">
-				<div class="col-2 border mx-1">
-					<i class="fas fa-user-secret"></i>
-					Username
+
+		<div id="reviews" class="mt-5">
+			{% if reviews | length != 0   %}
+				<h3 class="text-center">Reviews</h3>
+			{% endif %}
+			{% for review in reviews %}
+				{% if review.rating is not null %}
+					<div class="row justify-content-center mt-2">
+						<div class="col-2 border mx-1">
+							<i class="fas fa-user-secret mr-1"></i>
+							{{ review.account.firstname }}.{{ review.account.lastname | slice(0,1) }}
+							<br>
+							<br>
+							{{ review.creationdate | date("Y/m/d") }}
+						</div>
+						<div class="col-7 row border  p-1 mx-1">
+							{{ product.ratingtostars(review.rating) | raw }}
+							<p class="col-9">{{ review.comment }}</p>
+						</div>
+						{% if review.account == app.user %}
+							<div class='ml-1'>
+								<a href='{{ path('editReview', {idReview: review.id })}}'>
+									<i class=" fas fa-edit mr-1 mt-3 mb-2" style='color: rgb(104, 38, 38)'></i>
+								</a>
+								<br>
+								<a href='{{ path('removeReview', {idReview: review.id })}}'>
+									<i class=" fas fa-trash mr-1 text-danger"></i>
+								</a>
+							</div>
+						{% endif %}
+						<input type="hidden" value='{{ review.id }}'>
+					</div>
+				{% endif %}
+			{% endfor %}
+
+			{% if app.user %}
+				<div class="col-4 mx-auto mt-2">
+					<h2>Comment this product !</h2>
 					<br>
-					Date
+					{{ form_start(form)}}
+					{{ form_row(form.rating,{'attr':{'placeholder': "Rate the product", 'class': 'col-2'}})}}
+					{{ form_row(form.comment,{'attr':{'placeholder': "Your comment"}})}}
+					<button type="submit" class="btn btn-warning text-white">Post</button>
+					{{ form_end(form) }}
 				</div>
-				<div class="col-7 row border p-1 mx-1">
-					<span class="user-rating col-2">
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="fas fa-star"></i>
-						<i class="far fa-star"></i>
-						<i class="far fa-star"></i>
-					</span>
-					<p class="col-9">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est at dolore perferendis facere impedit soluta autem pariatur magni eaque maiores illo, dolor explicabo delectus! Eveniet neque dicta optio explicabo soluta?</p>
+			{% else %}
+				<div class="col-4 mx-auto mt-3">
+					<h4 class="text-center ">You need to be connected to comment !<br>
+						<a class="mt-1" href="{{ path('security_login')}}" onclick="{{ app.session.set('logFromProduct', product.id ) }}">
+							Login
+						</a>
+
+					</h4>
+
 				</div>
-			</div>
-
-
+			{% endif %}
 		</div>
 
 	</div>

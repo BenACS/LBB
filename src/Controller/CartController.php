@@ -2,17 +2,17 @@
 
 namespace App\Controller;
 
-use App\Repository\ArticleRepository;
 use App\Service\Cart\CartService;
-use App\Service\Header\HeaderService;
 use App\Service\Header\TagService;
+use App\Repository\ArticleRepository;
 
+use App\Service\Header\HeaderService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
@@ -72,7 +72,7 @@ class CartController extends AbstractController
      */
     public function modifyArticleQuantity(Request $request): Response
     {
-        return $this->json([$this->cart->modifyArticleQuantity($request)], 200);
+        return $this->json([$this->cart->add($request, 'setQuantity')], 200);
     }
 
     /**

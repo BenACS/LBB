@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Comment
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="col-lg-6 mx-auto ">
+		<div class="pt-3">
+			<h2 class="mt-1 ">Edit your Comment</h2>
+			<form method="post" action="{{ path('editReview', {idReview: reviewtoedit.id })}}" id="editReview">
+				<div class="form-group ">
+					<label>Your rating :
+						{{ reviewtoedit.ratingtostars(reviewtoedit.rating) | raw }}
+					</label>
+					<br>
+					<label>Change it :
+					</label>
+					<select class="form-control col-1" id="reviewRating" name="reviewRating">
+						{% for q in 5..0 %}
+							<option {% if reviewtoedit.rating == q %} selected {% endif %}>{{q}}</option>
+						{% endfor %}.
+					</select>
+				</div>
+				<div class="form-group ">
+					<label>Your comment</label>
+					<textarea type="textarea" class="form-control col-6" rows="4" cols="50" name="reviewComment" form="editReview">{{ reviewtoedit.comment }}</textarea>
+				</div>
+				<button type="submit" class="btn btn-success">
+					Confirm</button>
+			</form>
+		</div>
+	</div>
+{% endblock %}

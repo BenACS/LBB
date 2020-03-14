@@ -2,27 +2,32 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-
-use App\Repository\CategoryRepository;
-use App\Service\Article\ArticleService;
-use App\Service\Header\HeaderService;
 use App\Service\Header\TagService;
+use App\Service\Header\HeaderService;
+use App\Repository\CategoryRepository;
+
+use App\Service\Article\ArticleService;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
     protected $header;
+    private $session;
 
-    public function __construct(HeaderService $header) {
+    public function __construct(HeaderService $header, SessionInterface $session) {
         $this->header = $header;
+        $this->session = $session;
     }
+    
     /**
      * @Route("/", name="home")
      */
     public function index( ArticleService $product)
     {
+        dump($this->session);
         return $this->render('home/index.html.twig', [
             'header' => $this->header,
             'latest' => $product->getLatestProducts(),

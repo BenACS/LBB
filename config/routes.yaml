@@ -63,6 +63,12 @@ product_checkArticle:
     requirements:
         path: '{"id"="\d+"}'
 
+editReview:
+    path: /editReview/{idReview?0}
+    controller: App\Controller\ProductController::editReview
+    requirements:
+        path: '{"id"="\d+"}'
+
 # Authentification-related
 
 authentification:
@@ -112,6 +118,17 @@ removeAdress:
 editAdress:
     path: /profil/editAdress/{adressId}
     controller: App\Controller\ProfilController::editAdress
+
+# Contact
+
+contact:
+    path: /contact
+    controller: App\Controller\ContactController::index
+
+contact_success:
+    path: /contact
+    controller: App\Controller\ContactController::showSuccessMessage
+
 # Subcategories
 
 subcategories:
@@ -124,4 +141,4 @@ category:
     path: /{category}
     controller: App\Controller\CategoryController::index
     requirements:
-        path: "^(?!product|card|login|profil|authentification|logout|searchTag|error|Surprises|admin).+"
+        path: "^(?!product|card|login|profil|authentification|logout|searchTag|error|Surprises|admin|contact).+"

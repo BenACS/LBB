@@ -1,17 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Les Bons Booléens
+{% block title %}Les Bons Booléens{% endblock %}
+
+{% block head %}
+	{# Redirects to homepage after some time #}
+	{{ parent() }}
+	<meta http-equiv="refresh" content="5;url={{ path('home') }}">
 {% endblock %}
 
 {% block body %}
-
 
 	<div class="row justify-content-center">
 		<div class="col-4 text-center mt-4">
 			<div>
 				<img src="https://cdn.discordapp.com/attachments/682142335601344612/687250946082078759/thumbs-up-300x169.jpg" class="w-100">
 			</div>
-			<p>Changes well saved .</p>
+			<p>
+				Changes well saved.<br>
+				You will be redirected automatically in 5 seconds.</p>
 		</div>
 	</div>
 

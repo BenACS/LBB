@@ -59,6 +59,15 @@ class CartRepository extends ServiceEntityRepository
                 ])
             ->getQuery()
             ->getOneOrNullResult()
-            ;
+        ;
+    }
+
+    public function findOrderCart(Orders $order) : ?array {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.orders = :orderId')
+            ->setParameter('orderId', $order->getId())
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

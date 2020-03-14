@@ -107,4 +107,11 @@ class Review
 
         return $this;
     }
+
+    public function ratingToStars($rate)
+    {
+        $stars = str_repeat('<i class="fas fa-star text-warning"></i>', $rate) . str_repeat('<i
+						class="far fa-star text-warning"></i>', 5 - $rate);
+        return $stars;
+    }
 }
