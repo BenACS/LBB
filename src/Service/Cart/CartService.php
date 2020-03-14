@@ -161,27 +161,32 @@ class CartService {
 
     public function getUserCart(Account $user) {
         // PUSH SESSION CART INTO DB
-            //get ongoing order id
-            $order = $this->getOngoingOrder($user);
-
             //get session cart
             $cart = $this->session->get('cart', []);
 
-            foreach ($cart as $articleId => $quantity) {
-                $article = $this->articleRepository->find($articleId);
-                $this->addCartItem($order, $article, $quantity);
+            if (count($cart) !=0) {
+                //get ongoing order id
+                $order = $this->getOngoingOrder($user);
+                foreach ($cart as $articleId => $quantity) {
+                    $article = $this->articleRepository->find($articleId);
+                    $this->addCartItem($order, $article, $quantity);
+                }
+            } else {
+                $order = $this->ordersRepository->findOnGoingOrderByUser($user);
             }
-        
-            // GET NEW USER CART            
-            $cartFromDB = $this->cartRepository->findOrderCart($order) ?? [];
             
+        
+        // GET NEW USER CART
+        if ($order) {
+            $cartFromDB = $this->cartRepository->findOrderCart($order);
+        
             foreach ($cartFromDB as $item) {
                 $cartUser[$item->getArticle()->getId()] = $item->getQuantity();
             }
-
-            $this->session->set('cart', $cartUser ?? []);
-
+        }       
         
+
+        $this->session->set('cart', $cartUser ?? []);
     }
 
     
