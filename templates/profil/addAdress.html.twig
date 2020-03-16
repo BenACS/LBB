@@ -5,10 +5,11 @@
 
 {% block body %}
 
-	<div class="col-lg-6 mx-auto">
+	<div class="col-lg-8 col-md-9 col-sm-10 col-11 mx-auto">
 		<div class="pt-3">
-
-			<h2 class="mt-1">Add an adress to your profile</h2>
+			<div class="text-center">
+				<h2 class="mt-1">Add an adress to your profile</h2>
+			</div>
 
 			{{ form_start(form)}}
 
@@ -20,11 +21,9 @@
 				{{ form_row(form.optionalInfo, { 'label':'Optional informations','attr': {'placeholder': ''}})}}
 				{{ form_row(form.defaultAdress, { 'label':'Default adress ?'})}}
 
-
-				<button type="submit" class="btn btn-success">
-					Validate
-				</button>
-
+				<div class="text-center">
+					<button type="submit" class="btn btn-success">Validate</button>
+				</div>
 			</div>
 		</div>
 	</div>

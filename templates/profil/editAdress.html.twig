@@ -4,14 +4,14 @@
 {% endblock %}
 
 {% block body %}
-
-
-	<div class="col-lg-6 mx-auto ">
+	<div class="col-lg-6 col-md-8 col-sm-9 col-10 mx-auto ">
 		<div class="pt-3">
 
-			<h2 class="mt-1">Edit your adress</h2>
+			<div class="text-center">
+				<h2 class="mt-1">Edit your adress</h2>
+			</div>
 
-			<form method="post" action="{{path('editAdress',{adressId: adress.id })}}">
+			<form method="post" action="{{ path('editAdress',{adressId: adress.id }) }}">
 				<div class="form-group">
 					<label>Country</label>
 					<input class="form-control" type="text" value="{{ adress.country }}" name="adressCountry">
@@ -42,8 +42,10 @@
 						<label for="defaultAdress">Default Adress</label>
 					{% endif %}
 				</div>
-				<button type="submit" class="btn btn-success">
-					Confirm</button>
+
+				<div class="text-center">
+					<button type="submit" class="btn btn-success">Confirm</button>
+				</div>
 			</form>
 
 		</div>
