@@ -5,13 +5,12 @@
 {% block head %}
 	{# Redirects to homepage after some time #}
 	{{ parent() }}
-	<meta http-equiv="refresh" content="5;url={{ path('home') }}">
-{% endblock %}
+<!-- 	<meta http-equiv="refresh" content="5;url={{ path('home') }}">
+ -->{% endblock %}
 
 {% block body %}
-
 	<div class="row justify-content-center">
-		<div class="col-4 text-center mt-4">
+		<div class="col-lg-4 col-md-5 col-sm-6 col-10 text-center mt-4">
 			<div>
 				<img src="https://cdn.discordapp.com/attachments/682142335601344612/686560272206397511/oops-fish.png" class="w-100">
 			</div>
@@ -21,6 +20,4 @@
 			</p>
 		</div>
 	</div>
-
-
 {% endblock %}
