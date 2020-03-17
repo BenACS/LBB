@@ -1,17 +1,15 @@
 {% extends 'base.html.twig' %}
+{% set categoryFromUrl = app.request.get('category') %}
 
-{% block title %}J'apprécie les fruits au sirop{% endblock %}
+{% block title %}LBB - {{ categoryFromUrl }}{% endblock %}
 
 {% block body %}
     <div class="container-fluid d-flex flex-row ">
-        <div class="container col-lg-3 mt-5">
+        <div class="container col-lg-3 col-md-4 col-sm-3 d-none d-sm-block mt-5">
             <img class="img-fluid" src="https://www.ladn.eu/wp-content/uploads/2018/11/big-mac-soixante.jpg" alt="pubalacon">
         </div>
 
-        <div class="container col-lg-9 d-flex flex-row flex-wrap justify-content-around align-items-center">
-
-
-            {% set categoryFromUrl = app.request.get('category') %}
+        <div class="container col-lg-9 col-md-8 col-sm-9 col-12 d-flex flex-row flex-wrap justify-content-around align-items-center">
 
             {% for category in header.categories %}
                 {# get the mainCatId#}
@@ -21,12 +19,13 @@
                     {% for category in header.categories %}
                         {# check if category is subcat of main #}
                         {% if category.parentId == mainCatId and category.parentId != 0 %}
-                            <div class="d-flex flex-column col-3 p-0 mx-1 border">
+                            <div class="d-flex flex-column col-lg-3 col-md-4 col-sm-5 col-8 p-0 mx-1 my-3 border">
                                 <div class="">
-                                    <a href="{{path('subcategories',{category:categoryFromUrl,subcategories:category.categoryName})}}">
+                                    <a href="{{ path('subcategories',{category:categoryFromUrl,subcategories:category.categoryName}) }}">
                                         <img class="img-fluid w-100" src="{{ category.image }}" alt="">
                                     </a>
                                 </div>
+
                                 <div class="text-center">
                                     <p>{{ category.categoryName }}</p>
                                 </div>
@@ -35,7 +34,6 @@
                     {% endfor %}
                 {% endif %}
             {% endfor %}
-            
             
         </div>
     </div>
