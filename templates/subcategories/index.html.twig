@@ -50,12 +50,12 @@
 				<div class="row justify-content-start">
 					{% for product in products %}
 						<div class="col-lg-3 col-md-4 col-sm-6 col-6 text-center">                                 
-							<div class='text-center border p-2' style='height:85%'>
+							<div class='text-center border p-2'>
 								<img class="img-fluid" src="{{ product.articles[0].images[0].url }}" alt="" width="100%">
 								<small class="pb-1"><b>{{ product.title }}</b></small>
 								<p class="text-primary">{{ product.price.priceDf}} €</p>
-								<a class="btn buttonColor my-2 mb-5" href="{{path('product',{id:product.id})}}">View</a>
 							</div>
+							<a class="btn buttonColor my-2 mb-5" href="{{path('product',{id:product.id})}}">View</a>
 						</div>
 
 					{% else %}
