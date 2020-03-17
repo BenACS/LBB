@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Data\Cart\SelectionArticleData;
 use App\Entity\Tag;
 use App\Entity\Price;
 use App\Entity\Review;
@@ -20,6 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ProductController extends AbstractController
 {
@@ -146,10 +148,12 @@ class ProductController extends AbstractController
      * @param ArticleService $articleService
      * @return Response
      */
-    public function checkArticle(int $id, Request $request, ArticleService $articleService): Response
+    public function checkArticle(int $id, Request $request, ArticleService $articleService, SerializerInterface $serializer): Response
     {
+        $selection = $serializer->deserialize($request->getContent(), SelectionArticleData::class,'json');
+        $selection->product = $id;
 
-        $article = $articleService->getArticleInfos($id, $request->request->all());
+        $article = $articleService->getArticleInfos($selection);
 
         return $this->json([
             'articleId' => $article->getId(),

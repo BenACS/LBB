@@ -8,9 +8,10 @@ use App\Entity\Orders;
 use App\Entity\Account;
 use App\Entity\Article;
 
+use App\Data\Cart\CartData;
 use App\Repository\CartRepository;
-use App\Repository\OrdersRepository;
 
+use App\Repository\OrdersRepository;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -89,9 +90,9 @@ class CartService {
      * @param string $action, set to 'setQuantity' to access to the modifyQuantity functionality
      * @return array
      */
-    public function add(Request $request, string $action = 'add') : array {   
-        $articleId = $request->request->get('articleId');
-        $quantity = (int) $request->request->get('quantity');
+    public function add(CartData $addition, string $action = 'add') : array {   
+        $articleId = $addition->articleId;
+        $quantity = $addition->quantity;
         $article = $this->articleRepository->find($articleId);
 
         $cart = $this->session->get('cart', []);
@@ -127,8 +128,8 @@ class CartService {
             ];
     }
 
-    public function remove($request) :array {
-        $articleId = (int) $request->request->get('articleId');
+    public function remove(CartData $removal) :array {
+        $articleId = $removal->articleId;
         $article = $this->articleRepository->find($articleId);
         
         $cart = $this->session->get('cart', []);

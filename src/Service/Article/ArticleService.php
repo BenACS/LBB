@@ -2,6 +2,7 @@
 
 namespace App\Service\Article;
 
+use App\Data\Cart\SelectionArticleData;
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use App\Repository\ImageRepository;
@@ -18,15 +19,10 @@ class ArticleService {
         $this->productRepo = $productRepo;
     }
 
-    public function getArticleInfos(int $productId, array $selectionsAssoc = null) : Article {
-        $criteria = ['product'=> $productId];
-
-        if ($selectionsAssoc) {
-            for ($i = 0 ; $i < count($selectionsAssoc) ; $i++) {
-                $column = array_keys($selectionsAssoc)[$i];
-                if ($selectionsAssoc[$column] && $selectionsAssoc[$column] != "null" ) {
-                    $criteria[$column] = $selectionsAssoc[$column];
-                }
+    public function getArticleInfos(SelectionArticleData $selection) : Article {
+        foreach ($selection as $key => $value) {
+            if ($value) {
+                $criteria[$key] = $value;
             }
         }
         
