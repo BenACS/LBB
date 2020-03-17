@@ -52,15 +52,16 @@ for (let i=0 ; i<quantitySelectors.length ; i++) {
             })
     } 
 }
+if (document.getElementById("show_cart")) {
+    show_cart.onclick = function(e) {
+        e.preventDefault();
 
-show_cart.onclick = function(e) {
-    e.preventDefault();
+            const params = new URLSearchParams();
 
-        const params = new URLSearchParams();
-
-        const url = this.href;
-        axios.post(url, params)
-            .then(function(response) { 
-                console.log(response.data);
-            });
+            const url = this.href;
+            axios.post(url, params)
+                .then(function(response) { 
+                    console.log(response.data);
+                });
+    }
 }
