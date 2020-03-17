@@ -2,26 +2,30 @@
 
 namespace App\Controller;
 
+use App\Data\Cart\CartData;
 use App\Service\Cart\CartService;
 use App\Service\Header\TagService;
+
 use App\Repository\ArticleRepository;
-
 use App\Service\Header\HeaderService;
-use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class CartController extends AbstractController
 {
     protected $header;
     protected $cart;
+    protected $serializer;
 
-    public function __construct(HeaderService $header, CartService $cart) {
+    public function __construct(HeaderService $header, CartService $cart,SerializerInterface $serializer) {
         $this->header = $header;
         $this->cart = $cart;
+        $this->serializer = $serializer;
     }
     /**
      * @Route("/cart/recap", name="cart")
@@ -45,7 +49,8 @@ class CartController extends AbstractController
      */
     public function addToCart(Request $request): Response
     {
-        return $this->json($this->cart->add($request) , 200);
+        $addition = $this->serializer->deserialize($request->getContent(), CartData::class,'json');
+        return $this->json($this->cart->add($addition) , 200);
 
     }
 
@@ -59,7 +64,8 @@ class CartController extends AbstractController
      */
     public function removeFromCart(Request $request): Response
     {
-        return $this->json($this->cart->remove($request), 200);
+        $removal = $this->serializer->deserialize($request->getContent(), CartData::class,'json');
+        return $this->json($this->cart->remove($removal), 200);
     }
 
     /**
@@ -72,7 +78,8 @@ class CartController extends AbstractController
      */
     public function modifyArticleQuantity(Request $request): Response
     {
-        return $this->json([$this->cart->add($request, 'setQuantity')], 200);
+        $modification = $this->serializer->deserialize($request->getContent(), CartData::class,'json');
+        return $this->json($this->cart->add($modification,'setQuantity'), 200);
     }
 
     /**
