@@ -93,7 +93,7 @@
 
 			{% for review in reviews %}
 				{% if review.rating is not null %}
-					<div class="row col-lg-12 col-md-10 col-sm-10 col-12 justify-content-center mt-2 mx-auto">
+					<div class="row col-lg-12 col-md-10 col-sm-10 col-12 justify-content-center mt-2 mx-auto mb-3">
 						<div class="col-lg-3 col-md-3 col-sm-4 col-4 border mx-1">
 							<i class="fas fa-user-secret mr-1"></i>
 							{{ review.account.firstname }}.{{ review.account.lastname | slice(0,1) }}
