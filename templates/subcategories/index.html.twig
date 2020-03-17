@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
-
 {% set subCatFromUrl = app.request.get('subcategories') %}
 
 {% block title %} {{subCatFromUrl}} {% endblock %}
+
 {% block stylesheets %}
 	{{ encore_entry_link_tags('filters') }}
 {% endblock %}
@@ -11,7 +11,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<!-- Filters -->
-			<div class="col-3 mx-1">
+			<div class="col-lg-3 col-md-3 col-sm-3 col-12 mx-1 text-center text-sm-left">
 				<div>
 					{{ form_start(form, {attr: {class: 'filter'}}) }}
 						{% if mainCat is defined %}
@@ -24,36 +24,38 @@
 						{% endif %}
 						
 						<h4>Prices</h4>
-						<div class="row">
-							<div class="col-6">
+						<div class="row justify-content-center">
+							<div class="col-lg-6 col-md-12 col-sm-12 col-10">
 								{{ form_row(form.min) }}
 							</div>
-							<div class="col-6">
+							<div class="col-lg-6 col-md-12 col-sm-12 col-10">
 								{{ form_row(form.max) }}
 							</div>
 						</div>
 
-						<div class="my-2" id="price_slider" data-min="{{ min }}" data-max="{{ max }}"></div>
-						<button type="submit" class="btn btn-primary w-100 m-2">Filter</button>
+						<div class="d-flex flex-column align-items-center">
+							<div class="col-sm-12 col-10 my-2" id="price_slider" data-min="{{ min }}" data-max="{{ max }}"></div>
+							<button type="submit" class="btn btn-primary w-75 m-2">Filter</button>
+						</div>
 					{{ form_end(form) }}
 				</div>
 			</div>
 
 			<!-- Products -->
-			<div class="container col-8">
+			<div class="container col-lg-8 col-md-8 col-sm-7 col-8">
 				<div class="d-flex justify-content-end mb-2"> 
 					{{knp_pagination_sortable(products,'Price ','price.priceDf')}}
 				</div>
 
 				<div class="row justify-content-start">
 					{% for product in products %}
-						<div class="col-3 text-center">                                 
+						<div class="col-lg-3 col-md-4 col-sm-6 col-6 text-center">                                 
 							<div class='text-center border p-2' style='height:85%'>
 								<img class="img-fluid" src="{{ product.articles[0].images[0].url }}" alt="" width="100%">
 								<small class="pb-1"><b>{{ product.title }}</b></small>
-								<div class="text-primary">{{ product.price.priceDf}} €</div>
-							</div>                               
-							<a class="btn buttonColor my-2 mb-4" href="{{path('product',{id:product.id})}}">View</a>
+								<p class="text-primary">{{ product.price.priceDf}} €</p>
+								<a class="btn buttonColor my-2 mb-5" href="{{path('product',{id:product.id})}}">View</a>
+							</div>
 						</div>
 
 					{% else %}
