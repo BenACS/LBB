@@ -41,6 +41,16 @@ class Orders
      */
     private $carts;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $totalValue;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $payment;
+
     public function __construct()
     {
         $this->carts = new ArrayCollection();
@@ -115,6 +125,30 @@ class Orders
                 $cart->setOrders(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTotalValue(): ?float
+    {
+        return $this->totalValue;
+    }
+
+    public function setTotalValue(?float $totalValue): self
+    {
+        $this->totalValue = $totalValue;
+
+        return $this;
+    }
+
+    public function getPayment(): ?string
+    {
+        return $this->payment;
+    }
+
+    public function setPayment(?string $payment): self
+    {
+        $this->payment = $payment;
 
         return $this;
     }
