@@ -11,7 +11,6 @@ if (slider) {
         const minValue = Math.floor(parseFloat(slider.dataset.min));
         const maxValue = Math.ceil(parseFloat(slider.dataset.max));
 
-        console.log(minValue,maxValue);
         const range = noUiSlider.create(slider, {
             start: [min.value || minValue, max.value || maxValue],
             connect: true,

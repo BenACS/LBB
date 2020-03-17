@@ -88,7 +88,6 @@ cart_form.onsubmit = function(e) {
         .then(function(response) { 
             cart_badge.innerText = response.data.itemsInCart;
             addToastCart(response.data.image,response.data.title,response.data.quantity);
-            console.log(response.data);
         })
 }
 

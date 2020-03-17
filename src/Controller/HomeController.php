@@ -44,10 +44,10 @@ class HomeController extends AbstractController
         foreach ($this->header->getTagNamesArray() as $id => $name) {
             if ($request->request->get('tag') == $name) {
                 $tagId = $id + 1;
-                $subCatName = $header->getTagCategory($tagId)->getCategoryName();
-                $subParentId = $header->getTagCategory($tagId)->getParentId();
+                $subCatName = $this->header->getTagCategory($tagId)->getCategoryName();
+                $subParentId = $this->header->getTagCategory($tagId)->getParentId();
                 if ($subParentId != 0) {
-                    $catName = $header->getMainCatName($subParentId);
+                    $catName = $this->header->getMainCatName($subParentId);
                 }
             }
         }
