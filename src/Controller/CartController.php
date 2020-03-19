@@ -43,8 +43,6 @@ class CartController extends AbstractController
      * @Route("/product/addToCart", name="cart_add")
 
      * @param Request $request
-     * @param ArticleRepository $articleRepo
-     * @param SessionInterface $session
      * @return Response
      */
     public function addToCart(Request $request): Response
@@ -59,7 +57,6 @@ class CartController extends AbstractController
      * @Route("/product/removeFromCart", name="cart_remove")
 
      * @param Request $request
-     * @param SessionInterface $session
      * @return Response
      */
     public function removeFromCart(Request $request): Response
@@ -73,7 +70,6 @@ class CartController extends AbstractController
      * @Route("/product/modifyCart", name="cart_modify")
 
      * @param Request $request
-     * @param SessionInterface $session
      * @return Response
      */
     public function modifyArticleQuantity(Request $request): Response
@@ -96,6 +92,18 @@ class CartController extends AbstractController
 
         return $this->json([
             'cart' => $cart
+        ], 200);
+    }
+
+    /**
+        * @Route("/cart/checkout", name="cart_checkout")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function checkout(Request $request): Response {
+        return $this->json([
+            'request' => $request->request->all()
         ], 200);
     }
 }

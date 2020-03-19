@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
+ * @ApiResource
  */
 class Article
 {
@@ -58,7 +60,7 @@ class Article
     public function __construct()
     {
         $this->images = new ArrayCollection();
-        if(!$this->creationDate){
+        if (!$this->creationDate) {
             $this->creationDate = new \DateTime();
         }
     }

@@ -205,7 +205,5 @@ if(slider){
         if(handle === 1){
             max.value = Math.round(values[1]);
         }
-
-        console.log(values, handle);
     });
 }

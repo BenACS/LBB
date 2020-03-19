@@ -47,7 +47,7 @@ class CartService {
         return $this->ordersRepository->findOnGoingOrderByUser($user);
     }
 
-    private function addCartItem(Orders $order, Article $article, int $quantity) {
+    private function addIntoDB(Orders $order, Article $article, int $quantity) {
         if ($this->cartRepository->findArticleInOngoingOrder($order,$article)) {
             $cartItem = $this->cartRepository->findArticleInOngoingOrder($order,$article);
             $quantity += $cartItem->getQuantity();
@@ -113,7 +113,7 @@ class CartService {
                 $order = $this->getOngoingOrder($user);
 
                 //check if the article was already added by the user in the cart of the ongoing order
-                $this->addCartItem($order,$article,$cart[$articleId]);
+                $this->addIntoDB($order,$article,$cart[$articleId]);
             }
         // END STORAGE DB OR COOKIES ====================================================================
         
@@ -170,7 +170,7 @@ class CartService {
                 $order = $this->getOngoingOrder($user);
                 foreach ($cart as $articleId => $quantity) {
                     $article = $this->articleRepository->find($articleId);
-                    $this->addCartItem($order, $article, $quantity);
+                    $this->addIntoDB($order, $article, $quantity);
                 }
             } else {
                 $order = $this->ordersRepository->findOnGoingOrderByUser($user);

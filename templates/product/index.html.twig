@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block body %}
-
 	<div class="container-fluid">
 		<div class="row mt-5 justify-content-center">
-			<div class="col-1">
+			<div class="col-lg-1 col-md-2 col-sm-2 col-1 d-none d-sm-block">
 				{% for image in images %}
 					<img src={{image.url}} alt="hoodie" class="w-100 border my-1 thumbnail-images{% if image == images.0 %} border-secondary{% endif %}">
 				{% endfor %}
 			</div>
-			<div class="col-4">
+
+			<div class="col-lg-4 col-md-5 col-sm-5 col-10 mb-3">
 				<img src={{images.0.url}} alt="hoodie" width="95%" id="main_image">
 				<div class="text-center mt-2">
 					{% if not reviews | length == 0   %}
@@ -24,10 +24,12 @@
 					</a>
 				</div>
 			</div>
-			<div class="col-4 text-center">
+
+			<div class="col-lg-4 col-md-4 col-sm-5 col-10 text-center">
 				<div class="border rounded">
 					<h2>{{product.title}}</h2>
 					<p class="text-justify p-4">{{product.description}}</p>
+
 					<form action="{{ path('product_checkArticle', {id : product.id}) }}" method="POST" id="variation_form">
 						{% if variations.sizes is not null %}
 							<div class="form-group col-md-3 mx-auto">
@@ -46,7 +48,7 @@
 								<label for="color_selector">Colors</label>
 								<br>
 								<select class="form-control" id="color_selector" name="color">
-									{% for color in variations.colors  %}
+									{% for color in variations.colors %}
 										<option>{{color}}</option>
 									{% endfor %}
 								</select>
@@ -58,19 +60,21 @@
 								<label for="device_selector">Devices</label>
 								<br>
 								<select class="form-control" id="device_selector" name="device">
-									{% for device in variations.devices  %}
+									{% for device in variations.devices %}
 										<option>{{device}}</option>
 									{% endfor %}
 								</select>
 							</div>
 						{% endif %}
 					</form>
+
 					<p style="font-size:2em">
 						<b>
-							<span id="js_price">{{price.priceDf}}</span>
-							€</b>
+							<span id="js_price">{{price.priceDf}}</span>€
+						</b>
 					</p>
 				</div>
+
 				<div>
 					<p id="js_stock_message">{{ article.stockMessage | raw }}</p>
 					<br>
@@ -82,70 +86,69 @@
 			</div>
 		</div>
 
-		<div id="reviews" class="mt-5">
-			{% if reviews | length != 0   %}
+		<div id="reviews" class="col-12 mt-5">
+			{% if reviews | length != 0 %}
 				<h3 class="text-center">Reviews</h3>
 			{% endif %}
+
 			{% for review in reviews %}
 				{% if review.rating is not null %}
-					<div class="row justify-content-center mt-2">
-						<div class="col-2 border mx-1">
+					<div class="row col-lg-12 col-md-10 col-sm-10 col-12 justify-content-center mt-2 mx-auto mb-3">
+						<div class="col-lg-3 col-md-3 col-sm-4 col-4 border mx-1">
 							<i class="fas fa-user-secret mr-1"></i>
 							{{ review.account.firstname }}.{{ review.account.lastname | slice(0,1) }}
 							<br>
 							<br>
 							{{ review.creationdate | date("Y/m/d") }}
 						</div>
-						<div class="col-7 row border  p-1 mx-1">
+
+						<div class="col-lg-4 col-md-6 col-sm-6 col-6 row border p-1 mx-1">
 							{{ product.ratingtostars(review.rating) | raw }}
 							<p class="col-9">{{ review.comment }}</p>
 						</div>
+
 						{% if review.account == app.user %}
 							<div class='ml-1'>
 								<a href='{{ path('editReview', {idReview: review.id })}}'>
-									<i class=" fas fa-edit mr-1 mt-3 mb-2" style='color: rgb(104, 38, 38)'></i>
+									<i class="fas fa-edit mr-1 mt-3 mb-2" style='color: rgb(104, 38, 38)'></i>
 								</a>
 								<br>
-								<a href='{{ path('removeReview', {idReview: review.id })}}'>
-									<i class=" fas fa-trash mr-1 text-danger"></i>
+								<a href='{{ path('removeReview', {idReview: review.id }) }}'>
+									<i class="fas fa-trash mr-1 text-danger"></i>
 								</a>
 							</div>
 						{% endif %}
+
 						<input type="hidden" value='{{ review.id }}'>
 					</div>
 				{% endif %}
 			{% endfor %}
 
 			{% if app.user %}
-				<div class="col-4 mx-auto mt-2">
-					<h2>Comment this product !</h2>
+				<div class="col-lg-7 col-md-8 col-sm-9 col-12 mx-auto mt-2">
+					<div class="text-center">
+						<h2 style="font-size: 1.8em;">Comment this product !</h2>
+					</div>
 					<br>
 					{{ form_start(form)}}
 					{{ form_row(form.rating,{'attr':{'placeholder': "Rate the product", 'class': 'col-2'}})}}
 					{{ form_row(form.comment,{'attr':{'placeholder': "Your comment"}})}}
-					<button type="submit" class="btn btn-warning text-white">Post</button>
+					<div class="text-center">
+						<button type="submit" class="btn btn-warning text-white">Post</button>
+					</div>
 					{{ form_end(form) }}
 				</div>
 			{% else %}
-				<div class="col-4 mx-auto mt-3">
-					<h4 class="text-center ">You need to be connected to comment !<br>
-						<a class="mt-1" href="{{ path('security_login')}}" onclick="{{ app.session.set('logFromProduct', product.id ) }}">
-							Login
-						</a>
-
+				<div class="col-lg-12 col-md-10 col-sm-10 col-12 mx-auto mt-3">
+					<h4 class="text-center">You need to be connected to comment !<br>
+						<a class="mt-1" href="{{ path('security_login') }}" onclick="{{ app.session.set('logFromProduct', product.id) }}">Login</a>
 					</h4>
-
 				</div>
 			{% endif %}
 		</div>
-
 	</div>
-
 {% endblock %}
-
 {% block javascripts %}
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
 	{{ encore_entry_script_tags('product') }}
-
 {% endblock %}
