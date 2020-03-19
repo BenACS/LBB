@@ -11,6 +11,15 @@ body {
     position:relative;
     background-color: white; /* rgba(235,235,235) */
 }
+main {
+    height: 100vh;
+}
+
+@media screen and (max-width: 750px) {
+    .responsiv {
+      margin-top: 30%;
+    }
+}
 
 footer#myfooter {
     position:absolute;

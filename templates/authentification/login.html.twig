@@ -5,24 +5,24 @@
 
 {% block body %}
 
-	<div class="pt-3">
+		<div class="pt-3 responsiv">
 		<div class="d-flex flex-row justify-content-center my-5">
 			<a href="{{ path('authentification') }}">
 				<button class="myButton">Sign up</button>
 			</a>
 		</div>
 
-		<div class="col-lg-6 mx-auto border borderSize">
+		<div class="col-lg-6 col-md-6 col-sm-6 mx-auto border borderSize">
 			<h2 class="my-3 text-center">Sign In</h1>
 			<form action="{{ path('security_login')}}" method="post">
 				<div class="form-group">
 					<i class="fas fa-envelope"></i>
-					<label for="_username">Email</label>
+						<label for="_username">Email</label>
 					<input placeholder="Nainpossible@geek.com" required name="_username" type="text" class="form-control">
 				</div>
 				<div class="form-group">
 					<i class="fas fa-asterisk"></i>
-					<label for="_password">Password</label>
+						<label for="_password">Password</label>
 					<input placeholder="********" required name="_password" type="password" class="form-control">
 				</div>
 				<div class="form-check mb-2">
@@ -31,14 +31,14 @@
 				</div>
 				<div class="form-group text-center">
 					<a href="">Forgot your password ?</a>
-					<div class="form-group text-center mt-2">
+							<div class="form-group text-center mt-2">
 						<button type="submit" class="btn btn-success myButton2">Sign In</button>
 						<div class="g-signin2" data-onsuccess="onSignIn"></div>
 					</div>
 				</form>
-
 			</div>
 		</div>
+
 		{% block javascripts %}
 			<script src="https://apis.google.com/js/platform.js" async defer></script>
 		{% endblock %}
