@@ -11,82 +11,78 @@
 
         <div class="row justify-content-center flex-sm-row flex-sm-row flex-column-reverse">
             <div class="col-xl-7 col-md-6 col-sm-6 col-12 justify-content-center" id="js_items_list">
-                <form action="{{ path('cart_checkout') }}" method="POST" id="cart">
-                    <form action="{{ path('cart_modify') }}" method="POST" id="quantity_form">
-                        
-                        <!-- start loop articlesInCart -->
-                        {% for item in cart.items %}
-                            <div class="item-box col-12 my-1 p-2 border rounded mb-sm-2 mb-3" id="item_{{ item.article.id }}">
-                                <img src="{{ item.article.images.0.url }}" width="80px" height="80px">
-                                <div class="col-12 px-3">
-                                    <div class="row justify-content-between">
-                                        <div class="col-9 article-title"><b>{{ item.article.articleTitle }}</b></div>
-                                        <div><span class="article-price">{{ item.article.product.price.priceDF }}</span> €</div>
+                <form action="{{ path('cart_modify') }}" method="POST" id="quantity_form">
+                    <!-- start loop articlesInCart -->
+                    {% for item in cart.items %}
+                        <div class="item-box col-12 my-1 p-2 border rounded mb-sm-2" id="item_{{ item.article.id }}">
+                            <img src="{{ item.article.images.0.url }}" width="80px" height="80px">
+                            <div class="col-12 px-3">
+                                <div class="row justify-content-between">
+                                    <div class="col-9 article-title"><b>{{ item.article.articleTitle }}</b></div>
+                                    <div><span class="article-price">{{ item.article.product.price.priceDF }}</span> €</div>
+                                </div>
+
+                                <div class="mt-1 mb-3">{{ item.article.stockMessage | raw }}</div>
+                                <div class="row justify-content-between">
+                                    <div class="col-8">
+                                        <small class="form-row align-items-baseline">
+                                            <label class="mx-1">Quantity</label>
+                                            <select class="js-quantity-selector form-control col-2 min-max-width" data-article-id="{{ item.article.id }}" name="cart[{{ item.article.id }}]">
+                                                <!-- start on loop article stock with twig -->
+                                                {% if item.article.stock < 5 %}
+                                                    {% for q in 1..item.article.stock %}
+                                                        <option {% if item.quantity == q %} selected {% endif %}>{{ q }}</option>
+                                                    {% endfor %}.
+                                                {% else %}
+                                                    {% for q in 1..5 %}
+                                                        <option {% if item.quantity == q %} selected {% endif %}>{{ q }}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                <!-- end on loop article stock with twig -->
+                                            </select>
+                                        </small>
                                     </div>
 
-                                    <div class="mt-1 mb-3">{{ item.article.stockMessage | raw }}</div>
-                                    <div class="row justify-content-between position-relative">
-                                        <div class="col-8">
-                                            <small class="form-row align-items-baseline">
-                                                
-                                                <label class="mx-1">Quantity</label>
-                                                <select class="js-quantity-selector form-control col-2 min-max-width" data-article-id="{{ item.article.id }}" name="cart[{{ item.article.id }}]">
-                                                    <!-- start on loop article stock with twig -->
-                                                    {% if item.article.stock < 5 %}
-                                                        {% for q in 1..item.article.stock %}
-                                                            <option {% if item.quantity == q %} selected {% endif %}>{{ q }}</option>
-                                                        {% endfor %}.
-                                                    {% else %}
-                                                        {% for q in 1..5 %}
-                                                            <option {% if item.quantity == q %} selected {% endif %}>{{ q }}</option>
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                    <!-- end on loop article stock with twig -->
-                                                </select>
-                                            
-                                            </small>
-                                        </div>
-                                        
-                                        <a href="{{ path('cart_remove') }}" data-article-id="{{ item.article.id }}" class="js-btn-delete position-absolute" style="bottom: 10px; right: 10px;">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
-                                    </div>
+                                    <a href="{{ path('cart_remove') }}" data-article-id="{{ item.article.id }}" class="js-btn-delete position-absolute" style="bottom: 10px; right: 10px;">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
                                 </div>
                             </div>
-                        {% else %}
-                            <div>No registered items in the cart</div>
-                        {% endfor %}
-                        <!-- end loop articlesInCart -->
-                    
-                    </form>
+                        </div>
+                    {% else %}
+                        <div>No registered items in the cart</div>
+                    {% endfor %}
+                    <!-- end loop articlesInCart -->
                 </form>
             </div>
 
             <div class="col-xl-3 col-md-4 col-sm-5 col-12 mb-sm-0 mb-4">
-                <div class="form-group d-flex justify-content-center border rounded p-2 my-1">
-                    <label class="col-auto col-form-label">Promo : </label>
-                    <div class="col-6 p-0">
-                      <input type="text" class="form-control" placeholder="ex: LBB527">
+                <form action="{{ path('cart_checkout')}}" method="POST" id="cart">
+                    <div class="form-group d-flex justify-content-center border rounded p-2 my-1">
+                        <label class="col-auto col-form-label">Promo : </label>
+                        <div class="col-6 p-0">
+                            <input type="text" class="form-control" placeholder="ex: LBB527">
+                        </div>
                     </div>
-                  </div>
-                  <div class="border rounded my-2 px-2">
-                      <div class="d-flex justify-content-between my-1">
-                          <div><b>Total excl.taxes : </b></div>
-                          <div><span id="js_totalPriceDF"></span>€</div>
-                      </div>
-                      <div class="d-flex justify-content-between my-1">
-                        <div><b>Discount : </b></div>
-                        <div class="text-success"><span id="js_discount">5.00</span>€</div>
+
+                    <div class="border rounded my-2 px-2">
+                        <div class="d-flex justify-content-between my-1">
+                            <div><b>Total excl.taxes : </b></div>
+                            <div><span id="js_totalPriceDF"></span>€</div>
+                        </div>
+                        <div class="d-flex justify-content-between my-1">
+                            <div><b>Discount : </b></div>
+                            <div class="text-success"><span id="js_discount">5.00</span>€</div>
+                        </div>
+                        <div class="d-flex justify-content-between my-1">
+                            <div><b>Total incl.taxes : </b></div>
+                            <div><span id="js_totalPriceVAT">59.98</span>€</div>
+                        </div>
                     </div>
-                    <div class="d-flex justify-content-between my-1">
-                        <div><b>Total incl.taxes : </b></div>
-                        <div><span id="js_totalPriceVAT">59.98</span>€</div>
+                    <div class="text-center w-100">
+                        <button type="submit" form="cart" class="btn btn-warning">Proceed to checkout</button>
                     </div>
-                  </div>
-                  <div class="text-center w-100">
-                      <button type="submit" form="cart" class="btn btn-warning">Proceed to checkout</button>
-                  </div>
-                  
+                </form>
             </div>
         </div>
     </div>
