@@ -89,9 +89,8 @@ class AuthentificationController extends AbstractController
     /**
      * @Route("/login", name="security_login")
      */
-    public function login(HeaderService $header)
+    public function login(HeaderService $header, Request $request)
     {
-        dump($this->session);
         return $this->render('authentification/login.html.twig', [
             'header' => $header
         ]);
@@ -99,13 +98,15 @@ class AuthentificationController extends AbstractController
     /**
      * @Route("/login_success", name="login_success")
      */
-    public function postLoginRedirectAction(CartService $cartService)
+    public function postLoginRedirectAction(CartService $cartService, Request $request)
     {
         // UPDATE AND GET SESSION CART
         $cartService->getUserCart($this->getUser());
 
         if ($this->session->get('logFromProduct')) {
             return $this->redirectToRoute('product', ['id' => $this->session->get('logFromProduct')]);
+        } elseif ($request->cookies->get('logFromCart')) {
+            return $this->redirectToRoute('cart_checkout');
         } else {
             return $this->redirectToRoute("home");
         }
