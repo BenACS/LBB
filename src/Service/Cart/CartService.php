@@ -67,6 +67,14 @@ class CartService {
         $this->manager->flush();
     }
 
+    private function setNewQuantityIntoDB(Account $user, Article $article, int $quantity) {
+        $order = $this->getOngoingOrder($user);
+        $cartItem = $this->cartRepository->findArticleInOngoingOrder($order,$article);
+        $cartItem->setQuantity($quantity);
+        $this->manager->persist($cartItem);
+        $this->manager->flush();
+    }
+
     /**
      * Remove article from DB
      *
@@ -109,14 +117,14 @@ class CartService {
      * @param string $action, set to 'setQuantity' to access to the modifyQuantity functionality
      * @return array
      */
-    public function add(CartData $addition, string $action = 'add') : array {   
+    public function add(CartData $addition) : array {   
         $articleId = $addition->articleId;
         $quantity = $addition->quantity;
         $article = $this->articleRepository->find($articleId);
 
         $cart = $this->session->get('cart', []);
 
-        if (!empty($cart[$articleId]) && $action == 'add') {
+        if (!empty($cart[$articleId])) {
             $cart[$articleId] += $quantity;
             if ($cart[$articleId] > 5) {
                 $cart[$articleId] = 5;
@@ -130,6 +138,28 @@ class CartService {
             if ($user) {
                 //check if the article was already added by the user in the cart of the ongoing order
                 $this->addIntoDB($user,$article,$cart[$articleId]);
+            }
+        // END STORAGE DB OR COOKIES ====================================================================
+        
+        $this->session->set('cart', $cart);
+
+        return [];
+    }
+
+    public function setQuantity(CartData $modification) : array {
+        $articleId = $modification->articleId;
+        $quantity = $modification->quantity;
+        $article = $this->articleRepository->find($articleId);
+
+        $cart = $this->session->get('cart', []);
+        
+        $cart[$articleId] = $quantity;
+
+        // STORAGE DD OR COOKIES ===============================================================
+            $user = $this->security->getUser();
+            if ($user) {
+                //check if the article was already added by the user in the cart of the ongoing order
+                $this->setNewQuantityIntoDB($user,$article,$cart[$articleId]);
             }
         // END STORAGE DB OR COOKIES ====================================================================
         

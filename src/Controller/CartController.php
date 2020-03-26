@@ -75,7 +75,7 @@ class CartController extends AbstractController
     public function modifyArticleQuantity(Request $request): Response
     {
         $modification = $this->serializer->deserialize($request->getContent(), CartData::class,'json');
-        return $this->json($this->cart->add($modification,'setQuantity'), 200);
+        return $this->json($this->cart->setQuantity($modification), 200);
     }
 
     /**

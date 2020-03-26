@@ -12,7 +12,8 @@ body {
     background-color: white; /* rgba(235,235,235) */
 }
 main {
-    height: 100vh;
+    padding-top: 120px;
+    padding-bottom: 120px;
 }
 
 @media screen and (max-width: 750px) {
