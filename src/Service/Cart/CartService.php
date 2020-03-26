@@ -47,7 +47,9 @@ class CartService {
         return $this->ordersRepository->findOnGoingOrderByUser($user);
     }
 
-    private function addIntoDB(Orders $order, Article $article, int $quantity) {
+    private function addIntoDB(Account $user, Article $article, int $quantity) {
+        $order = $this->getOngoingOrder($user);
+
         if ($this->cartRepository->findArticleInOngoingOrder($order,$article)) {
             $cartItem = $this->cartRepository->findArticleInOngoingOrder($order,$article);
             $quantity += $cartItem->getQuantity();
@@ -62,6 +64,31 @@ class CartService {
 
         $cartItem->setQuantity($quantity);
         $this->manager->persist($cartItem);
+        $this->manager->flush();
+    }
+
+    private function setNewQuantityIntoDB(Account $user, Article $article, int $quantity) {
+        $order = $this->getOngoingOrder($user);
+        $cartItem = $this->cartRepository->findArticleInOngoingOrder($order,$article);
+        $cartItem->setQuantity($quantity);
+        $this->manager->persist($cartItem);
+        $this->manager->flush();
+    }
+
+    /**
+     * Remove article from DB
+     *
+     * @param Orders $order
+     * @param Article $article
+     * @return void
+     */
+    private function removeFromDB(Account $user,Article $article) {
+        //if need to remove => ongoing order exists
+        $order = $this->ordersRepository->findOnGoingOrderByUser($user);
+
+        $cartItem = $this->cartRepository->findArticleInOngoingOrder($order,$article);
+        $order->removeCart($cartItem);
+        $this->manager->persist($order);
         $this->manager->flush();
     }
 
@@ -90,14 +117,14 @@ class CartService {
      * @param string $action, set to 'setQuantity' to access to the modifyQuantity functionality
      * @return array
      */
-    public function add(CartData $addition, string $action = 'add') : array {   
+    public function add(CartData $addition) : array {   
         $articleId = $addition->articleId;
-        $quantity = $addition->quantity;
+        $quantity = $addition->quantity ?? 1;
         $article = $this->articleRepository->find($articleId);
 
         $cart = $this->session->get('cart', []);
 
-        if (!empty($cart[$articleId]) && $action == 'add') {
+        if (!empty($cart[$articleId])) {
             $cart[$articleId] += $quantity;
             if ($cart[$articleId] > 5) {
                 $cart[$articleId] = 5;
@@ -109,11 +136,8 @@ class CartService {
         // STORAGE DD OR COOKIES ===============================================================
             $user = $this->security->getUser();
             if ($user) {
-                //user exists, check if an order is already ongoing (no validation date) 
-                $order = $this->getOngoingOrder($user);
-
                 //check if the article was already added by the user in the cart of the ongoing order
-                $this->addIntoDB($order,$article,$cart[$articleId]);
+                $this->addIntoDB($user,$article,$cart[$articleId]);
             }
         // END STORAGE DB OR COOKIES ====================================================================
         
@@ -126,6 +150,28 @@ class CartService {
                 'articleId' => $articleId,
                 'quantity' => $quantity == 0 ? 1 : $quantity
             ];
+    }
+
+    public function setQuantity(CartData $modification) : array {
+        $articleId = $modification->articleId;
+        $quantity = $modification->quantity;
+        $article = $this->articleRepository->find($articleId);
+
+        $cart = $this->session->get('cart', []);
+        
+        $cart[$articleId] = $quantity;
+
+        // STORAGE DD OR COOKIES ===============================================================
+            $user = $this->security->getUser();
+            if ($user) {
+                //check if the article was already added by the user in the cart of the ongoing order
+                $this->setNewQuantityIntoDB($user,$article,$cart[$articleId]);
+            }
+        // END STORAGE DB OR COOKIES ====================================================================
+        
+        $this->session->set('cart', $cart);
+
+        return [];
     }
 
     public function remove(CartData $removal) :array {
@@ -141,14 +187,8 @@ class CartService {
         // STORAGE DD OR COOKIES ===============================================================
             $user = $this->security->getUser();
             if ($user) {
-                //if need to remove => ongoing order exists
-                $order = $this->ordersRepository->findOnGoingOrderByUser($user);
-
                 //find the article to remove from the cart
-                $cartItem = $this->cartRepository->findArticleInOngoingOrder($order,$article);
-                $order->removeCart($cartItem);
-                $this->manager->persist($order);
-                $this->manager->flush();
+                $this->removeFromDB($user,$article);
             }
         // END STORAGE DB OR COOKIES ====================================================================
 
@@ -167,14 +207,13 @@ class CartService {
 
             if (count($cart) !=0) {
                 //get ongoing order id
-                $order = $this->getOngoingOrder($user);
                 foreach ($cart as $articleId => $quantity) {
                     $article = $this->articleRepository->find($articleId);
-                    $this->addIntoDB($order, $article, $quantity);
+                    $this->addIntoDB($user, $article, $quantity);
                 }
-            } else {
-                $order = $this->ordersRepository->findOnGoingOrderByUser($user);
             }
+
+            $order = $this->ordersRepository->findOnGoingOrderByUser($user);
             
         
         // GET NEW USER CART
