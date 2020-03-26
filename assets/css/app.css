@@ -83,7 +83,7 @@ img.thumbnail-images:hover,img.thumbnail-images.active {
     cursor:pointer;
 }
 
-/* =============================== Loggin Button =============================== */
+/* =============================== Login Button =============================== */
 
 .myButton {
 	box-shadow: 3px 4px 0px 0px rgb(0, 0, 0);
@@ -133,7 +133,7 @@ img.thumbnail-images:hover,img.thumbnail-images.active {
 	top:1px;
 }
 
-/* =============================== / Loggin Button =============================== */
+/* =============================== / Login Button =============================== */
 
 .fadeIn{
     animation-name: fadeIn;
@@ -187,6 +187,7 @@ img.thumbnail-images:hover,img.thumbnail-images.active {
     border-bottom: none;
     border-top: none;
     z-index: 99;
+    
     /*position the autocomplete items to be the same width as the container:*/
     left: 0;
     right: 0;
@@ -218,5 +219,9 @@ img.thumbnail-images:hover,img.thumbnail-images.active {
     position:sticky;
 }
 
-/* =============================== UISLIDER STYLE =============================== */
+/* =============================== CART STYLE =============================== */
 
+.min-max-width{
+    min-width: 50px;
+    max-width: 50px;
+}
