@@ -224,10 +224,6 @@ class CartService {
                 $cartUser[$item->getArticle()->getId()] = $item->getQuantity();
             }
         }       
-        
-
         $this->session->set('cart', $cartUser ?? []);
     }
-
-    
 }
