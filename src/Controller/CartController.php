@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class CartController extends AbstractController
 {
@@ -22,7 +23,8 @@ class CartController extends AbstractController
     protected $cart;
     protected $serializer;
 
-    public function __construct(HeaderService $header, CartService $cart,SerializerInterface $serializer) {
+    public function __construct(HeaderService $header, CartService $cart, SerializerInterface $serializer)
+    {
         $this->header = $header;
         $this->cart = $cart;
         $this->serializer = $serializer;
@@ -47,9 +49,8 @@ class CartController extends AbstractController
      */
     public function addToCart(Request $request): Response
     {
-        $addition = $this->serializer->deserialize($request->getContent(), CartData::class,'json');
-        return $this->json($this->cart->add($addition) , 200);
-
+        $addition = $this->serializer->deserialize($request->getContent(), CartData::class, 'json');
+        return $this->json($this->cart->add($addition), 200);
     }
 
     /**
@@ -61,7 +62,7 @@ class CartController extends AbstractController
      */
     public function removeFromCart(Request $request): Response
     {
-        $removal = $this->serializer->deserialize($request->getContent(), CartData::class,'json');
+        $removal = $this->serializer->deserialize($request->getContent(), CartData::class, 'json');
         return $this->json($this->cart->remove($removal), 200);
     }
 
@@ -74,7 +75,7 @@ class CartController extends AbstractController
      */
     public function modifyArticleQuantity(Request $request): Response
     {
-        $modification = $this->serializer->deserialize($request->getContent(), CartData::class,'json');
+        $modification = $this->serializer->deserialize($request->getContent(), CartData::class, 'json');
         return $this->json($this->cart->setQuantity($modification), 200);
     }
 
@@ -96,14 +97,35 @@ class CartController extends AbstractController
     }
 
     /**
-        * @Route("/cart/checkout", name="cart_checkout")
+     * @Route("/cart/checkout", name="cart_checkout")
      *
      * @param Request $request
      * @return Response
      */
-    public function checkout(Request $request): Response {
-        return $this->json([
-            'request' => $request->request->all()
-        ], 200);
+    public function checkout(): Response
+    {
+        if ($this->getUser()) {
+            return $this->render('cart/delivery.html.twig', [
+                'header' => $this->header,
+                'cart' => $this->cart->getCart(),
+                'user' => $this->getUser()
+            ]);
+        } else {
+            $response = new Response(
+                'Content',
+                Response::HTTP_OK,
+                ['content-type' => 'text/html']
+            );
+            $cookie = new Cookie('logFromCart', 'delivery', strtotime('1 hour'));
+            $response->headers->setCookie($cookie);
+            $response->send();
+            return $this->redirectToRoute('security_login', [
+                'header' => $this->header
+            ]);
+        }
+
+        // return $this->json([
+        //     'request' => $request->request->all()
+        // ], 200);
     }
 }
