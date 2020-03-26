@@ -3,11 +3,67 @@
 {% block title %}Delivery{% endblock %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="row justify-content-center align-items-baseline m-2">
-            <h1 class="mx-2">Delivery</h1>
+
+	<div class="col-lg-4 col-md-4 col-sm-5 col-4 mx-auto">
+        <div class="col-lg-12 mx-auto border borderSize">
+            <h2 class="my-3 text-center">Delivery Options</h1>
+                <form action="{{ path('security_login')}}" method="post">
+                    <div class="text-center">
+                    <div>
+                        <input type="radio" id="huey" name="drone" value="huey"
+                                checked>
+                        <label for="huey">One Day Delivery</label>
+                        <label for="huey">5.99$</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="dewey" name="drone" value="dewey">
+                        <label for="dewey">2 Days delivery</label>
+                        <label for="huey">3.99$</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="louie" name="drone" value="louie">
+                        <label for="louie">4 + Days delivery</label>
+                        <label for="huey">Free</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>    
+
+     <div class="d-flex flex-row justify-content-center mt-5">
+        <div class="col-lg-4 col-md-4 col-sm-5">
+            <div class="border borderSize ">
+                <h2 class="my-3 text-center">Delivery Adress</h1>
+                    <form action="{{ path('security_login')}}" method="post">
+                        <div class="text-center">
+                            <span>Default Adress</span>
+                    </div>
+                </form>
+            </div>
+        </div>  
+
+        <div class="col-lg-4 col-md-4 col-sm-5">
+            <div class="border borderSize ">
+                <h2 class="my-3 d-inline">Billing Adress</h1>
+                    <div class="d-inline">
+                        <input type="checkbox" id="scales" name="scales">
+                        <label for="scales">Diffrent Adress</label>
+                    </div>
+                    <form action="{{ path('security_login')}}" method="post">
+                        <div class="text-center">
+                        <div>
+                            <span>Default Adress</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
+         <div class="d-flex flex-row justify-content-center mt-5">
+            <button class="btn btn-primary">Confirm</button>
+        </div>
+
 {% endblock %}
 {% block javascripts %}
 {% endblock %}
