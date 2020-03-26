@@ -103,11 +103,16 @@ class AuthentificationController extends AbstractController
         // UPDATE AND GET SESSION CART
         $cartService->getUserCart($this->getUser());
 
-        if ($this->session->get('logFromProduct')) {
+        if ($request->cookies->get('logFromCart')) {
+
+            return $this->redirectToRoute('cart');
+
+        } elseif ($this->session->get('logFromProduct')) {
+
             return $this->redirectToRoute('product', ['id' => $this->session->get('logFromProduct')]);
-        } elseif ($request->cookies->get('logFromCart')) {
-            return $this->redirectToRoute('cart_checkout');
+
         } else {
+
             return $this->redirectToRoute("home");
         }
     }

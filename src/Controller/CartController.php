@@ -36,7 +36,8 @@ class CartController extends AbstractController
     {
         return $this->render('cart/index.html.twig', [
             'header' => $this->header,
-            'cart' => $this->cart->getCart()
+            'cart' => $this->cart->getCart(),
+            'index' => 0
         ]);
     }
 
@@ -108,7 +109,8 @@ class CartController extends AbstractController
             return $this->render('cart/delivery.html.twig', [
                 'header' => $this->header,
                 'cart' => $this->cart->getCart(),
-                'user' => $this->getUser()
+                'user' => $this->getUser(),
+                'index' => 1
             ]);
         } else {
             $response = new Response(
