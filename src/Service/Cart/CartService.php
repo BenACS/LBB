@@ -143,7 +143,13 @@ class CartService {
         
         $this->session->set('cart', $cart);
 
-        return [];
+        return [
+                'title' =>  $article->getArticleTitle(),
+                'image' => $article->getImages()[0]->getUrl(),
+                'itemsInCart' => count($cart),
+                'articleId' => $articleId,
+                'quantity' => $quantity == 0 ? 1 : $quantity
+            ];
     }
 
     public function setQuantity(CartData $modification) : array {
@@ -165,13 +171,7 @@ class CartService {
         
         $this->session->set('cart', $cart);
 
-        return [
-                'title' =>  $article->getArticleTitle(),
-                'image' => $article->getImages()[0]->getUrl(),
-                'itemsInCart' => count($cart),
-                'articleId' => $articleId,
-                'quantity' => $quantity == 0 ? 1 : $quantity
-            ];
+        return [];
     }
 
     public function remove(CartData $removal) :array {
