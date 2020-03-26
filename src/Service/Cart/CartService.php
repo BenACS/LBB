@@ -119,7 +119,7 @@ class CartService {
      */
     public function add(CartData $addition) : array {   
         $articleId = $addition->articleId;
-        $quantity = $addition->quantity;
+        $quantity = $addition->quantity ?? 1;
         $article = $this->articleRepository->find($articleId);
 
         $cart = $this->session->get('cart', []);
