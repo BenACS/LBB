@@ -12,28 +12,35 @@ import "bootstrap";
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from 'jquery';
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
-
-
 let displayCat = document.getElementsByClassName("categories");
 let displaySubCat = document.getElementsByClassName("subCategories");
+const navMainCat = document.getElementById("nav_mainCat");
 
-for (let i = 0; i < displayCat.length; i++) {
-    displayCat[i].onmouseover = function () {
-        for (let j = 0; j < displaySubCat.length; j++) {
-            displaySubCat[j].classList.add('disNone');
+// Get the window's width
+let viewerWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+
+// If the width is greater than mobile screens sizes (this is similar to media queries)
+// Issue with this : you have to reload the page to see the changes on pc
+if(viewerWidth > 575){
+    for (let i = 0; i < displayCat.length; i++) {
+        displayCat[i].onmouseover = function () {
+            for (let j = 0; j < displaySubCat.length; j++) {
+                displaySubCat[j].classList.add('disNone');
+            }
+            if (!(displaySubCat[i].classList.contains("exception"))) {
+                displaySubCat[i].classList.remove('disNone');
+            }
+
         }
-        if (!(displaySubCat[i].classList.contains("exception"))) {
+        displaySubCat[i].onmouseover = function () {
             displaySubCat[i].classList.remove('disNone');
         }
-
+        displaySubCat[i].onmouseout = function () {
+            displaySubCat[i].classList.add('disNone');
+        }
     }
-    displaySubCat[i].onmouseover = function () {
-        displaySubCat[i].classList.remove('disNone');
-    }
-    displaySubCat[i].onmouseout = function () {
-        displaySubCat[i].classList.add('disNone');
-    }
+} else {
+    navMainCat.classList.add('collapse');
 }
 
 export function addToastCart(src, title, quantity) {
