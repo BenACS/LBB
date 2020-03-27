@@ -45,8 +45,6 @@ cart_modify:
     path: /product/modifyCart
     controller: App\Controller\CartController::modifyArticleQuantity
 
-
-
 cart_show:
     path: /product/showCart
     controller: App\Controller\CartController::giveMeCart
