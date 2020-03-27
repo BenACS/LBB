@@ -168,6 +168,8 @@ class CartController extends AbstractController
             $manager->persist($order);
             $manager->flush();
 
+            $this->session->set('cart', []);
+
             return $this->redirectToRoute('success');
         } else {
             return $this->redirectToRoute('error');
