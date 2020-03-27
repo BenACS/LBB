@@ -125,6 +125,10 @@ editAdress:
     path: /profil/editAdress/{adressId}
     controller: App\Controller\ProfilController::editAdress
 
+commandHistory:
+    path: /profil/commandHistory
+    controller: App\Controller\ProfilController::commandHistory
+
 # Contact
 
 contact:
