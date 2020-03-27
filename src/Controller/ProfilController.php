@@ -198,13 +198,14 @@ class ProfilController extends AbstractController
     /**
      * @Route("/profil/commandHistory", name="commandHistory")
      */
-    public function commandHistory(HeaderService $header, Request $request) {
+    public function commandHistory(HeaderService $header, Request $request)
+    {
 
         $users = $this->getUser();
         $orders = $users->getOrders();
-        dd($orders);
+        // dd($orders);
 
-        return $this->render('profil/commandHistory.html.twig',[
+        return $this->render('profil/commandHistory.html.twig', [
             'header' => $header,
             'orders' => $orders
         ]);
