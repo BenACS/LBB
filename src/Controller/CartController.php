@@ -2,32 +2,35 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use App\Data\Cart\CartData;
 use App\Service\Cart\CartService;
+
 use App\Service\Header\TagService;
-
 use App\Repository\ArticleRepository;
-use App\Service\Header\HeaderService;
 
+use App\Service\Header\HeaderService;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\HttpFoundation\Cookie;
 
 class CartController extends AbstractController
 {
     protected $header;
     protected $cart;
     protected $serializer;
+    private $session;
 
-    public function __construct(HeaderService $header, CartService $cart, SerializerInterface $serializer)
+    public function __construct(HeaderService $header, CartService $cart, SerializerInterface $serializer, SessionInterface $session)
     {
         $this->header = $header;
         $this->cart = $cart;
         $this->serializer = $serializer;
+        $this->session = $session;
     }
     /**
      * @Route("/cart/recap", name="cart")
@@ -105,7 +108,9 @@ class CartController extends AbstractController
      */
     public function checkout(): Response
     {
+
         if ($this->getUser()) {
+            dump($this->cart->getCart());
             return $this->render('cart/delivery.html.twig', [
                 'header' => $this->header,
                 'cart' => $this->cart->getCart(),
@@ -129,5 +134,29 @@ class CartController extends AbstractController
         // return $this->json([
         //     'request' => $request->request->all()
         // ], 200);
+    }
+    /**
+     * @Route("/cart/confirm", name="cart_confirm")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function confirmCart(Request $request)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $articles = $this->cart->getCart()["items"];
+        $totalPrice = "";
+        foreach ($articles as $key => $value) {
+            foreach ($value as $newKey => $newValue) {
+                if ($newKey === 'article') {
+                    dump($newValue);
+                }
+            }
+        }
+        dd($this->cart->getOngoingOrder($user));
+        // dd($request->request->get('deliveryChoice'));
+
+        return $this->redirectToRoute('success');
     }
 }
