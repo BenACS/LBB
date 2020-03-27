@@ -174,7 +174,7 @@ class CartService
         $user = $this->security->getUser();
         if ($user) {
             //check if the article was already added by the user in the cart of the ongoing order
-            $this->setNewQuantityIntoDB($user, $article, $cart[$articleId]);
+            $this->setNewQuantityIntoDB($user, $article, $quantity);
         }
         // END STORAGE DB OR COOKIES ====================================================================
 
