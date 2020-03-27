@@ -26,8 +26,8 @@
                     <a class="navbar-brand m-2" href="{{ path('home') }}"><img src="https://i.ibb.co/RH1hSsx/Logoblack.png" alt="logo" width="40px"></a>
                 </div>
                 <ol class="col-12 m-2 breadcrumb justify-content-center bg-light" style="font-size: 0.8em;">
-                  <li class="breadcrumb-item text-primary">Recap</li>
-                  <li class="breadcrumb-item">Delivery</li>
+                  <li class="breadcrumb-item {% if index == 0 %}text-primary{% endif %}">Recap</li>
+                  <li class="breadcrumb-item {% if index == 1 %}text-primary{% endif %}">Delivery</li>
                   <li class="breadcrumb-item">Payment</li>
                 </ol>
               </nav>
