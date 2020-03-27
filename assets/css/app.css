@@ -23,9 +23,9 @@ main {
 }
 
 footer#myfooter {
-    position:absolute;
-    width:100%;
-    bottom:0;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -77,6 +77,7 @@ background: linear-gradient(to right, #678CBF 0%, #8ABBFF 50%, #678CBF 100%);
 .subCategories a{
     color: white !important;
 }
+
 /* =============================== PRODUCT PAGE STYLE =============================== */
 
 img.thumbnail-images:hover,img.thumbnail-images.active {
