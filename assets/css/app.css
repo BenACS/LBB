@@ -226,3 +226,22 @@ img.thumbnail-images:hover,img.thumbnail-images.active {
     min-width: 50px;
     max-width: 50px;
 }
+
+/* ============================== HOME STYLE ============================== */
+
+/* responsive text */
+@media (max-width: 575px) {
+    .resp-text { font-size: 0.85rem; }
+}
+@media (min-width: 576px) {
+    .resp-text { font-size: 1rem; }
+}
+@media (min-width: 768px) {
+    .resp-text { font-size: 1rem; }
+}
+@media (min-width: 992px) {
+    .resp-text { font-size: 0.95rem; }
+}
+@media (min-width: 1200px) {
+    .resp-text { font-size: 1.15rem; }
+}
