@@ -12,6 +12,8 @@ import "bootstrap";
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from 'jquery';
 
+/* NAVBAR CATEGORIES */
+
 let displayCat = document.getElementsByClassName("categories");
 let displaySubCat = document.getElementsByClassName("subCategories");
 const navMainCat = document.getElementById("nav_mainCat");
@@ -43,6 +45,8 @@ if(viewerWidth > 575){
     navMainCat.classList.add('collapse');
 }
 
+/* TOAST CART */
+
 export function addToastCart(src, title, quantity) {
     let divToast = document.createElement('DIV');
     divToast.setAttribute('class', 'toast col-12 m-1 p-0 fadeIn show');
@@ -64,6 +68,7 @@ function removeToastCart(toast) {
     setTimeout(function () { toast.remove() }, 500);
 }
 
+/* SEARCH BAR AUTOCOMPLETION */
 
 function autocomplete(inp, str) {
     /*the autocomplete function takes two arguments,

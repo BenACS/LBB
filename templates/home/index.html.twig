@@ -28,7 +28,7 @@
     </div>
 
     <!-- Best sellers carousel -->
-    <div class="container my-4">
+    <div class="container my-4 col-12 col-lg-8">
         <hr class="my-4">
        
         <div class="text-center">
@@ -47,12 +47,12 @@
 
                     <!-- First slide -->
                     <div class="carousel-item active">
-                        <div class="row justify-content-around">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between">
                             {% for i in 0..2 %}
-                                <div class="col-4  text-center">                                 
+                                <div class="col-12 col-sm-4 text-center mb-2">
                                     <div class='text-center border p-2' style='height:85%'>
-                                        <img src="{{ hottest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
-                                        <h4 class="pb-1">{{ hottest[i].title }}</h4>
+                                        <img class="col-8 col-sm-12" src="{{ hottest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1 resp-text">{{ hottest[i].title }}</h4>
                                     </div>                               
                                     <a class="btn buttonColor mt-2" href="{{ path('product', {id : hottest[i].id })}}">View</a>
                                 </div>
@@ -62,12 +62,12 @@
 
                     <!-- Second slide -->
                     <div class="carousel-item">
-                        <div class="row justify-content-around">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between">
                             {% for i in 3..5 %}
-                                <div class="col-4  text-center">                                 
+                                <div class="col-12 col-sm-4 text-center mb-2">
                                     <div class='text-center border p-2' style='height:85%'>
-                                        <img src="{{ hottest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
-                                        <h4 class="pb-1">{{ hottest[i].title }}</h4>
+                                        <img class="col-8 col-sm-12" src="{{ hottest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1 resp-text">{{ hottest[i].title }}</h4>
                                     </div>                               
                                     <a class="btn buttonColor mt-2" href="{{ path('product', {id : hottest[i].id })}}">View</a>
                                 </div>
@@ -77,12 +77,12 @@
 
                     <!-- Third slide -->
                     <div class="carousel-item">
-                        <div class="row justify-content-around">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between">
                             {% for i in 6..8 %}
-                                <div class="col-4  text-center">                                 
+                                <div class="col-12 col-sm-4 text-center mb-2">
                                     <div class='text-center border p-2' style='height:85%'>
-                                        <img src="{{ hottest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
-                                        <h4 class="pb-1">{{ hottest[i].title }}</h4>
+                                        <img class="col-8 col-sm-12" src="{{ hottest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1 resp-text">{{ hottest[i].title }}</h4>
                                     </div>                               
                                     <a class="btn buttonColor mt-2" href="{{ path('product', {id : hottest[i].id })}}">View</a>
                                 </div>
@@ -99,7 +99,7 @@
     </div>
 
     <!-- New products carousel -->
-    <div class="container my-4">
+    <div class="container my-4 col-12 col-lg-8">
         <hr class="my-4">
 
         <div class="text-center">
@@ -118,12 +118,12 @@
 
                 <!--First slide-->
                     <div class="carousel-item active">
-                        <div class="row justify-content-around">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between">
                             {% for i in 0..2 %}
-                                <div class="col-4  text-center">                                 
+                                <div class="col-12 col-sm-4 text-center mb-2">                                 
                                     <div class='text-center border p-2' style='height:85%'>
-                                        <img src="{{ latest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
-                                        <h4 class="pb-1">{{ latest[i].title }}</h4>
+                                        <img class="col-8 col-sm-12" src="{{ latest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1 resp-text">{{ latest[i].title }}</h4>
                                     </div>                               
                                     <a class="btn buttonColor mt-2" href="{{ path('product', {id : latest[i].id })}}">View</a>
                                 </div>
@@ -133,12 +133,12 @@
 
                     <!-- Second slide -->
                     <div class="carousel-item">
-                        <div class="row justify-content-around">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between">
                             {% for i in 3..5 %}
-                                <div class="col-4  text-center">                                 
+                                <div class="col-12 col-sm-4 text-center mb-2">                                 
                                     <div class='text-center border p-2' style='height:85%'>
-                                        <img src="{{ latest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
-                                        <h4 class="pb-1">{{ latest[i].title }}</h4>
+                                        <img class="col-8 col-sm-12" src="{{ latest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1 resp-text">{{ latest[i].title }}</h4>
                                     </div>                               
                                     <a class="btn buttonColor mt-2" href="{{ path('product', {id : latest[i].id })}}">View</a>
                                 </div>
@@ -148,12 +148,12 @@
 
                     <!-- Third slide -->
                     <div class="carousel-item">
-                        <div class="row justify-content-around">
+                        <div class="d-flex flex-column flex-sm-row justify-content-between">
                             {% for i in 6..8 %}
-                                <div class="col-4  text-center">                                 
+                                <div class="col-12 col-sm-4 text-center mb-2">                                 
                                     <div class='text-center border p-2' style='height:85%'>
-                                        <img src="{{ latest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
-                                        <h4 class="pb-1">{{ latest[i].title }}</h4>
+                                        <img class="col-8 col-sm-12" src="{{ latest[i].articles[0].images[0].url }}" alt="Card image cap" width="100%">
+                                        <h4 class="pb-1 resp-text">{{ latest[i].title }}</h4>
                                     </div>                               
                                     <a class="btn buttonColor mt-2" href="{{ path('product', {id : latest[i].id })}}">View</a>
                                 </div>

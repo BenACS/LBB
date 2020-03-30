@@ -53,6 +53,10 @@ cart_checkout:
     path: /cart/checkout
     controller: App\Controller\CartController::checkout
 
+cart_confirm:
+    path: /cart/confirm
+    controller: App\Controller\CartController::confirmCart
+
 # Product-related
 
 product:

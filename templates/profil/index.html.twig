@@ -21,7 +21,7 @@
 			</div>
 			<div class="form-group">
 				<label>Birthdate</label>
-				<input class="form-control" type="text" value="{{ user.birthdate.date | date("Y/m/d") }}" readonly>
+				<input class="form-control" type="text" value="{{ user.birthdate | date("Y/m/d") }}" readonly>
 			</div>
 
 			<form method="post" action="{{ path('editProfile') }}">

@@ -143,20 +143,36 @@ class CartController extends AbstractController
      */
     public function confirmCart(Request $request)
     {
-        $manager = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $articles = $this->cart->getCart()["items"];
-        $totalPrice = "";
-        foreach ($articles as $key => $value) {
-            foreach ($value as $newKey => $newValue) {
-                if ($newKey === 'article') {
-                    dump($newValue);
+        if ($this->getUser()) {
+            $manager = $this->getDoctrine()->getManager();
+            $order = $this->cart->getOngoingOrder($this->getUser());
+            $articles = $this->cart->getCart()["items"];
+            $totalPrice = 0;
+
+            foreach ($articles as $key => $value) {
+                $quantity = 0;
+                foreach ($value as $newKey => $newValue) {
+                    if ($newKey === 'article') {
+                        $priceArticle = $newValue->getProduct()->getPrice()->getPriceDf();
+                    } elseif ($newKey === 'quantity') {
+                        $quantity = $newValue;
+                        $totalPrice += $quantity * $priceArticle;
+                    }
                 }
             }
-        }
-        dd($this->cart->getOngoingOrder($user));
-        // dd($request->request->get('deliveryChoice'));
+            $totalPrice += $request->request->get('deliveryChoice');
 
-        return $this->redirectToRoute('success');
+            $order->setTotalValue($totalPrice);
+            $order->setValidationDate(new \DateTime());
+            $order->setOrderNumber("CMD" . $order->getValidationDate()->format('Y-m-d-H-i-s') . "-" . $this->getUser()->getId());
+            $manager->persist($order);
+            $manager->flush();
+
+            $this->session->set('cart', []);
+
+            return $this->redirectToRoute('success');
+        } else {
+            return $this->redirectToRoute('error');
+        }
     }
 }
