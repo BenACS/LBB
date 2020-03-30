@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReviewRepository")
+ * @ApiResource
  */
 class Review
 {
@@ -106,5 +108,12 @@ class Review
         $this->creationDate = $creationDate;
 
         return $this;
+    }
+
+    public function ratingToStars($rate)
+    {
+        $stars = str_repeat('<i class="fas fa-star text-warning"></i>', $rate) . str_repeat('<i
+						class="far fa-star text-warning"></i>', 5 - $rate);
+        return $stars;
     }
 }

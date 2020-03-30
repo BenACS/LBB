@@ -8,6 +8,7 @@ use App\Form\RegistrationType;
 use App\Service\Header\TagService;
 
 use App\Form\RegistrationTypeTwoType;
+use App\Service\Cart\CartService;
 use App\Service\Header\HeaderService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,7 +71,6 @@ class AuthentificationController extends AbstractController
             $hash = $encoder->encodePassword($user, $userPassword);
             $user->setPassword($hash);
             $user->setRegisterDate(new \DateTime());
-            // $user->setRole('user');
 
             $manager->persist($user);
             $manager->flush();
@@ -89,11 +89,32 @@ class AuthentificationController extends AbstractController
     /**
      * @Route("/login", name="security_login")
      */
-    public function login(HeaderService $header)
+    public function login(HeaderService $header, Request $request)
     {
         return $this->render('authentification/login.html.twig', [
             'header' => $header
         ]);
+    }
+    /**
+     * @Route("/login_success", name="login_success")
+     */
+    public function postLoginRedirectAction(CartService $cartService, Request $request)
+    {
+        // UPDATE AND GET SESSION CART
+        $cartService->getUserCart($this->getUser());
+
+        if ($request->cookies->get('logFromCart')) {
+
+            return $this->redirectToRoute('cart');
+
+        } elseif ($this->session->get('logFromProduct')) {
+
+            return $this->redirectToRoute('product', ['id' => $this->session->get('logFromProduct')]);
+
+        } else {
+
+            return $this->redirectToRoute("home");
+        }
     }
 
     /**

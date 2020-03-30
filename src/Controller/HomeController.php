@@ -2,24 +2,34 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-
-use App\Repository\CategoryRepository;
-use App\Service\Article\ArticleService;
-use App\Service\Header\HeaderService;
 use App\Service\Header\TagService;
+use App\Service\Header\HeaderService;
+use App\Repository\CategoryRepository;
+
+use App\Service\Article\ArticleService;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+    protected $header;
+    private $session;
+
+    public function __construct(HeaderService $header, SessionInterface $session) {
+        $this->header = $header;
+        $this->session = $session;
+    }
+    
     /**
      * @Route("/", name="home")
      */
-    public function index(HeaderService $header, CategoryRepository $catRepo, ArticleService $product)
+    public function index( ArticleService $product)
     {
+        dump($this->session);
         return $this->render('home/index.html.twig', [
-            'header' => $header,
+            'header' => $this->header,
             'latest' => $product->getLatestProducts(),
             'hottest' => $product->getHottestProducts()
         ]);
@@ -29,15 +39,15 @@ class HomeController extends AbstractController
      * @Route("/searchTag/tag", name="searchTag")
      * 
      */
-    public function searchTag(HeaderService $header, Request $request)
+    public function searchTag(Request $request)
     {
-        foreach ($header->getTagNamesArray() as $id => $name) {
+        foreach ($this->header->getTagNamesArray() as $id => $name) {
             if ($request->request->get('tag') == $name) {
                 $tagId = $id + 1;
-                $subCatName = $header->getTagCategory($tagId)->getCategoryName();
-                $subParentId = $header->getTagCategory($tagId)->getParentId();
+                $subCatName = $this->header->getTagCategory($tagId)->getCategoryName();
+                $subParentId = $this->header->getTagCategory($tagId)->getParentId();
                 if ($subParentId != 0) {
-                    $catName = $header->getMainCatName($subParentId);
+                    $catName = $this->header->getMainCatName($subParentId);
                 }
             }
         }
@@ -67,10 +77,10 @@ class HomeController extends AbstractController
      * 
      * @Route("/error", name="error")
      */
-    public function errorPage(HeaderService $header)
+    public function errorPage()
     {
         return $this->render('errorPage/index.html.twig', [
-            'header' => $header
+            'header' => $this->header
         ]);
     }
 
@@ -78,10 +88,10 @@ class HomeController extends AbstractController
      * 
      * @Route("/success", name="success")
      */
-    public function successPage(HeaderService $header)
+    public function successPage()
     {
         return $this->render('successPage/index.html.twig', [
-            'header' => $header
+            'header' => $this->header
         ]);
     }
 }

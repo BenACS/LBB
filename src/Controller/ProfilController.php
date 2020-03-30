@@ -196,6 +196,21 @@ class ProfilController extends AbstractController
         return $this->redirectToRoute('adresses');
     }
     /**
+     * @Route("/profil/commandHistory", name="commandHistory")
+     */
+    public function commandHistory(HeaderService $header, Request $request)
+    {
+
+        $users = $this->getUser();
+        $orders = $users->getOrders();
+        // dd($orders);
+
+        return $this->render('profil/commandHistory.html.twig', [
+            'header' => $header,
+            'orders' => $orders
+        ]);
+    }
+    /**
      * @Route("/profil/editAdress/{adressId?0}", name="removeAdress")
      */
     public function editAdress(HeaderService $header, Request $request, int $adressId = 0)

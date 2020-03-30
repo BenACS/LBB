@@ -2,38 +2,45 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
+use App\Data\Cart\CartData;
+use App\Service\Cart\CartService;
+
+use App\Service\Header\TagService;
 use App\Repository\ArticleRepository;
 
 use App\Service\Header\HeaderService;
-use App\Service\Header\TagService;
-
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CartController extends AbstractController
 {
+    protected $header;
+    protected $cart;
+    protected $serializer;
+    private $session;
+
+    public function __construct(HeaderService $header, CartService $cart, SerializerInterface $serializer, SessionInterface $session)
+    {
+        $this->header = $header;
+        $this->cart = $cart;
+        $this->serializer = $serializer;
+        $this->session = $session;
+    }
     /**
      * @Route("/cart/recap", name="cart")
      */
-    public function index(HeaderService $header, SessionInterface $session, ArticleRepository $articleRepository)
+    public function index()
     {
-        if ($session->get('cart')) {
-            foreach ($session->get('cart') as $itemId => $quantity) {
-                $cart[] = [
-                    'article' => $articleRepository->find($itemId),
-                    'quantity' => $quantity
-                ];
-            }
-        }
-
         return $this->render('cart/index.html.twig', [
-            'header' => $header,
-            'itemsInCart' => count($cart ?? []),
-            'cart' => $cart ?? []
+            'header' => $this->header,
+            'cart' => $this->cart->getCart(),
+            'index' => 0
         ]);
     }
 
@@ -42,40 +49,12 @@ class CartController extends AbstractController
      * @Route("/product/addToCart", name="cart_add")
 
      * @param Request $request
-     * @param ArticleRepository $articleRepo
-     * @param SessionInterface $session
      * @return Response
      */
-    public function addToCart(Request $request, ArticleRepository $articleRepo, SessionInterface $session): Response
+    public function addToCart(Request $request): Response
     {
-
-        $articleId = $request->request->get('articleId');
-        $quantity = (int) $request->request->get('quantity');
-        $article = $articleRepo->find($articleId);
-        $cart = $session->get('cart', []);
-
-        if (!empty($cart[$articleId])) {
-            $cart[$articleId] += $quantity;
-        } else {
-            $cart[$articleId] = $quantity;
-        }
-
-        if ($cart[$articleId] > 5) {
-            $cart[$articleId] = 5;
-        }
-        // if ($quantity == 0) {
-        //     $quantity = 1;
-        // }
-
-        $session->set('cart', $cart);
-
-        return $this->json([
-            'title' =>  $article->getArticleTitle(),
-            'image' => $article->getImages()[0]->getUrl(),
-            'itemsInCart' => count($cart),
-            'quantity' => $quantity == 0 ? 1 : $quantity,
-            'sessionCart' => $session
-        ], 200);
+        $addition = $this->serializer->deserialize($request->getContent(), CartData::class, 'json');
+        return $this->json($this->cart->add($addition), 200);
     }
 
     /**
@@ -83,24 +62,12 @@ class CartController extends AbstractController
      * @Route("/product/removeFromCart", name="cart_remove")
 
      * @param Request $request
-     * @param SessionInterface $session
      * @return Response
      */
-    public function removeFromCart(Request $request, SessionInterface $session): Response
+    public function removeFromCart(Request $request): Response
     {
-        $articleId = (int) $request->request->get('articleId');
-        $cart = $session->get('cart', []);
-
-        if (!empty($cart[$articleId])) {
-            unset($cart[$articleId]);
-        }
-
-        $session->set('cart', $cart);
-
-        return $this->json([
-            'articleId' => $articleId,
-            'itemsInCart' => count($cart)
-        ], 200);
+        $removal = $this->serializer->deserialize($request->getContent(), CartData::class, 'json');
+        return $this->json($this->cart->remove($removal), 200);
     }
 
     /**
@@ -108,25 +75,12 @@ class CartController extends AbstractController
      * @Route("/product/modifyCart", name="cart_modify")
 
      * @param Request $request
-     * @param SessionInterface $session
      * @return Response
      */
-    public function modifyArticleQuantity(Request $request, SessionInterface $session): Response
+    public function modifyArticleQuantity(Request $request): Response
     {
-        $articleId = (int) $request->request->get('articleId');
-        $quantity = (int) $request->request->get('quantity');
-        $cart = $session->get('cart', []);
-
-        if (!empty($cart[$articleId])) {
-            $cart[$articleId] = $quantity;
-        }
-
-        $session->set('cart', $cart);
-
-        return $this->json([
-            'articleId' => $articleId,
-            'quantity' => $quantity
-        ], 200);
+        $modification = $this->serializer->deserialize($request->getContent(), CartData::class, 'json');
+        return $this->json($this->cart->setQuantity($modification), 200);
     }
 
     /**
@@ -144,5 +98,81 @@ class CartController extends AbstractController
         return $this->json([
             'cart' => $cart
         ], 200);
+    }
+
+    /**
+     * @Route("/cart/checkout", name="cart_checkout")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function checkout(): Response
+    {
+
+        if ($this->getUser()) {
+            dump($this->cart->getCart());
+            return $this->render('cart/delivery.html.twig', [
+                'header' => $this->header,
+                'cart' => $this->cart->getCart(),
+                'user' => $this->getUser(),
+                'index' => 1
+            ]);
+        } else {
+            $response = new Response(
+                'Content',
+                Response::HTTP_OK,
+                ['content-type' => 'text/html']
+            );
+            $cookie = new Cookie('logFromCart', 'delivery', strtotime('1 hour'));
+            $response->headers->setCookie($cookie);
+            $response->send();
+            return $this->redirectToRoute('security_login', [
+                'header' => $this->header
+            ]);
+        }
+
+        // return $this->json([
+        //     'request' => $request->request->all()
+        // ], 200);
+    }
+    /**
+     * @Route("/cart/confirm", name="cart_confirm")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function confirmCart(Request $request)
+    {
+        if ($this->getUser()) {
+            $manager = $this->getDoctrine()->getManager();
+            $order = $this->cart->getOngoingOrder($this->getUser());
+            $articles = $this->cart->getCart()["items"];
+            $totalPrice = 0;
+
+            foreach ($articles as $key => $value) {
+                $quantity = 0;
+                foreach ($value as $newKey => $newValue) {
+                    if ($newKey === 'article') {
+                        $priceArticle = $newValue->getProduct()->getPrice()->getPriceDf();
+                    } elseif ($newKey === 'quantity') {
+                        $quantity = $newValue;
+                        $totalPrice += $quantity * $priceArticle;
+                    }
+                }
+            }
+            $totalPrice += $request->request->get('deliveryChoice');
+
+            $order->setTotalValue($totalPrice);
+            $order->setValidationDate(new \DateTime());
+            $order->setOrderNumber("CMD" . $order->getValidationDate()->format('Y-m-d-H-i-s') . "-" . $this->getUser()->getId());
+            $manager->persist($order);
+            $manager->flush();
+
+            $this->session->set('cart', []);
+
+            return $this->redirectToRoute('success');
+        } else {
+            return $this->redirectToRoute('error');
+        }
     }
 }

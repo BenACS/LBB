@@ -60,10 +60,11 @@ function changeQuantitySelector() {
 }
 
 function checkArticle() {
-    const params = new URLSearchParams();
-        params.append('size',document.getElementById("size_selector") ? size_selector.value : null);
-        params.append('color',document.getElementById("color_selector") ? color_selector.value : null);
-        params.append('device',document.getElementById("device_selector") ? device_selector.value : null);
+    let params = {
+        "size": document.getElementById("size_selector") ? size_selector.value : null,
+        "color": document.getElementById("color_selector") ? color_selector.value : null,
+        "device": document.getElementById("device_selector") ? device_selector.value : null
+    };
 
     const url = variation_form.action;
     axios.post(url, params)
@@ -76,16 +77,17 @@ function checkArticle() {
 }
 cart_form.onsubmit = function(e) {
     e.preventDefault();
-    const params = new URLSearchParams();
-        params.append('articleId',quantity_selector.dataset.articleId);
-        params.append('quantity',quantity_selector.value);
 
+    let params = {
+        "articleId": parseInt(quantity_selector.dataset.articleId),
+        "quantity" : parseInt(quantity_selector.value ?? 1)
+    };
+    
     const url = this.action;
     axios.post(url, params)
         .then(function(response) { 
             cart_badge.innerText = response.data.itemsInCart;
             addToastCart(response.data.image,response.data.title,response.data.quantity);
-            console.log(response.data);
         })
 }
 

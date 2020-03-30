@@ -21,9 +21,10 @@ for (let i=0 ; i<deleteButtons.length ; i++) {
     deleteButtons[i].onclick = function(e) {
         e.preventDefault();
 
-        const params = new URLSearchParams();
-        params.append('articleId',deleteButtons[i].dataset.articleId);
-        
+        let params = {
+            "articleId":parseInt(deleteButtons[i].dataset.articleId)
+        };
+
         const url = this.href;
         axios.post(url, params)
             .then(function(response) { 
@@ -39,9 +40,10 @@ for (let i=0 ; i<deleteButtons.length ; i++) {
 
 for (let i=0 ; i<quantitySelectors.length ; i++) {
     quantitySelectors[i].onchange = function() {
-        const params = new URLSearchParams();
-        params.append('articleId',this.dataset.articleId);
-        params.append('quantity',this.value);
+        let params = {
+            "articleId":parseInt(this.dataset.articleId),
+            "quantity": parseInt(this.value)
+        };
 
         const url = quantity_form.action;
         axios.post(url, params)
@@ -50,15 +52,16 @@ for (let i=0 ; i<quantitySelectors.length ; i++) {
             })
     } 
 }
+if (document.getElementById("show_cart")) {
+    show_cart.onclick = function(e) {
+        e.preventDefault();
 
-show_cart.onclick = function(e) {
-    e.preventDefault();
+            const params = new URLSearchParams();
 
-        const params = new URLSearchParams();
-
-        const url = this.href;
-        axios.post(url, params)
-            .then(function(response) { 
-                console.log(response.data);
-            });
+            const url = this.href;
+            axios.post(url, params)
+                .then(function(response) { 
+                    console.log(response.data);
+                });
+    }
 }

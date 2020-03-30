@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Cart;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Orders;
+use App\Entity\Article;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Cart|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +49,25 @@ class CartRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findArticleInOngoingOrder(Orders $order, Article $article) : ?Cart {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.orders = :orderId AND c.article = :articleId')
+            ->setParameters([
+                'orderId' => $order->getId(),
+                'articleId'=>$article->getId()
+                ])
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    public function findOrderCart(Orders $order) : ?array {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.orders = :orderId')
+            ->setParameter('orderId', $order->getId())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

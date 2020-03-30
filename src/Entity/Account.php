@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -14,6 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(
  *  fields = {"email"},
  *  message= "This email is already used")
+ * @ApiResource
  */
 class Account implements UserInterface
 {
@@ -97,8 +99,8 @@ class Account implements UserInterface
     private $adresses;
 
     /**
-    * @ORM\Column(type="json", nullable=true)
-    */
+     * @ORM\Column(type="json", nullable=true)
+     */
     private $roles;
 
     public function __construct()
@@ -106,10 +108,10 @@ class Account implements UserInterface
         $this->reviews = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->adresses = new ArrayCollection();
-        if(!$this->registerDate){
+        if (!$this->registerDate) {
             $this->registerDate = new \DateTime();
         }
-        if (!$this->roles){
+        if (!$this->roles) {
             $this->roles[] = 'ROLE_USER';
         }
     }
@@ -339,19 +341,25 @@ class Account implements UserInterface
 
         return $this;
     }
-    public function eraseCredentials() {}
+    public function eraseCredentials()
+    {
+    }
 
-    public function getSalt() {}
+    public function getSalt()
+    {
+    }
 
 
-    public function getRoles(): ?array {
+    public function getRoles(): ?array
+    {
 
         $roles = $this->roles;
-        
+
         return $this->roles;
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
 
         return $this->email;
     }
