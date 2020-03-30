@@ -202,7 +202,8 @@ class ProfilController extends AbstractController
 
         $users = $this->getUser();
         $orders = $users->getOrders();
-        dd($orders);
+        
+        // dd($orders);
 
         return $this->render('profil/commandHistory.html.twig',[
             'header' => $header,
