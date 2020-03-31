@@ -19,8 +19,7 @@
                             <div class="col-8">
                             {% for cartItem in order.carts %}
                                 {{ cartItem.article }}
-                                {# {{ order.carts[0].quantity }} #}
-                                <img width="45%" src="{{ order.carts[0].article.images[0].url }}">
+                                <img style="width:130px;height:130px;" src="{{ cartItem.article.images[0].url }}">
                                 </div>
                             {% endfor %}
                         </div>

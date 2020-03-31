@@ -16,6 +16,11 @@ main {
     padding-bottom: 120px;
 }
 
+#cHistory {
+    width: 100px;
+    height: 100px;
+}
+
 @media screen and (max-width: 750px) {
     .responsiv {
       margin-top: 30%;
