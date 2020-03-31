@@ -110,7 +110,7 @@ class CartController extends AbstractController
     {
 
         if ($this->getUser()) {
-            dump($this->cart->getCart());
+            // dump($this->cart->getCart());
             return $this->render('cart/delivery.html.twig', [
                 'header' => $this->header,
                 'cart' => $this->cart->getCart(),

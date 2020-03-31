@@ -46,7 +46,7 @@ class ProductController extends AbstractController
         if ($this->getUser()) {
             $this->session->set('userLogged', 'true');
         }
-        dump($this->session);
+        // dump($this->session);
 
         $review = new Review();
         $form = $this->createForm(ReviewFormType::class, $review);
