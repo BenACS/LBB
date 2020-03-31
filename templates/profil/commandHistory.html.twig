@@ -10,57 +10,40 @@
 			<h1 class="mx-2">Command History</h1>
 		</div>
 
-		<div class="row justify-content-center">
-        {% for order in orders %}
-			<div class="col-xl-6 col-sm-5 col-8">
-                <div class="item-box row col-10 my-1 p-2 border rounded">
-                    <div class="col-10 px-3">
-                        <div class="row">
-                            <div class="col-8">
-                            {% for cartItem in order.carts %}
-                                {{ cartItem.article }}
-                                <img style="width:130px;height:130px;" src="{{ cartItem.article.images[0].url }}">
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-			</div>
-
-			<div class="col-4">
-				<div class="border rounded mt-2 py-3 px-2">
+		{% for order in orders %}
+			<div class="row justify-content-center">
+				<div class="col-md-5 col-7">
+					<div class="item-box my-1 p-2 border rounded">
+						<div class="d-flex flex-column">
+							{% for cartItem in order.carts %}
+								<div>
+									<img style="width:130px;height:130px;" src="{{ cartItem.article.images[0].url }}">
+									{{ cartItem.article }}
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5 col-4 border rounded my-1 py-3 px-2">
 					<div class="d-flex justify-content-between my-1">
-						<div>
-							<b>Command number :</b></div>
+						<div><b>Command number :</b></div>
 						<div>{{ order.orderNumber }}</div>
 					</div>
 					<div class="d-flex justify-content-between my-1">
-						<div>
-							<b>Command date :
-							</b>
-						</div>
-						<div class="text-success">
-							{{ order.validationDate | date("Y/m/d")}}</div>
+						<div><b>Command date :</b></div>
+						<div class="text-success">{{ order.validationDate | date("Y/m/d")}}</div>
 					</div>
 					<div class="d-flex justify-content-between my-1">
-						<div>
-							<b>Command Value :
-							</b>
-						</div>
-						<div>
-							<span id="js_totalPriceVAT">{{ order.totalValue }}</span> €</div>
+						<div><b>Command Value :</b></div>
+						<div><span id="js_totalPriceVAT">{{ order.totalValue }}</span> €</div>
 					</div>
-                    <div class="d-flex justify-content-between my-1">
-						<div>
-							<b>Payment method :
-							</b>
-						</div>
+					<div class="d-flex justify-content-between my-1">
+						<div><b>Payment method :</b></div>
 						<div>{{ order.payment }}</div>
 					</div>
 				</div>
-                {% endfor %}
 			</div>
-		</div>
+		{% endfor %}
 	</div>
 
 {% endblock %}
