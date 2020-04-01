@@ -123,7 +123,7 @@ class CartController extends AbstractController
                 Response::HTTP_OK,
                 ['content-type' => 'text/html']
             );
-            $cookie = new Cookie('logFromCart', 'delivery', strtotime('1 hour'));
+            $cookie = new Cookie('logFromCart', 'delivery', \time()+5*60);
             $response->headers->setCookie($cookie);
             $response->send();
             return $this->redirectToRoute('security_login', [

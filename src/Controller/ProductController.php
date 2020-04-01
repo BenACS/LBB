@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Data\Cart\SelectionArticleData;
 use App\Entity\Tag;
 use App\Entity\Price;
 use App\Entity\Review;
@@ -13,28 +12,32 @@ use App\Entity\Category;
 use App\Form\ReviewFormType;
 use App\Service\Header\TagService;
 use App\Service\Header\HeaderService;
+use App\Data\Cart\SelectionArticleData;
 use App\Service\Article\ArticleService;
 
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class ProductController extends AbstractController
 {
     private $session;
+    private $header;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(SessionInterface $session, HeaderService $header)
     {
         $this->session = $session;
+        $this->header = $header;
     }
     /**
      * @Route("/product/{id?0}", name="product", requirements={"id"="\d+"})
      */
-    public function index(int $id = 0, Product $product = null, HeaderService $header, ArticleService $article, Request $request)
+    public function index(int $id = 0, Product $product = null, ArticleService $article, Request $request)
     {
         $manager = $this->getDoctrine()->getManager();
         $averageRating = null;
@@ -72,7 +75,7 @@ class ProductController extends AbstractController
             'price' => $product->getPrice(),
             'variations' => ['sizes' => $product->getAllSizes(), 'colors' => $product->getAllColors(), 'devices' => $product->getAllDevices()],
             'images' => $article->getAllImages($id),
-            'header' => $header,
+            'header' => $this->header,
             'article' => $product->getArticles()[0],
             'form' => $form->createView(),
             'reviews' => $product->getReviews(),
@@ -84,7 +87,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/editReview/{idReview?0}", name="editReview", requirements={"id"="\d+"})
      */
-    public function editReview(int $idReview = 0, HeaderService $header, Request $request)
+    public function editReview(int $idReview = 0, Request $request)
     {
 
         $manager = $this->getDoctrine()->getManager();
@@ -111,7 +114,7 @@ class ProductController extends AbstractController
 
         if ($this->session->get('userLogged')) {
             return $this->render('product/editReview.html.twig', [
-                'header' => $header,
+                'header' => $this->header,
                 'reviewtoedit' => $reviewToEdit
             ]);
         }
@@ -120,7 +123,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/removeReview/{idReview?0}", name="removeReview", requirements={"id"="\d+"})
      */
-    public function removeReview(int $idReview = 0, HeaderService $header)
+    public function removeReview(int $idReview = 0)
     {
         $manager = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -160,5 +163,24 @@ class ProductController extends AbstractController
             'stockMessage' => $article->getStockMessage(),
             'stock' => $article->getStock()
         ], 200);
+    }
+
+    /**
+     * @Route("/product/{id}/login", name="logFromProduct", requirements={"id"="\d+"})
+     *
+     * @param integer $id
+     */
+    public function logFromProduct(int $id) {
+        $response = new Response(
+            'Content',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        );
+        $cookie = new Cookie("logFromProduct", $id, \time()+5*60);
+        $response->headers->setCookie($cookie);
+        $response->send();
+        return $this->redirectToRoute('security_login', [
+            'header' => $this->header
+        ]);
     }
 }

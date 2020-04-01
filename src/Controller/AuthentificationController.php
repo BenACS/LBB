@@ -5,12 +5,13 @@ namespace App\Controller;
 use App\Entity\Adress;
 use App\Entity\Account;
 use App\Form\RegistrationType;
-use App\Service\Header\TagService;
-
-use App\Form\RegistrationTypeTwoType;
 use App\Service\Cart\CartService;
+
+use App\Service\Header\TagService;
+use App\Form\RegistrationTypeTwoType;
 use App\Service\Header\HeaderService;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -99,17 +100,20 @@ class AuthentificationController extends AbstractController
      * @Route("/login_success", name="login_success")
      */
     public function postLoginRedirectAction(CartService $cartService, Request $request)
-    {
+    {        
         // UPDATE AND GET SESSION CART
         $cartService->getUserCart($this->getUser());
 
         if ($request->cookies->get('logFromCart')) {
-
+            $response = new Response();
+            $response->headers->clearCookie('logFromCart');
+            $response->send();
+            
             return $this->redirectToRoute('cart');
 
-        } elseif ($this->session->get('logFromProduct')) {
+        } elseif ($request->cookies->get('logFromProduct')) {
 
-            return $this->redirectToRoute('product', ['id' => $this->session->get('logFromProduct')]);
+            return $this->redirectToRoute('product', ['id' => $request->cookies->get('logFromProduct')]);
 
         } else {
 
