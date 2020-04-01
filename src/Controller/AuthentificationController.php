@@ -10,6 +10,7 @@ use App\Service\Cart\CartService;
 use App\Service\Header\TagService;
 use App\Form\RegistrationTypeTwoType;
 use App\Service\Header\HeaderService;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,15 +21,17 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AuthentificationController extends AbstractController
 {
     private $session;
+    private $header;
 
-    public function __construct(SessionInterface $session)
+    public function __construct(SessionInterface $session, HeaderService $header)
     {
         $this->session = $session;
+        $this->header = $header;
     }
     /**
      * @Route("/authentification", name="authentification")
      */
-    public function index(HeaderService $header, Request $request)
+    public function index(Request $request)
     {
 
         $manager = $this->getDoctrine()->getManager();
@@ -45,7 +48,7 @@ class AuthentificationController extends AbstractController
         }
 
         return $this->render('authentification/index.html.twig', [
-            'header' => $header,
+            'header' => $this->header,
             'form' => $form->createView(),
         ]);
     }
@@ -53,7 +56,7 @@ class AuthentificationController extends AbstractController
     /**
      * @Route("/authentificationTwo", name="authentificationTwo")
      */
-    public function indexSequel(HeaderService $header, Request $request, UserPasswordEncoderInterface $encoder)
+    public function indexSequel(Request $request, UserPasswordEncoderInterface $encoder)
     {
         $manager = $this->getDoctrine()->getManager();
         $userEmail = $this->session->get('userAccount')->getEmail();
@@ -81,7 +84,7 @@ class AuthentificationController extends AbstractController
 
 
         return $this->render('authentification/sequel.html.twig', [
-            'header' => $header,
+            'header' => $this->header,
             'form2' => $form2->createView(),
             'method' => 'POST'
         ]);
@@ -90,10 +93,20 @@ class AuthentificationController extends AbstractController
     /**
      * @Route("/login", name="security_login")
      */
-    public function login(HeaderService $header, Request $request)
+    public function login(Request $request)
     {
+        if ($request->cookies->get('logFailed')) {
+            $logFailed = true;
+            $response = new Response();
+            $response->headers->clearCookie('logFailed');
+            $response->send();
+        } else {
+            $logFailed = false;
+        }
+
         return $this->render('authentification/login.html.twig', [
-            'header' => $header
+            'header' => $this->header,
+            'logFailed' => $logFailed
         ]);
     }
     /**
@@ -108,7 +121,7 @@ class AuthentificationController extends AbstractController
             $response = new Response();
             $response->headers->clearCookie('logFromCart');
             $response->send();
-            
+
             return $this->redirectToRoute('cart');
 
         } elseif ($request->cookies->get('logFromProduct')) {
@@ -124,10 +137,26 @@ class AuthentificationController extends AbstractController
     /**
      * @Route("/logout", name="logout")
      */
-    public function logout(HeaderService $header)
+    public function logout()
     {
         return $this->render('authentification/login.html.twig', [
-            'header' => $header
+            'header' => $this->header
         ]);
+    }
+
+    /**
+     * @Route("/logFailed", name="log_failed")
+     */
+    public function logFailed() {
+        $response = new Response(
+            'Content',
+            Response::HTTP_OK,
+            ['content-type' => 'text/html']
+        );
+        $cookie = new Cookie('logFailed', true, \time()+3*60);
+        $response->headers->setCookie($cookie);
+        $response->send();
+
+        return $this->redirectToRoute('security_login');
     }
 }

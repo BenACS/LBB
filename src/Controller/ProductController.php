@@ -179,8 +179,6 @@ class ProductController extends AbstractController
         $cookie = new Cookie("logFromProduct", $id, \time()+5*60);
         $response->headers->setCookie($cookie);
         $response->send();
-        return $this->redirectToRoute('security_login', [
-            'header' => $this->header
-        ]);
+        return $this->redirectToRoute('security_login');
     }
 }

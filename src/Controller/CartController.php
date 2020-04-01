@@ -126,9 +126,7 @@ class CartController extends AbstractController
             $cookie = new Cookie('logFromCart', 'delivery', \time()+5*60);
             $response->headers->setCookie($cookie);
             $response->send();
-            return $this->redirectToRoute('security_login', [
-                'header' => $this->header
-            ]);
+            return $this->redirectToRoute('security_login');
         }
 
         // return $this->json([
