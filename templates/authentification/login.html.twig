@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Give us information{% endblock %}
+{% block title %}Give us information
+{% endblock %}
 
 {% block body %}
 	<div class="col-lg-8 col-md-8 col-sm-9 col-10 mx-auto pt-3">
@@ -13,19 +14,19 @@
 		<div class="col-lg-12 mx-auto border borderSize">
 			<h2 class="my-3 text-center">Sign In</h1>
 			<form action="{{ path('security_login')}}" method="post">
-			
-			{% if logFailed == true %}
-				<div class="text-danger text-center">Connexion failed : please try again</div>
-			{% endif %}
+
+				{% if logFailed == true %}
+					<div class="text-danger text-center">Connexion failed : please try again</div>
+				{% endif %}
 				<div class="form-group">
 					<i class="fas fa-envelope"></i>
-						<label for="_username">Email</label>
+					<label for="_username">Email</label>
 					<input placeholder="Nainpossible@geek.com" required name="_username" type="text" class="form-control">
 				</div>
 
 				<div class="form-group">
 					<i class="fas fa-asterisk"></i>
-						<label for="_password">Password</label>
+					<label for="_password">Password</label>
 					<input placeholder="********" required name="_password" type="password" class="form-control">
 				</div>
 
