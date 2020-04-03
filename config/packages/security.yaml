@@ -24,6 +24,7 @@ security:
                 check_path: security_login
                 default_target_path: login_success
                 always_use_default_target_path: true
+                failure_path: log_failed
 
             guard:
                 authenticators:

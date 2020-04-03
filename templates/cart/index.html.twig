@@ -97,7 +97,7 @@
 						</div>
 					</div>
 					<div class="text-center w-100">
-						<button type="submit" form="cart" class="btn btn-warning">Proceed to checkout</button>
+						<button type="submit" id="proceed_btn" form="cart" class="btn btn-warning" {% if cart.items | length == 0 %} disabled {% endif %}>Proceed to checkout</button>
 					</div>
 				</form>
 			</div>

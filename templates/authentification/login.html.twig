@@ -13,6 +13,10 @@
 		<div class="col-lg-12 mx-auto border borderSize">
 			<h2 class="my-3 text-center">Sign In</h1>
 			<form action="{{ path('security_login')}}" method="post">
+			
+			{% if logFailed == true %}
+				<div class="text-danger text-center">Connexion failed : please try again</div>
+			{% endif %}
 				<div class="form-group">
 					<i class="fas fa-envelope"></i>
 						<label for="_username">Email</label>

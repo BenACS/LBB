@@ -363,4 +363,9 @@ class Account implements UserInterface
 
         return $this->email;
     }
+
+    public function __toString()
+    {
+        return $this->email;
+    }
 }

@@ -110,7 +110,7 @@ class CartController extends AbstractController
     {
 
         if ($this->getUser()) {
-            dump($this->cart->getCart());
+            // dump($this->cart->getCart());
             return $this->render('cart/delivery.html.twig', [
                 'header' => $this->header,
                 'cart' => $this->cart->getCart(),
@@ -123,12 +123,10 @@ class CartController extends AbstractController
                 Response::HTTP_OK,
                 ['content-type' => 'text/html']
             );
-            $cookie = new Cookie('logFromCart', 'delivery', strtotime('1 hour'));
+            $cookie = new Cookie('logFromCart', 'delivery', \time()+5*60);
             $response->headers->setCookie($cookie);
             $response->send();
-            return $this->redirectToRoute('security_login', [
-                'header' => $this->header
-            ]);
+            return $this->redirectToRoute('security_login');
         }
 
         // return $this->json([

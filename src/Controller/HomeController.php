@@ -27,7 +27,7 @@ class HomeController extends AbstractController
      */
     public function index( ArticleService $product)
     {
-        dump($this->session);
+        // dump($this->session); RESPONSABLE !
         return $this->render('home/index.html.twig', [
             'header' => $this->header,
             'latest' => $product->getLatestProducts(),
