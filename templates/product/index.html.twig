@@ -141,7 +141,7 @@
 			{% else %}
 				<div class="col-lg-12 col-md-10 col-sm-10 col-12 mx-auto mt-3">
 					<h4 class="text-center">You need to be connected to comment !<br>
-						<a class="mt-1" href="{{ path('security_login') }}" onclick="{{ app.session.set('logFromProduct', product.id) }}">Login</a>
+						<a class="mt-1" href="{{ path('logFromProduct', {id: product.id}) }}">Login</a>
 					</h4>
 				</div>
 			{% endif %}

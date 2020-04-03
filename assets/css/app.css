@@ -16,6 +16,11 @@ main {
     padding-bottom: 120px;
 }
 
+#cHistory {
+    width: 100px;
+    height: 100px;
+}
+
 @media screen and (max-width: 750px) {
     .responsiv {
       margin-top: 30%;
@@ -26,6 +31,10 @@ footer#myfooter {
     position: absolute;
     width: 100%;
     bottom: 0;
+      color: #02396D;
+}
+footer a {
+    color: #02396D;
 }
 
 .navbar-dark .navbar-nav .nav-link {

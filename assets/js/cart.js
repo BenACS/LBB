@@ -1,7 +1,7 @@
 let deleteButtons = document.querySelectorAll(".js-btn-delete");
 let quantitySelectors = document.querySelectorAll('.js-quantity-selector');
 
-let itemsBox = document.querySelectorAll('.item-box');
+let itemsBox = document.getElementsByClassName('item-box');
 
 function getCartValue() {
     let totalValue = 0;
@@ -10,7 +10,6 @@ function getCartValue() {
         let quantity = parseInt(itemsBox[i].getElementsByClassName('js-quantity-selector')[0].value);
         totalValue += price*quantity;
     }
-
     js_totalPriceDF.innerText = totalValue.toFixed(2);
     let totalValueFinal = totalValue - parseFloat(js_discount.innerText);
     js_totalPriceVAT.innerText = totalValueFinal.toFixed(2);
@@ -32,6 +31,7 @@ for (let i=0 ; i<deleteButtons.length ; i++) {
                 document.getElementById('item_' + response.data.articleId).remove();
                 if (document.querySelectorAll("[id^='item_']").length == 0) {
                     js_items_list.innerHTML = `<div>No registered items in the cart</div>`;
+                    proceed_btn.setAttribute("disabled","disabled")
                 }
                 getCartValue();
             });
@@ -51,17 +51,4 @@ for (let i=0 ; i<quantitySelectors.length ; i++) {
                 getCartValue();
             })
     } 
-}
-if (document.getElementById("show_cart")) {
-    show_cart.onclick = function(e) {
-        e.preventDefault();
-
-            const params = new URLSearchParams();
-
-            const url = this.href;
-            axios.post(url, params)
-                .then(function(response) { 
-                    console.log(response.data);
-                });
-    }
 }
